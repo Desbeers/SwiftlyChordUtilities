@@ -1,19 +1,19 @@
 //
-//  ChordFinder+Quality.swift
-//  Chords Database
+//  Quality.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 11/11/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 import SwiftyChords
 
 /// The chord quality
-struct Quality {
+public struct Quality {
     /// Name of quality
     var name: Chords.Quality
     /// Components of quality
-    var components: [Int]
+    public var components: [Int]
     /// Init the quality
     init(quality: Chords.Quality, components: [Int]) {
         self.name = quality

@@ -1,8 +1,8 @@
 //
-//  ChordUtilites+Analizer.swift
-//  Chords Database
+//  Analizer.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 13/11/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
@@ -13,7 +13,7 @@ import SwiftyChords
 ///   - key: The root of the chord
 ///   - suffix: The quality of the chord
 /// - Returns: A ``Chord``
-func getChordInfo(root: Chords.Root, quality: Chords.Quality) -> Chord {
+public func getChordInfo(root: Chords.Root, quality: Chords.Quality) -> Chord {
     return Chord(chord: root.rawValue + quality.enumToString)
 }
 

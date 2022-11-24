@@ -1,14 +1,14 @@
 //
-//  File.swift
-//  
+//  Extensions+Chords.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 24/11/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 import SwiftyChords
 
-extension Chords {
+public extension Chords {
     typealias Root = Key
     typealias Quality = Suffix
 }

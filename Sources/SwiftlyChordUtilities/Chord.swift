@@ -1,24 +1,24 @@
 //
-//  File.swift
-//  
+//  Chord.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 24/11/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
 import SwiftyChords
 
 /// Struct to handle a chord
-struct Chord: Identifiable {
+public struct Chord: Identifiable {
     
     /// # Properties
     
     /// The ID of the chord
-    var id: String {
+    public var id: String {
         chord
     }
     /// The chord in the UI
-    var display: String {
+    public var display: String {
         var display = "\(root.display.symbol)"
         if quality.name != .major {
             display += " \(quality.name.display.symbolized)"
@@ -29,7 +29,7 @@ struct Chord: Identifiable {
         return display
     }
     /// The name of the chord, as found
-    var name: String {
+    public var name: String {
         var name = root.rawValue
         if let on {
             name += "/\(on.rawValue)"
@@ -78,7 +78,7 @@ struct Chord: Identifiable {
     
     /// Return the component notes of chord
     /// - Returns: The notes as [String]
-    func components() -> [Chords.Key] {
+    public func components() -> [Chords.Key] {
         return quality.getComponents(root: root, visible: true)
     }
     

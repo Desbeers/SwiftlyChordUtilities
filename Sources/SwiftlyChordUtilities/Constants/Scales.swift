@@ -1,8 +1,8 @@
 //
-//  ChordUtilities+Scales.swift
-//  Chords Database
+//  Scales.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 11/11/2022.
+//  © 2022 Nick Berendsen
 //
 
 import Foundation
