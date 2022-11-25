@@ -53,7 +53,7 @@ public extension Midi {
     /// Calculate the MIDI values
     private static func calculate(frets: [Int], baseFret: Int) -> [Midi.Note] {
         var midiNotes: [Midi.Note] = []
-        print("_____")
+        // print("_____")
         for string in GuitarTuning.allCases {
             var fret = frets[string.rawValue]
             /// Don't bother with ignored frets

@@ -2,7 +2,7 @@
 //  Define.swift
 //  SwiftlyChordUtilities
 //
-//  © 2022 Nick Berendsen
+//  © 2022 Nick Berendsen / Sascha Müller zum Hagen
 //
 
 import Foundation

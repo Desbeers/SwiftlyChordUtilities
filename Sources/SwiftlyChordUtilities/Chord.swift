@@ -41,13 +41,13 @@ public struct Chord: Identifiable {
     /// Name of the chord. (e.g. C, Am7, F#m7-5/A)
     let chord: String
     /// The root note of the chord. (e.g. C, A, F#)
-    let root: Chords.Root
+    public var root: Chords.Root
     /// The quality of the chord. (e.g. maj, m7, m7-5)
     var quality: Quality
     /// The appended notes on the chord
     let appended: [String]
     /// The base note of an optional 'slash' chord
-    let on: Chords.Root?
+    var on: Chords.Root?
     
     /// # Init
     
@@ -75,6 +75,17 @@ public struct Chord: Identifiable {
     }
     
     /// # Fuctions
+    
+    /// Transpose the chord
+    /// - Parameters:
+    ///   - trans: Transpose key
+    ///   - scale: Key scale
+    public mutating func transpose(transpose: Int, scale: Chords.Key = .c) {
+        root = transposeNote(note: root, transpose: transpose, scale: scale)
+        if let on {
+            self.on = transposeNote(note: on, transpose: transpose, scale: scale)
+        }
+    }
     
     /// Return the component notes of chord
     /// - Returns: The notes as [String]

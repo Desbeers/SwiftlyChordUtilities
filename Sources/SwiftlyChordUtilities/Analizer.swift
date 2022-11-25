@@ -68,9 +68,8 @@ func findChordsFromNotes(notes: [Chords.Key]) -> [Chord] {
         }
         rootAndPositions[rotatedRoot] = notes.sorted()
     }
-    
-    
-    //dump(rootAndPositions)
+
+    // dump(rootAndPositions)
     var chords: [Chord] = []
     for (tempRoot, positions) in rootAndPositions {
         if let qualities = findQualitiesFromComponents(components: positions) {
@@ -102,9 +101,8 @@ func getAllRotatedNotes(notes: [Chords.Key]) -> [[Chords.Key]] {
     for index in 0..<notes.count {
         notesList.append(Array(notes[index...] + notes[..<index]))
     }
-    
-    print("----")
-    //print(notesList)
+    // print("----")
+    // print(notesList)
     return notesList
 }
 
@@ -125,13 +123,9 @@ func notesToPositions(notes: [Chords.Key], root: Chords.Root) -> [Int] {
         if notePostion < currentPosition {
             notePostion += 12 * ((currentPosition - notePostion) / 12 + 1)
         }
-        //            /// Check if the notePosition is inverted
-        //            if (notePostion - rootPosition) > 12 && notes.count == 3 {
-        //                notePostion -= 12
-        //            }
         positions.append(notePostion - rootPosition)
         currentPosition = notePostion
     }
-    //print(positions)
+    // print(positions)
     return positions
 }

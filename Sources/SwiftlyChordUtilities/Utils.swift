@@ -25,3 +25,12 @@ func valueToNote(value: Int, scale: Chords.Root = .c) -> Chords.Key {
     }
     return value
 }
+
+/// Transpose the chord
+/// - Parameters:
+///   - trans: Transpose key
+///   - scale: Key scale
+func transposeNote(note: Chords.Key, transpose: Int, scale: Chords.Key = .c) -> Chords.Key {
+    let value = noteToValue(note: note) + transpose
+    return valueToNote(value: value, scale: scale)
+}

@@ -36,7 +36,7 @@ extension MidiPlayer {
     func playNotes(notes: [Int], instument: Instrument = .acousticNylonGuitar) async {
         var time = MusicTimeStamp(1.0)
         _ = NewMusicSequence(&self.sequence)
-        /// The amount f strings to play
+        /// The amount of strings to play
         let strings = notes.count - 1
         /// Letup the player
         self.player = NewMusicPlayer(&self.musicPlayer)
