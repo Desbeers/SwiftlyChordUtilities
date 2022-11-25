@@ -17,6 +17,32 @@ public func getChordInfo(root: Chords.Root, quality: Chords.Quality) -> Chord {
     return Chord(chord: root.rawValue + quality.enumToString)
 }
 
+public func findRootAndQuality(chord: String) -> (root: Chords.Root?, quality: Chords.Quality?) {
+    
+    var root: SwiftyChords.Chords.Root?
+    var quality: SwiftyChords.Chords.Quality?
+    if let match = chord.wholeMatch(of: chordRegex) {
+        let chordRoot = String(match.1)
+        root = SwiftyChords.Chords.Root(rawValue: chordRoot)
+        var chordQuality = Chords.Quality.major.rawValue
+        if let matchSuffix = match.2 {
+            chordQuality = String(matchSuffix)
+            /// ChordPro suffix are not always the suffixes in the database...
+            switch chordQuality {
+            case "m":
+                chordQuality = "minor"
+            default:
+                break
+            }
+            quality = SwiftyChords.Chords.Suffix(rawValue: chordQuality)
+        } else {
+            quality = Chords.Quality.major
+        }
+    }
+    
+    return (root, quality)
+}
+
 /// Find possible chords consisted from notes
 /// - Parameter notes: List of note arranged from lower note. ex ["C", "Eb", "G"]
 /// - Returns: A ``Chord``array
@@ -44,7 +70,7 @@ func findChordsFromNotes(notes: [Chords.Key]) -> [Chord] {
     }
     
     
-    dump(rootAndPositions)
+    //dump(rootAndPositions)
     var chords: [Chord] = []
     for (tempRoot, positions) in rootAndPositions {
         if let qualities = findQualitiesFromComponents(components: positions) {
