@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftyguitarchords",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftyGuitarChords.git",
+      "state" : {
+        "branch" : "clean-database-1",
+        "revision" : "d6a97a115a8543ba82e583eaef0faae787be778e"
+      }
+    }
+  ],
+  "version" : 2
+}
