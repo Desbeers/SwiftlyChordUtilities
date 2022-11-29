@@ -9,7 +9,7 @@ import SwiftUI
 import AudioToolbox
 import SwiftyChords
 
-/// Play a chord with its MIDI values
+/// Play a ’SwiftyChords` chord with its MIDI values
 public class MidiPlayer {
     /// Make it a shared class
     static let shared = MidiPlayer()

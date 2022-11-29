@@ -65,7 +65,7 @@ let slashRegex = Regex {
 ///     Key: Bes
 ///     Definition: base-fret 1 frets 1 1 3 3 3 1 fingers 1 1 2 3 4 1
 ///
-let defineRegex = Regex {
+public let defineRegex = Regex {
     TryCapture {
         OneOrMore {
             CharacterClass(

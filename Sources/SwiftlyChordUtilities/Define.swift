@@ -8,9 +8,12 @@
 import Foundation
 import SwiftyChords
 
-/// Create a ChordPosition element from a string which defines the Chord with a ChordPro layout
-///  For mor information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
+/// Create a `ChordPosition` struct from a string which defines a Chord with a ChordPro *define* directive
+///
+///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
+///
 /// - Parameter define: ChordPro string definition of the chord
+/// - Returns: A  `ChordPostion` struct, if found, else `nil`
 public func define(from define: String) -> ChordPosition? {
     
     if let match = define.wholeMatch(of: defineRegex) {

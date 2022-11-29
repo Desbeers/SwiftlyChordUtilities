@@ -16,8 +16,8 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(
-            url: "https://github.com/Desbeers/SwiftyGuitarChords.git",
-            branch: "clean-database-1"
+            url: "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",
+            branch: "main"
         ),
     ],
     targets: [

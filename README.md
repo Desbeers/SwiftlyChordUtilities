@@ -6,8 +6,6 @@ A Swift package to handle musical chords.
 
 This package extents [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords) with some additional chord handling.
 
-It is currenty using my fork of 'Swifty Guitar Chords', awaiting the hopefully merge of my PR's. The only difference is the database of chords.
-
 It is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yuma-m/pychord)
 
 ## General functions
@@ -39,10 +37,10 @@ It is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yu
 
 ## In use
 
-I use this package in my follwoing projects:
+I use this package in my following projects:
 
 - [Chord Provider](https://github.com/Desbeers/Chord-Provider)
-- [Chords Database](https://github.com/Desbeers/Chords-Database); mainly written to ckeck the 'SwiftyChords' database and make PR's for it
+- [Chords Database](https://github.com/Desbeers/Chords-Database); mainly written to check the 'SwiftyChords' database and make PR's for it
 
 ## Documentation
 
