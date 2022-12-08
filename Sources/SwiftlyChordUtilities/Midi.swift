@@ -33,23 +33,23 @@ public extension Midi {
 }
 
 public extension Midi {
-    
+
     // MARK: Fret positions to MIDI values
-    
+
     /// Calculate the MIDI values for a `CustomChord` struct
     /// - Parameter values: The `CustomChord` midi values in a ``Note`` array
     /// - Returns: An array of ``Midi/Note``'s
     static func values(values: CustomChord) -> [Midi.Note] {
         return calculate(frets: values.frets, baseFret: values.baseFret)
     }
-    
+
     /// Calculate the MIDI values for a `ChordPosition` struct
     /// - Parameter values: The `ChordPosition` midi values
     /// - Returns: An array of `Int`'s
     static func values(values: ChordPosition) -> [Int] {
         return calculate(frets: values.frets, baseFret: values.baseFret).map({ $0.note })
     }
-    
+
     /// Calculate the MIDI values
     private static func calculate(frets: [Int], baseFret: Int) -> [Midi.Note] {
         var midiNotes: [Midi.Note] = []

@@ -19,7 +19,6 @@ func noteToValue(note: Chords.Root) -> Int {
 /// Return note by index in a scale
 func valueToNote(value: Int, scale: Chords.Root = .c) -> Chords.Key {
     let value = value < 0 ? (12 + value) : (value % 12)
-    //guard let value = scaleValueDict[Chords.Root(rawValue: scale) ?? .c]?[value] else {
     guard let value = scaleValueDict[scale]?[value] else {
         return .c
     }

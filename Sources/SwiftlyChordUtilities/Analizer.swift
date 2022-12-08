@@ -18,7 +18,7 @@ public func getChordInfo(root: Chords.Root, quality: Chords.Quality) -> Chord {
 }
 
 public func findRootAndQuality(chord: String) -> (root: Chords.Root?, quality: Chords.Quality?) {
-    
+
     var root: SwiftyChords.Chords.Root?
     var quality: SwiftyChords.Chords.Quality?
     if let match = chord.wholeMatch(of: chordRegex) {
@@ -39,7 +39,7 @@ public func findRootAndQuality(chord: String) -> (root: Chords.Root?, quality: C
             quality = Chords.Quality.major
         }
     }
-    
+
     return (root, quality)
 }
 
@@ -50,15 +50,15 @@ func findChordsFromNotes(notes: [Chords.Key]) -> [Chord] {
     if notes.isEmpty {
         return []
     }
-    
+
     let root = notes[0]
     var rootAndPositions: [Chords.Root: [Int]] = [:]
-    
+
     //        for rotatedNotes in getAllRotatedNotes(notes: notes) {
     //            let rotatedRoot = rotatedNotes[0]
     //            rootAndPositions[rotatedRoot] = notesToPositions(notes: rotatedNotes, root: rotatedRoot)
     //        }
-    
+
     for rotatedNotes in getAllRotatedNotes(notes: notes) {
         let rotatedRoot = rotatedNotes[0]
         var notes: [Int] = []
@@ -73,7 +73,7 @@ func findChordsFromNotes(notes: [Chords.Key]) -> [Chord] {
     var chords: [Chord] = []
     for (tempRoot, positions) in rootAndPositions {
         if let qualities = findQualitiesFromComponents(components: positions) {
-            
+
             for quality in qualities {
                 var chord: String = ""
                 var on: Chords.Key?
@@ -112,12 +112,12 @@ func getAllRotatedNotes(notes: [Chords.Key]) -> [[Chords.Key]] {
 ///   - root: Root note
 /// - Returns: List of note positions
 func notesToPositions(notes: [Chords.Key], root: Chords.Root) -> [Int] {
-    
+
     let rootPosition = noteToValue(note: root)
-    
+
     var currentPosition = rootPosition
     var positions: [Int] = []
-    
+
     for note in notes {
         var notePostion = noteToValue(note: note)
         if notePostion < currentPosition {

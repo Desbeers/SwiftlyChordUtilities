@@ -10,9 +10,9 @@ import SwiftyChords
 
 /// Struct to handle a chord
 public struct Chord: Identifiable {
-    
+
     /// # Properties
-    
+
     /// The ID of the chord
     public var id: String {
         chord
@@ -48,9 +48,9 @@ public struct Chord: Identifiable {
     let appended: [String]
     /// The base note of an optional 'slash' chord
     var on: Chords.Root?
-    
+
     /// # Init
-    
+
     /// Init the chord struct from a string
     init(chord: String) {
         /// Parse the chord string
@@ -64,7 +64,7 @@ public struct Chord: Identifiable {
         /// Append optional 'slash' chord
         self.appendOnChord()
     }
-    
+
     /// Init the chord with known components
     init(chord: String, root: Chords.Root, quality: Quality, on: Chords.Key? = nil) {
         self.chord = chord
@@ -73,9 +73,9 @@ public struct Chord: Identifiable {
         self.appended = []
         self.on = on
     }
-    
+
     /// # Fuctions
-    
+
     /// Transpose the chord
     /// - Parameters:
     ///   - trans: Transpose key
@@ -86,13 +86,13 @@ public struct Chord: Identifiable {
             self.on = transposeNote(note: on, transpose: transpose, scale: scale)
         }
     }
-    
+
     /// Return the component notes of chord
     /// - Returns: The notes as [String]
     public func components() -> [Chords.Key] {
         return quality.getComponents(root: root, visible: true)
     }
-    
+
     /// Append the 'on' chord, if any
     private mutating func appendOnChord() {
         if let on {

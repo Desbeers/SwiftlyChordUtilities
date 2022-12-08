@@ -19,7 +19,7 @@ public struct Quality {
         self.name = quality
         self.components = components
     }
-    
+
     /// Get components of chord quality
     /// - Parameters:
     ///   - root: The root note of the chord
@@ -33,7 +33,7 @@ public struct Quality {
         }
         return components
     }
-    
+
     private func getIntComponents(root: Chords.Root) -> [Int] {
         let rootValue = noteToValue(note: root)
         var components: [Int] = []
@@ -42,7 +42,7 @@ public struct Quality {
         }
         return components
     }
-    
+
     /// Append on chord
     /// - Parameters:
     ///   - onChord: Bass note of the chord

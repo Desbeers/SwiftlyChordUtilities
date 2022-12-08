@@ -9,7 +9,7 @@ import Foundation
 import SwiftyChords
 
 public extension ChordPosition {
-    
+
     var notes: [Note] {
         var notes: [Note] = []
         for note in self.midi {
@@ -18,7 +18,7 @@ public extension ChordPosition {
         }
         return notes
     }
-    
+
     struct Note: Identifiable, Hashable {
         public let id = UUID()
         public var note: Chords.Key

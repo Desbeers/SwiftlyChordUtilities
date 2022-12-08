@@ -12,7 +12,17 @@ import SwiftyChords
 
 /// A custom chord in 'SwiftyChords`
 public struct CustomChord: Equatable {
-    public init(id: UUID, frets: [Int], fingers: [Int], baseFret: Int, barres: [Int], bar: Int = 0, capo: Bool? = nil, root: Chords.Root, quality: Chords.Quality) {
+    public init(
+        id: UUID,
+        frets: [Int],
+        fingers: [Int],
+        baseFret: Int,
+        barres: [Int],
+        bar: Int = 0,
+        capo: Bool? = nil,
+        root: Chords.Root,
+        quality: Chords.Quality
+    ) {
         self.id = id
         self.frets = frets
         self.fingers = fingers
@@ -23,7 +33,7 @@ public struct CustomChord: Equatable {
         self.root = root
         self.quality = quality
     }
-    
+
     public var id: UUID
     public var frets: [Int]
     public var fingers: [Int]
