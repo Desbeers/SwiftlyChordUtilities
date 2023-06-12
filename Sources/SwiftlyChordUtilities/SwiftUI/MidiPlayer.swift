@@ -34,33 +34,35 @@ extension MidiPlayer {
     ///   - notes: The notes to play
     ///   - instument: The ``Instrument`` to use
     func playNotes(notes: [Int], instument: Instrument = .acousticNylonGuitar) async {
-        var time = MusicTimeStamp(1.0)
-        _ = NewMusicSequence(&self.sequence)
-        /// The amount of strings to play
-        let strings = notes.count - 1
-        /// Letup the player
-        self.player = NewMusicPlayer(&self.musicPlayer)
-        self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
-        self.player = MusicPlayerStart(self.musicPlayer!)
-        self.musicTrack = MusicSequenceNewTrack(self.sequence!, &self.track)
-        /// Set the instrument to use
-        var inMessage = MIDIChannelMessage(status: 0xC0, data1: UInt8(instument.rawValue), data2: 0, reserved: 0)
-        MusicTrackNewMIDIChannelEvent(self.track!, 0, &inMessage)
-        /// Add the notes to the track
-        for index: Int in 0...strings {
-            var note = MIDINoteMessage(channel: 0,
-                                       note: UInt8(notes[index]),
-                                       velocity: 127,
-                                       releaseVelocity: 0,
-                                       duration: Float(Double(strings) - time + 3))
-            guard let track = self.track else {fatalError()}
-            self.musicTrack = MusicTrackNewMIDINoteEvent(track, time, &note)
-            time += 0.1
+        if !notes.isEmpty {
+            var time = MusicTimeStamp(1.0)
+            _ = NewMusicSequence(&self.sequence)
+            /// The amount of strings to play
+            let strings = notes.count - 1
+            /// Setup the player
+            self.player = NewMusicPlayer(&self.musicPlayer)
+            self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
+            self.player = MusicPlayerStart(self.musicPlayer!)
+            self.musicTrack = MusicSequenceNewTrack(self.sequence!, &self.track)
+            /// Set the instrument to use
+            var inMessage = MIDIChannelMessage(status: 0xC0, data1: UInt8(instument.rawValue), data2: 0, reserved: 0)
+            MusicTrackNewMIDIChannelEvent(self.track!, 0, &inMessage)
+            /// Add the notes to the track
+            for index: Int in 0...strings {
+                var note = MIDINoteMessage(channel: 0,
+                                           note: UInt8(notes[index]),
+                                           velocity: 127,
+                                           releaseVelocity: 0,
+                                           duration: Float(Double(strings) - time + 3))
+                guard let track = self.track else {fatalError()}
+                self.musicTrack = MusicTrackNewMIDINoteEvent(track, time, &note)
+                time += 0.1
+            }
+            /// Set the sequence
+            self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
+            /// Play the chord
+            self.player = MusicPlayerStart(self.musicPlayer!)
         }
-        /// Set the sequence
-        self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
-        /// Play the chord
-        self.player = MusicPlayerStart(self.musicPlayer!)
     }
 }
 
@@ -117,6 +119,7 @@ extension MidiPlayer {
             }, label: {
                 Label("Play", systemImage: "play.fill")
             })
+            .disabled(chord.midi.isEmpty)
         }
     }
 }
