@@ -125,6 +125,13 @@ var qualities: KeyValuePairs<Chords.Quality, [Int]> {
             .sevenFlatFive: [0, 4, 6, 10],
 
         /*
+         Notes: C E Gb Bb
+         Interval structure: R M3 d5 m7
+         */
+        /// # '7#5' chords
+            .sevenSharpFive: [0, 4, 8, 10],
+
+        /*
          Notes: C E G# Bb
          Interval structure: R M3 m6 m7
          */
