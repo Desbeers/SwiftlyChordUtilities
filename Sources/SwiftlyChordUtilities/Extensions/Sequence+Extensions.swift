@@ -1,5 +1,5 @@
 //
-//  Extensions+Sequence.swift
+//  Sequence+Extensions.swift
 //  SwiftlyChordUtilities
 //
 //  © 2022 Nick Berendsen

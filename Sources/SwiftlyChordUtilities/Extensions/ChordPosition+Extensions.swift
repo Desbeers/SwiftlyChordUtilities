@@ -1,5 +1,5 @@
 //
-//  Extensions+ChordPosition.swift
+//  ChordPosition+Extensions.swift
 //  SwiftlyChordUtilities
 //
 //  © 2022 Nick Berendsen

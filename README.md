@@ -20,7 +20,7 @@ It is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yu
 
 ### ChordPosition
 
-    var notes: Get the notes of a chords based on its MIDI values
+    var notes: Get the notes of a chord based on its MIDI values
     
     var chordFinder: Find matching chords based on the notes. It will not find all chords!
     

@@ -15,7 +15,7 @@ import SwiftyChords
 ///
 ///     /// ## Examples
 ///
-///     Am -> root: Am, quality: nil
+///     Am -> root: Am, quality: m
 ///     Dsus4 -> root: D, quality: sus4
 ///
 public let chordRegex = Regex {

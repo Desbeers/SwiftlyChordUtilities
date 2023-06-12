@@ -1,0 +1,9 @@
+module: SwiftlyChordUtilities
+title: SwiftlyChordUtilities
+author: Nick Berendsen
+author_url: https://desbeers.nl
+github_url: https://github.com/desbeers/SwiftlyChordUtilities/
+min_acl: public
+output: Documentation
+clean: true
+theme: apple

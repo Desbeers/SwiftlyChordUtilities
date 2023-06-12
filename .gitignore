@@ -1,6 +1,6 @@
 ## My stuff
 *.DS_Store
-.Ulysses-Group.plist
+.build
 Icon?
 *.psd
 *.pxm
