@@ -3,10 +3,10 @@
     {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",
+      "location" : "https://github.com/Desbeers/SwiftyGuitarChords",
       "state" : {
         "branch" : "main",
-        "revision" : "7a93570cb9f24c3b2fc2400456e3b5ae58505a25"
+        "revision" : "8040d5fb5d281c5a7f0ce32aeff4d0cc2d001581"
       }
     }
   ],
