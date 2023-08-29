@@ -39,7 +39,7 @@ extension MidiPlayer {
                 chord.addNote(
                     trackID: trackID,
                     note: UInt8(notes[index]),
-                    duration: Float(strings),
+                    duration: 30 - currentPosition,
                     position: currentPosition
                 )
                 currentPosition += 0.2
