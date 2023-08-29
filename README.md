@@ -26,7 +26,7 @@ It is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yu
     
     var define: Convert the chord into a ChordPro 'define' string
     
-    func play: Play the chord with MIDI (macOS only; iOS sounds terrible)
+    func play: Play the chord with MIDI
     
 ## SwiftUI bits and pieces
 

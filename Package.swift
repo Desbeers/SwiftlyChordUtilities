@@ -29,7 +29,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SwiftlyChordUtilities",
-            dependencies: [.product(name: "SwiftyChords", package: "SwiftyGuitarChords")]
+            dependencies: [.product(name: "SwiftyChords", package: "SwiftyGuitarChords")],
+            resources: [
+                .process("Resources")
+            ]
             //plugins: [.plugin(name: "SwiftLintPlugin",package: "SwiftLint")]
         )
     ]

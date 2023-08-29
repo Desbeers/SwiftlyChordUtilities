@@ -2,100 +2,67 @@
 //  MidiPlayer.swift
 //  SwiftlyChordUtilities
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
+//  Thanks: https://readdarek.com/how-to-play-midi-in-swift/
 
 import SwiftUI
-import AudioToolbox
+import AVFoundation
 import SwiftyChords
 
 /// Play a ’SwiftyChords` chord with its MIDI values
 public class MidiPlayer {
     /// Make it a shared class
     static let shared = MidiPlayer()
-    /// A private init because it is 'shared
-    private init() {}
-    /// The music player that plays a music sequence
-    var musicPlayer: MusicPlayer?
-    /// The music sequence
-    var sequence: MusicSequence?
-    /// The music track to play
-    var track: MusicTrack?
-    /// The player status
-    var player: OSStatus?
-    /// The music track status
-    var musicTrack: OSStatus?
-}
+    /// The MIDI player
+    var midiPlayer: AVMIDIPlayer?
+    /// The URL of the SoundBank
+    /// - Note: A stripped version of the `GeneralUser GS MuseScore` bank
+    var bankURL: URL
+    /// Private init to make sure the class is shared
+    private init() {
+        /// Get the Sound Font
+        guard let bankURL = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2") else {
+            fatalError("SoundFont not found.")
+        }
+        self.bankURL = bankURL
+    }
 
-extension MidiPlayer {
+    /// Prepair a chord
+    /// - Parameter chord: The ``chord`` to play
+    func prepareChord(chord: Chord){
+        /// Black magic
+        var data: Unmanaged<CFData>?
+        guard MusicSequenceFileCreateData(
+            chord.musicSequence!,
+            MusicSequenceFileTypeID.midiType,
+            MusicSequenceFileFlags.eraseFile,
+            480, &data) == OSStatus(noErr
+            ) else {
+            fatalError("Cannot create music midi data")
+        }
+        if let data {
+            let midiData = data.takeUnretainedValue() as Data
+            do {
+                try midiPlayer = AVMIDIPlayer(data: midiData, soundBankURL: bankURL)
+            } catch let error {
+                fatalError(error.localizedDescription)
+            }
+        }
+        self.midiPlayer!.prepareToPlay()
+    }
 
     /// Play a chord with its MIDI values
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - instument: The ``Instrument`` to use
-    func playNotes(notes: [Int], instument: Instrument = .acousticNylonGuitar) async {
-        if !notes.isEmpty {
-            var time = MusicTimeStamp(1.0)
-            _ = NewMusicSequence(&self.sequence)
-            /// The amount of strings to play
-            let strings = notes.count - 1
-            /// Setup the player
-            self.player = NewMusicPlayer(&self.musicPlayer)
-            self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
-            self.player = MusicPlayerStart(self.musicPlayer!)
-            self.musicTrack = MusicSequenceNewTrack(self.sequence!, &self.track)
-            /// Set the instrument to use
-            var inMessage = MIDIChannelMessage(status: 0xC0, data1: UInt8(instument.rawValue), data2: 0, reserved: 0)
-            MusicTrackNewMIDIChannelEvent(self.track!, 0, &inMessage)
-            /// Add the notes to the track
-            for index: Int in 0...strings {
-                var note = MIDINoteMessage(channel: 0,
-                                           note: UInt8(notes[index]),
-                                           velocity: 127,
-                                           releaseVelocity: 0,
-                                           duration: Float(Double(strings) - time + 3))
-                guard let track = self.track else {fatalError()}
-                self.musicTrack = MusicTrackNewMIDINoteEvent(track, time, &note)
-                time += 0.1
-            }
-            /// Set the sequence
-            self.player = MusicPlayerSetSequence(self.musicPlayer!, self.sequence)
-            /// Play the chord
-            self.player = MusicPlayerStart(self.musicPlayer!)
-        }
-    }
-}
-
-public extension MidiPlayer {
-
-    /// The available MIDI instruments
-    enum Instrument: Int, CaseIterable {
-        case acousticNylonGuitar = 24
-        case acousticSteelGuitar
-        case electricJazzGuitar
-        case electricCleanGuitar
-        case electricMutedGuitar
-        case overdrivenGuitar
-        case distortionGuitar
-
-        //// The label for the instrument
-        public var label: String {
-            switch self {
-            case .acousticNylonGuitar:
-                return "Acoustic Nylon Guitar"
-            case .acousticSteelGuitar:
-                return "Acoustic Steel Guitar"
-            case .electricJazzGuitar:
-                return "Electric Jazz Guitar"
-            case .electricCleanGuitar:
-                return "Electric Clean Guitar"
-            case .electricMutedGuitar:
-                return "Electric Muted Guitar"
-            case .overdrivenGuitar:
-                return "Overdriven Guitar"
-            case .distortionGuitar:
-                return "Distortion Guitar"
-            }
+    func playChord(notes: [Int], instrument: Instrument = .acousticNylonGuitar) async {
+        let composer = Chord()
+        let chord = composer.compose(notes: notes, instrument: instrument)
+        prepareChord(chord: chord)
+        if let midiPlayer {
+            midiPlayer.currentPosition = 0
+            await midiPlayer.play()
         }
     }
 }
@@ -120,26 +87,6 @@ extension MidiPlayer {
                 Label("Play", systemImage: "play.fill")
             })
             .disabled(chord.midi.isEmpty)
-        }
-    }
-}
-
-public extension MidiPlayer {
-
-    /// SwiftUI Picker to select a MIDI instrument
-    struct InstrumentPicker: View {
-        /// Public init
-        public init() {}
-        /// The MIDI instrument
-        @AppStorage("MIDI instrument") private var midiInstrument: MidiPlayer.Instrument = .acousticNylonGuitar
-        /// The body of the View
-        public var body: some View {
-            Picker("Instrument:", selection: $midiInstrument) {
-                ForEach(MidiPlayer.Instrument.allCases, id: \.rawValue) { value in
-                    Text(value.label)
-                        .tag(value)
-                }
-            }
         }
     }
 }

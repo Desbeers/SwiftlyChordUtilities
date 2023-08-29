@@ -66,7 +66,7 @@ public extension ChordPosition {
     /// - Parameter instrument: The `instrument` to use
     func play(instrument: MidiPlayer.Instrument = .acousticNylonGuitar) {
         Task {
-            await MidiPlayer.shared.playNotes(notes: self.midi, instument: instrument)
+            await MidiPlayer.shared.playChord(notes: self.midi, instrument: instrument)
         }
     }
 }
