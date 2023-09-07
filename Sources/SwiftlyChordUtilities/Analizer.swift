@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 /// Get info about a chord
 /// - Parameters:
@@ -19,11 +18,11 @@ public func getChordInfo(root: Chords.Root, quality: Chords.Quality) -> Chord {
 
 public func findRootAndQuality(chord: String) -> (root: Chords.Root?, quality: Chords.Quality?) {
 
-    var root: SwiftyChords.Chords.Root?
-    var quality: SwiftyChords.Chords.Quality?
+    var root: Chords.Root?
+    var quality: Chords.Quality?
     if let match = chord.wholeMatch(of: chordRegex) {
         let chordRoot = String(match.1)
-        root = SwiftyChords.Chords.Root(rawValue: chordRoot)
+        root = Chords.Root(rawValue: chordRoot)
         var chordQuality = Chords.Quality.major.rawValue
         if let matchSuffix = match.2 {
             chordQuality = String(matchSuffix)
@@ -34,7 +33,7 @@ public func findRootAndQuality(chord: String) -> (root: Chords.Root?, quality: C
             default:
                 break
             }
-            quality = SwiftyChords.Chords.Suffix(rawValue: chordQuality)
+            quality = Chords.Suffix(rawValue: chordQuality)
         } else {
             quality = Chords.Quality.major
         }

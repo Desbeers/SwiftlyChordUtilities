@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 public extension Chords {
     typealias Root = Key

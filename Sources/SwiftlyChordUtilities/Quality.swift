@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 /// The chord quality
 public struct Quality {

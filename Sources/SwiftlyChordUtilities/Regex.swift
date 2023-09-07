@@ -7,7 +7,6 @@
 
 import Foundation
 import RegexBuilder
-import SwiftyChords
 
 /// The regex for a `chord` string
 ///

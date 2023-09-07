@@ -8,7 +8,6 @@
 
 import SwiftUI
 import AVFoundation
-import SwiftyChords
 
 /// Play a ’SwiftyChords` chord with its MIDI values
 public class MidiPlayer {

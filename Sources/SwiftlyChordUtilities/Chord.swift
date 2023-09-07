@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 /// Struct to handle a chord
 public struct Chord: Identifiable {

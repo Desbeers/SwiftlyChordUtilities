@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 // swiftlint:disable large_tuple
 

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 /// Create a `ChordPosition` struct from a string which defines a Chord with a ChordPro *define* directive
 ///

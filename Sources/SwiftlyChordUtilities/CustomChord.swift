@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 
 // MARK: Custom Chords
 
