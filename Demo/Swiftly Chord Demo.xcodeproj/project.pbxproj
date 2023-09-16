@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D72DAFA12AB452C200DA0E65 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72DAFA02AB452C200DA0E65 /* DiagramView.swift */; };
-		D79640302AB3387800BA8A07 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D796402F2AB3387800BA8A07 /* SwiftlyChordUtilities */; };
 		D79640362AB3702F00BA8A07 /* DisplayOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79640352AB3702F00BA8A07 /* DisplayOptionsView.swift */; };
 		D7A097452AB09386007BFB76 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A097442AB09386007BFB76 /* SidebarView.swift */; };
 		D7A097472AB09393007BFB76 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A097462AB09393007BFB76 /* DetailView.swift */; };
@@ -18,8 +17,8 @@
 		D7A097502AB097BC007BFB76 /* LookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A0974F2AB097BC007BFB76 /* LookupView.swift */; };
 		D7A097522AB106F0007BFB76 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A097512AB106F0007BFB76 /* GridView.swift */; };
 		D7A097542AB10CB0007BFB76 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A097532AB10CB0007BFB76 /* Enums.swift */; };
-		D7AD367F2AAC6BBE00E574EF /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7AD367E2AAC6BBE00E574EF /* SwiftlyChordUtilities */; };
 		D7AD36812AACB12B00E574EF /* PartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AD36802AACB12B00E574EF /* PartsView.swift */; };
+		D7B2B8512AB5EEF700273ED5 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7B2B8502AB5EEF700273ED5 /* SwiftlyChordUtilities */; };
 		D7EC19392AAA0546001973BA /* SwiftlyChordDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC19382AAA0546001973BA /* SwiftlyChordDemoApp.swift */; };
 		D7EC193B2AAA0546001973BA /* DatabaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC193A2AAA0546001973BA /* DatabaseView.swift */; };
 		D7EC193D2AAA0547001973BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7EC193C2AAA0547001973BA /* Assets.xcassets */; };
@@ -51,8 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7AD367F2AAC6BBE00E574EF /* SwiftlyChordUtilities in Frameworks */,
-				D79640302AB3387800BA8A07 /* SwiftlyChordUtilities in Frameworks */,
+				D7B2B8512AB5EEF700273ED5 /* SwiftlyChordUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,8 +130,7 @@
 			);
 			name = "Swiftly Chord Demo";
 			packageProductDependencies = (
-				D7AD367E2AAC6BBE00E574EF /* SwiftlyChordUtilities */,
-				D796402F2AB3387800BA8A07 /* SwiftlyChordUtilities */,
+				D7B2B8502AB5EEF700273ED5 /* SwiftlyChordUtilities */,
 			);
 			productName = ChordTest;
 			productReference = D7EC19352AAA0546001973BA /* Swiftly Chord Demo.app */;
@@ -164,7 +161,7 @@
 			);
 			mainGroup = D7EC192C2AAA0546001973BA;
 			packageReferences = (
-				D796402E2AB3387800BA8A07 /* XCLocalSwiftPackageReference ".." */,
+				D7B2B84F2AB5EEF700273ED5 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
 			);
 			productRefGroup = D7EC19362AAA0546001973BA /* Products */;
 			projectDirPath = "";
@@ -450,20 +447,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		D796402E2AB3387800BA8A07 /* XCLocalSwiftPackageReference ".." */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ..;
+/* Begin XCRemoteSwiftPackageReference section */
+		D7B2B84F2AB5EEF700273ED5 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Desbeers/SwiftlyChordUtilities";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D796402F2AB3387800BA8A07 /* SwiftlyChordUtilities */ = {
+		D7B2B8502AB5EEF700273ED5 /* SwiftlyChordUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SwiftlyChordUtilities;
-		};
-		D7AD367E2AAC6BBE00E574EF /* SwiftlyChordUtilities */ = {
-			isa = XCSwiftPackageProductDependency;
+			package = D7B2B84F2AB5EEF700273ED5 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */;
 			productName = SwiftlyChordUtilities;
 		};
 /* End XCSwiftPackageProductDependency section */
