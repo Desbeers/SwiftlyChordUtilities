@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  MidiPlayer+Chord.swift
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 29/08/2023.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -28,7 +28,7 @@ extension MidiPlayer {
         ///   - notes: The notes of the chord
         ///   - instrument: The instrument to use
         /// - Returns: A ``Chord``
-        func compose(notes: [Int], instrument: MidiPlayer.Instrument) -> Chord {
+        func compose(notes: [Int], instrument: Midi.Instrument) -> Chord {
             var chord = Chord()
             let trackID = chord.addTrack(instrumentID: UInt8(instrument.rawValue))
             var currentPosition: Float = 0
@@ -46,23 +46,28 @@ extension MidiPlayer {
             }
             return chord
         }
-        
+
         /// Add a track to the chord
         /// - Parameter instrumentID: The ID of the MIDI instrument
         /// - Returns: The track ID
         mutating func addTrack(instrumentID: UInt8) -> Int {
             /// The music track
             var track: MusicTrack?
-            guard MusicSequenceNewTrack(musicSequence!, &track) == OSStatus(noErr) else {
+            guard
+                let musicSequence = self.musicSequence,
+                MusicSequenceNewTrack(musicSequence, &track) == OSStatus(noErr)
+            else {
                 fatalError("Cannot add track")
             }
-            let trackId = tracks.count
-            tracks[trackId] = track
+            let trackID = tracks.count
+            tracks[trackID] = track
             var inMessage = MIDIChannelMessage(status: 0xC0, data1: instrumentID, data2: 0, reserved: 0)
-            MusicTrackNewMIDIChannelEvent(track!, 0, &inMessage)
-            return trackId
+            if let track {
+                MusicTrackNewMIDIChannelEvent(track, 0, &inMessage)
+            }
+            return trackID
         }
-        
+
         /// Add a note to the track
         /// - Parameters:
         ///   - trackID: The ID of the track
@@ -71,12 +76,17 @@ extension MidiPlayer {
         ///   - position: The position in the track
         func addNote(trackID: Int, note: UInt8, duration: Float, position: Float) {
             let time = MusicTimeStamp(position)
-            var musicNote = MIDINoteMessage(channel: 0,
-                                            note: note,
-                                            velocity: 127,
-                                            releaseVelocity: 0,
-                                            duration: duration)
-            guard MusicTrackNewMIDINoteEvent(tracks[trackID]!, time, &musicNote) == OSStatus(noErr) else {
+            var musicNote = MIDINoteMessage(
+                channel: 0,
+                note: note,
+                velocity: 127,
+                releaseVelocity: 0,
+                duration: duration
+            )
+            guard
+                let track = tracks[trackID],
+                MusicTrackNewMIDINoteEvent(track, time, &musicNote) == OSStatus(noErr)
+            else {
                 fatalError("Cannot add Note")
             }
         }

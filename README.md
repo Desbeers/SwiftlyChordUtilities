@@ -18,7 +18,11 @@ See the Demo for details how to use the package.
 
 ![Demo](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/screenshot-macOS.jpg)
 
+<<<<<<< Updated upstream
 ## Thanks
+=======
+### ChordDefinition
+>>>>>>> Stashed changes
 
 I stole inspiration, code and the database from [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords) but still send my PR's upstairs as you should do with Open Souce projects!
 

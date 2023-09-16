@@ -7,6 +7,9 @@
 
 import Foundation
 
+// swiftlint:disable indentation_width
+// swiftlint:disable collection_alignment
+
 /*
 
  0:  R:     Perfect Unison
@@ -24,7 +27,7 @@ import Foundation
 
  */
 
-var qualities: KeyValuePairs<Chords.Quality, [Int]> {
+var qualities: KeyValuePairs<Chord.Quality, [Int]> {
     [
         /*
          Notes: C E G
@@ -341,3 +344,6 @@ var qualities: KeyValuePairs<Chords.Quality, [Int]> {
             .minorAddNine: [0, 2, 3, 7]
     ]
 }
+
+// swiftlint:enable indentation_width
+// swiftlint:enable collection_alignment

@@ -7,97 +7,97 @@
 
 import Foundation
 
-var noterValueDict: [Chords.Root: Int] {
+var noterValueDict: [Chord.Root: Int] {
     [
-        Chords.Root.c: 0,
-        Chords.Root.cSharp: 1,
-        Chords.Root.dFlat: 1,
-        Chords.Root.d: 2,
-        Chords.Root.dSharp: 3,
-        Chords.Root.eFlat: 3,
-        Chords.Root.e: 4,
-        Chords.Root.f: 5,
-        Chords.Root.fSharp: 6,
-        Chords.Root.gFlat: 6,
-        Chords.Root.g: 7,
-        Chords.Root.gSharp: 8,
-        Chords.Root.aFlat: 8,
-        Chords.Root.a: 9,
-        Chords.Root.aSharp: 10,
-        Chords.Root.bFlat: 10,
-        Chords.Root.b: 11
+        Chord.Root.c: 0,
+        Chord.Root.cSharp: 1,
+        Chord.Root.dFlat: 1,
+        Chord.Root.d: 2,
+        Chord.Root.dSharp: 3,
+        Chord.Root.eFlat: 3,
+        Chord.Root.e: 4,
+        Chord.Root.f: 5,
+        Chord.Root.fSharp: 6,
+        Chord.Root.gFlat: 6,
+        Chord.Root.g: 7,
+        Chord.Root.gSharp: 8,
+        Chord.Root.aFlat: 8,
+        Chord.Root.a: 9,
+        Chord.Root.aSharp: 10,
+        Chord.Root.bFlat: 10,
+        Chord.Root.b: 11
     ]
 }
 
-var valueNoteDict: [Int: [Chords.Root]] {
+var valueNoteDict: [Int: [Chord.Root]] {
     [
-        0: [Chords.Root.c],
-        1: [Chords.Root.dFlat, Chords.Root.cSharp],
-        2: [Chords.Root.d],
-        3: [Chords.Root.eFlat, Chords.Root.dSharp],
-        4: [Chords.Root.e],
-        5: [Chords.Root.f],
-        6: [Chords.Root.fSharp, Chords.Root.gFlat],
-        7: [Chords.Root.g],
-        8: [Chords.Root.aFlat, Chords.Root.gSharp],
-        9: [Chords.Root.a],
-        10: [Chords.Root.bFlat, Chords.Root.aSharp],
-        11: [Chords.Root.b]
+        0: [Chord.Root.c],
+        1: [Chord.Root.dFlat, Chord.Root.cSharp],
+        2: [Chord.Root.d],
+        3: [Chord.Root.eFlat, Chord.Root.dSharp],
+        4: [Chord.Root.e],
+        5: [Chord.Root.f],
+        6: [Chord.Root.fSharp, Chord.Root.gFlat],
+        7: [Chord.Root.g],
+        8: [Chord.Root.aFlat, Chord.Root.gSharp],
+        9: [Chord.Root.a],
+        10: [Chord.Root.bFlat, Chord.Root.aSharp],
+        11: [Chord.Root.b]
     ]
 }
 
-var sharpedScale: [Int: Chords.Root] {
+var sharpedScale: [Int: Chord.Root] {
     [
-        0: Chords.Root.c,
-        1: Chords.Root.cSharp,
-        2: Chords.Root.d,
-        3: Chords.Root.dSharp,
-        4: Chords.Root.e,
-        5: Chords.Root.f,
-        6: Chords.Root.fSharp,
-        7: Chords.Root.g,
-        8: Chords.Root.gSharp,
-        9: Chords.Root.a,
-        10: Chords.Root.aSharp,
-        11: Chords.Root.b
+        0: Chord.Root.c,
+        1: Chord.Root.cSharp,
+        2: Chord.Root.d,
+        3: Chord.Root.dSharp,
+        4: Chord.Root.e,
+        5: Chord.Root.f,
+        6: Chord.Root.fSharp,
+        7: Chord.Root.g,
+        8: Chord.Root.gSharp,
+        9: Chord.Root.a,
+        10: Chord.Root.aSharp,
+        11: Chord.Root.b
     ]
 }
 
-var flattedScale: [Int: Chords.Root] {
+var flattedScale: [Int: Chord.Root] {
     [
-        0: Chords.Root.c,
-        1: Chords.Root.dFlat,
-        2: Chords.Root.d,
-        3: Chords.Root.eFlat,
-        4: Chords.Root.e,
-        5: Chords.Root.f,
-        6: Chords.Root.gFlat,
-        7: Chords.Root.g,
-        8: Chords.Root.aFlat,
-        9: Chords.Root.a,
-        10: Chords.Root.bFlat,
-        11: Chords.Root.b
+        0: Chord.Root.c,
+        1: Chord.Root.dFlat,
+        2: Chord.Root.d,
+        3: Chord.Root.eFlat,
+        4: Chord.Root.e,
+        5: Chord.Root.f,
+        6: Chord.Root.gFlat,
+        7: Chord.Root.g,
+        8: Chord.Root.aFlat,
+        9: Chord.Root.a,
+        10: Chord.Root.bFlat,
+        11: Chord.Root.b
     ]
 }
 
-var scaleValueDict: [Chords.Root: [Int: Chords.Root]] {
+var scaleValueDict: [Chord.Root: [Int: Chord.Root]] {
     [
-        Chords.Root.aFlat: flattedScale,
-        Chords.Root.a: sharpedScale,
-        Chords.Root.aSharp: sharpedScale,
-        Chords.Root.bFlat: flattedScale,
-        Chords.Root.b: sharpedScale,
-        Chords.Root.c: flattedScale,
-        Chords.Root.cSharp: sharpedScale,
-        Chords.Root.dFlat: flattedScale,
-        Chords.Root.d: sharpedScale,
-        Chords.Root.dSharp: sharpedScale,
-        Chords.Root.eFlat: flattedScale,
-        Chords.Root.e: sharpedScale,
-        Chords.Root.f: flattedScale,
-        Chords.Root.fSharp: sharpedScale,
-        Chords.Root.gFlat: flattedScale,
-        Chords.Root.g: sharpedScale,
-        Chords.Root.gSharp: sharpedScale
+        Chord.Root.aFlat: flattedScale,
+        Chord.Root.a: sharpedScale,
+        Chord.Root.aSharp: sharpedScale,
+        Chord.Root.bFlat: flattedScale,
+        Chord.Root.b: sharpedScale,
+        Chord.Root.c: flattedScale,
+        Chord.Root.cSharp: sharpedScale,
+        Chord.Root.dFlat: flattedScale,
+        Chord.Root.d: sharpedScale,
+        Chord.Root.dSharp: sharpedScale,
+        Chord.Root.eFlat: flattedScale,
+        Chord.Root.e: sharpedScale,
+        Chord.Root.f: flattedScale,
+        Chord.Root.fSharp: sharpedScale,
+        Chord.Root.gFlat: flattedScale,
+        Chord.Root.g: sharpedScale,
+        Chord.Root.gSharp: sharpedScale
     ]
 }
