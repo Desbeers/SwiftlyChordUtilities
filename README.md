@@ -1,46 +1,35 @@
-# ``SwiftlyChordUtilities``
+# SwiftlyChordUtilities
 
-A Swift package to handle musical chords.
+## A Swift package to handle musical chords
 
-## Overview
+![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
 
-This package extents [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords) with some additional chord handling.
+This package is **not stable**
 
-It is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yuma-m/pychord)
+For now, for the guitar only.
 
-## General functions
+- Show chord diagrams in a SwiftUI `View`
+- Define customs chords
+- Transpose chords
+- Play the chords with MIDI
+- SwiftUI 'bit and pieces' to alter the appearance of the chord diagram
 
-    getChordInfo: Get info about a 'SwiftyChords' chord
-    
-    findRootAndQuality: Parse a chord String and get 'SwiftyChords' enum details
-    
-    define: Create a 'SwityChords' chord from a ChorpPro 'define' directive
+See the Demo for details how to use the package.
 
-## SwiftyChords extensions
+![Demo](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/screenshot-macOS.jpg)
 
-### ChordPosition
+## Thanks
 
-    var notes: Get the notes of a chord based on its MIDI values
-    
-    var chordFinder: Find matching chords based on the notes. It will not find all chords!
-    
-    var define: Convert the chord into a ChordPro 'define' string
-    
-    func play: Play the chord with MIDI
-    
-## SwiftUI bits and pieces
+I stole inspiration, code and the database from [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords) but still send my PR's upstairs as you should do with Open Souce projects!
 
-### MIDI player
-
-- A 'play chord' button
-- An 'instrument' picker
+The smart stuff is very much a *not complete* 'Swift Port' of [PyChord](https://github.com/yuma-m/pychord)
 
 ## In use
 
 I use this package in my following projects:
 
 - [Chord Provider](https://github.com/Desbeers/Chord-Provider)
-- [Chords Database](https://github.com/Desbeers/Chords-Database); mainly written to check the 'SwiftyChords' database and make PR's for it
+- [Chords Database](https://github.com/Desbeers/Chords-Database); mainly written to check the chords database.
 
 ## Documentation
 
