@@ -282,8 +282,8 @@ public final class ChordDisplayOptions: ObservableObject {
             HStack {
                 ForEach(guitarTuningOrder, id: \.self) { fret in
 #if !os(macOS)
-                    Text("\(tuning.name[fret])")
-                        .font(.title2)
+                    Text("\(tuning.name[fret].display.symbol)")
+                        .font(.title3)
 #endif
                     Picker(
                         selection: $options.definition.frets[fret],
@@ -297,8 +297,8 @@ public final class ChordDisplayOptions: ObservableObject {
                             }
                         },
                         label: {
-                            Text("\(tuning.name[fret])")
-                                .font(.title2)
+                            Text("\(tuning.name[fret].display.symbol)")
+                                .font(.title3)
                         }
                     )
                 }
@@ -328,8 +328,8 @@ public final class ChordDisplayOptions: ObservableObject {
             HStack {
                 ForEach(guitarTuningOrder, id: \.self) { finger in
 #if !os(macOS)
-                    Text("\(tuning.name[finger])")
-                        .font(.title2)
+                    Text("\(tuning.name[finger].display.symbol)")
+                        .font(.title3)
 #endif
                     Picker(
                         selection: $options.definition.fingers[finger],
@@ -340,8 +340,8 @@ public final class ChordDisplayOptions: ObservableObject {
                             }
                         },
                         label: {
-                            Text("\(tuning.name[finger])")
-                                .font(.title2)
+                            Text("\(tuning.name[finger].display.symbol)")
+                                .font(.title3)
                         }
                     )
                     //Divider()
