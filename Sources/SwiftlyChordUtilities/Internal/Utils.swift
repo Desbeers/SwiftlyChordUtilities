@@ -59,31 +59,6 @@ func fretsToComponents(
     return components
 }
 
-/// Calculate the chord components
-func fretsToComponentsOLD(
-    root: Chord.Root,
-    frets: [Int],
-    baseFret: Int,
-    tuning: Tuning = .guitarStandardETuning
-) -> [Chord.Component] {
-    var components: [Chord.Component] = []
-    if !frets.isEmpty {
-        for string in Tuning.GuitarStandardETuning.allCases {
-            var fret = frets[string.rawValue]
-            /// Don't bother with ignored frets
-            if fret == -1 {
-                components.append(Chord.Component(note: .none, midi: nil))
-            } else {
-                /// Add base fret if the fret is not 0 and the offset
-                fret += string.offset + (fret == 0 ? 1 : baseFret) + 40
-                let key = valueToNote(value: fret, scale: root)
-                components.append(Chord.Component(note: key, midi: fret))
-            }
-        }
-    }
-    return components
-}
-
 func fingersToBarres(fingers: [Int]) -> [Int] {
     var barres: [Int] = []
     /// set the barres but use not '0' as barres
