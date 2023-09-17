@@ -25,7 +25,7 @@ public final class ChordDisplayOptions: ObservableObject {
         } catch {
             displayOptions = defaults ?? .init()
         }
-        self.definition = ChordDefinition(name: "C")!
+        self.definition = ChordDefinition(name: "C", tuning: .guitarStandardETuning)!
     }
 
     /// All the ``ChordDefinition/DisplayOptions``
@@ -196,6 +196,27 @@ public final class ChordDisplayOptions: ObservableObject {
         }
     }
 
+    // MARK: Tuning Picker
+
+    /// SwiftUI `Picker` to select a  ``Tuning`` value
+    public var tuningPicker: some View {
+        TuningPicker()
+    }
+    /// SwiftUI `Picker` to select a  ``Tuning`` value
+    struct TuningPicker: View {
+        /// Chord Display Options object
+        @EnvironmentObject var options: ChordDisplayOptions
+        /// The body of the `View`
+        public var body: some View {
+            Picker("Tuning:", selection: $options.displayOptions.tuning) {
+                ForEach(Tuning.allCases, id: \.rawValue) { value in
+                    Text(value.rawValue)
+                        .tag(value)
+                }
+            }
+        }
+    }
+
     // MARK: Root Picker
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
@@ -242,24 +263,30 @@ public final class ChordDisplayOptions: ObservableObject {
 
     /// SwiftUI `View` with a `Picker` to select `fret` values
     public var fretsPicker: some View {
-        FretsPicker(guitarTuningOrder: displayOptions.mirrorDiagram ? GuitarTuning.allCases.reversed() :  GuitarTuning.allCases)
+        FretsPicker(
+            tuning: displayOptions.tuning,
+            guitarTuningOrder: displayOptions.mirrorDiagram ? displayOptions.tuning.strings.reversed() :  displayOptions.tuning.strings
+        )
     }
+
     /// SwiftUI `View` with a `Picker` to select `fret` values
     struct FretsPicker: View {
+        /// The tuning
+        let tuning: Tuning
         /// The order of the tuning
-        let guitarTuningOrder: [GuitarTuning]
+        let guitarTuningOrder: [Int]
         /// Chord Display Options object
         @EnvironmentObject var options: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
             HStack {
-                ForEach(guitarTuningOrder, id: \.rawValue) { fret in
+                ForEach(guitarTuningOrder, id: \.self) { fret in
 #if !os(macOS)
-                    Text(String(describing: fret))
+                    Text("\(tuning.name[fret])")
                         .font(.title2)
 #endif
                     Picker(
-                        selection: $options.definition.frets[fret.rawValue],
+                        selection: $options.definition.frets[fret],
                         content: {
                             Text("⛌")
                                 .tag(-1)
@@ -270,7 +297,7 @@ public final class ChordDisplayOptions: ObservableObject {
                             }
                         },
                         label: {
-                            Text(String(describing: fret))
+                            Text("\(tuning.name[fret])")
                                 .font(.title2)
                         }
                     )
@@ -283,24 +310,29 @@ public final class ChordDisplayOptions: ObservableObject {
 
     /// SwiftUI `View` with a `Picker` to select `finger` values
     public var fingersPicker: some View {
-        FingersPicker(guitarTuningOrder: displayOptions.mirrorDiagram ? GuitarTuning.allCases.reversed() :  GuitarTuning.allCases)
+        FingersPicker(
+            tuning: displayOptions.tuning,
+            guitarTuningOrder: displayOptions.mirrorDiagram ? displayOptions.tuning.strings.reversed() :  displayOptions.tuning.strings
+        )
     }
     /// SwiftUI `View` with a `Picker` to select `finger` values
     struct FingersPicker: View {
+        /// The tuning
+        let tuning: Tuning
         /// The order of the tuning
-        let guitarTuningOrder: [GuitarTuning]
+        let guitarTuningOrder: [Int]
         /// Chord Display Options object
         @EnvironmentObject var options: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
             HStack {
-                ForEach(guitarTuningOrder, id: \.rawValue) { finger in
+                ForEach(guitarTuningOrder, id: \.self) { finger in
 #if !os(macOS)
-                    Text(String(describing: finger))
+                    Text("\(tuning.name[finger])")
                         .font(.title2)
 #endif
                     Picker(
-                        selection: $options.definition.fingers[finger.rawValue],
+                        selection: $options.definition.fingers[finger],
                         content: {
                             ForEach(0...4, id: \.self) { value in
                                 Text("\(value)")
@@ -308,7 +340,7 @@ public final class ChordDisplayOptions: ObservableObject {
                             }
                         },
                         label: {
-                            Text(String(describing: finger))
+                            Text("\(tuning.name[finger])")
                                 .font(.title2)
                         }
                     )

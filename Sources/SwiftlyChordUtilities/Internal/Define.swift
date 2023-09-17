@@ -13,7 +13,7 @@ import Foundation
 ///
 /// - Parameter define: ChordPro string definition of the chord
 /// - Returns: A  `ChordPostion` struct, if found, else `nil`
-func define(from define: String) -> ChordDefinition? {
+func define(from define: String, tuning: Tuning) -> ChordDefinition? {
 
     if let match = define.wholeMatch(of: defineRegex) {
         let key = String(match.1)
@@ -35,7 +35,8 @@ func define(from define: String) -> ChordDefinition? {
             fingers: [0, 0, 0, 0, 0, 0],
             baseFret: 1,
             root: root,
-            quality: quality
+            quality: quality,
+            tuning: tuning
         )
         /// try to get the chord out of the string without the finger position.
         let regexBase = #/base-fret(?<baseFret>[\s1-9]+)frets(?<frets>[\soOxXN0-9]+)(?<last>.*)/#
@@ -85,7 +86,8 @@ func define(from define: String) -> ChordDefinition? {
             fingers: chord.fingers,
             baseFret: chord.baseFret,
             root: chord.root,
-            quality: chord.quality
+            quality: chord.quality, 
+            tuning: tuning
         )
     }
     return nil

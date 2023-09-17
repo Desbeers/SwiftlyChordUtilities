@@ -23,8 +23,9 @@ public extension ChordDefinition {
         self.name = "\(root.rawValue)\(quality.rawValue)"
         self.barres = fingersToBarres(fingers: fingers)
         self.slashNote = self.quality.slashNote
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret)
+        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, tuning: .guitarStandardETuning)
         self.status = .standard
+        self.tuning = .guitarStandardETuning
     }
 
     /// Init the ``ChordDefinition`` with all known values
@@ -36,6 +37,7 @@ public extension ChordDefinition {
         baseFret: Int,
         root: Chord.Root,
         quality: Chord.Quality,
+        tuning: Tuning,
         status: Chord.Status = .custom
     ) {
         self.id = id
@@ -45,17 +47,18 @@ public extension ChordDefinition {
         self.root = root
         self.quality = quality
         self.name = name
+        self.tuning = tuning
         self.status = status
         /// Calculated values
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret)
+        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, tuning: tuning)
         self.barres = fingersToBarres(fingers: fingers)
         self.slashNote = self.quality.slashNote
     }
     
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
-    init?(definition: String) {
+    init?(definition: String, tuning: Tuning) {
         /// Parse the chord definition
-        if let definition = SwiftlyChordUtilities.define(from: definition) {
+        if let definition = SwiftlyChordUtilities.define(from: definition, tuning: tuning) {
             /// Set the properties
             self.id = UUID()
             self.frets = definition.frets
@@ -64,9 +67,10 @@ public extension ChordDefinition {
             self.root = definition.root
             self.quality = definition.quality
             self.name = definition.name
+            self.tuning = tuning
             self.status = .custom
             /// Calculated values
-            self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret)
+            self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, tuning: tuning)
             self.barres = fingersToBarres(fingers: fingers)
             self.slashNote = self.quality.slashNote
 
@@ -76,7 +80,7 @@ public extension ChordDefinition {
     }
     
     /// Init the ``ChordDefinition`` with the name of a chord
-    init?(name: String) {
+    init?(name: String, tuning: Tuning) {
         /// Parse the chord name
         let rootAndQuality = findRootAndQuality(chord: name)
         guard
@@ -94,9 +98,10 @@ public extension ChordDefinition {
         self.root = chord.root
         self.quality = chord.quality
         self.name = name
+        self.tuning = tuning
         self.status = .standard
         /// Calculated values
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret)
+        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, tuning: tuning)
         self.barres = fingersToBarres(fingers: fingers)
         self.slashNote = self.quality.slashNote
     }
@@ -111,6 +116,7 @@ public extension ChordDefinition {
         self.root = .c
         self.quality = .major
         self.name = unknown
+        self.tuning = .guitarStandardETuning
         self.status = .unknown
         /// Calculated values
         self.components = []

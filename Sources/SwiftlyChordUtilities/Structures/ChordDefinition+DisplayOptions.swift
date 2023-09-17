@@ -20,7 +20,8 @@ extension ChordDefinition {
             qualityDisplay: Display.Quality = .symbolized,
             showFingers: Bool = true,
             mirrorDiagram: Bool = false,
-            instrument: Midi.Instrument = .acousticSteelGuitar
+            instrument: Midi.Instrument = .acousticSteelGuitar,
+            tuning: Tuning = .guitarStandardETuning
         ) {
             self.showName = showName
             self.showPlayButton = showPlayButton
@@ -30,7 +31,7 @@ extension ChordDefinition {
             self.showFingers = showFingers
             self.mirrorDiagram = mirrorDiagram
             self.instrument = instrument
-
+            self.tuning = tuning
         }
         /// Show the name in the chord shape
         public var showName: Bool
@@ -48,6 +49,8 @@ extension ChordDefinition {
         public var mirrorDiagram: Bool
         /// The instrument to use for playing the chord with MIDI
         public var instrument: Midi.Instrument
+        /// The tuning of the instrument
+        public var tuning: Tuning
 
         /// Display options for the chord name
         public enum Display {
@@ -69,23 +72,3 @@ extension ChordDefinition {
         }
     }
 }
-
-//extension ChordDefinition.DisplayOptions: RawRepresentable {
-//    public init?(rawValue: String) {
-//        guard let data = rawValue.data(using: .utf8),
-//            let result = try? JSONDecoder().decode(ChordDefinition.DisplayOptions.self, from: data)
-//        else {
-//            return nil
-//        }
-//        self = result
-//    }
-//
-//    public var rawValue: String {
-//        guard let data = try? JSONEncoder().encode(self),
-//            let result = String(data: data, encoding: .utf8)
-//        else {
-//            return "[]"
-//        }
-//        return result
-//    }
-//}

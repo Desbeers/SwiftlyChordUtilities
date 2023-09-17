@@ -45,12 +45,13 @@ struct DefineView: View {
             }
             Spacer()
         }
+        .animation(.default, value: definition)
         .task(id: definition) {
             if definition.isEmpty {
                 chord = nil
                 status = .empty
             } else {
-                chord = ChordDefinition(definition: definition)
+                chord = ChordDefinition(definition: definition, tuning: .guitarStandardETuning)
                 status = chord == nil ? .empty : .ready
             }
         }

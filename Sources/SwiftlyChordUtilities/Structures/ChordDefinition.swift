@@ -34,6 +34,9 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
     /// - Note: A calculated value by the init
     var barres: [Int]
 
+    /// The tuning of the chord
+    public var tuning: Tuning
+
     /// The appended notes on the chord
     var appended: [String] = []
     /// The base note of an optional 'slash' chord

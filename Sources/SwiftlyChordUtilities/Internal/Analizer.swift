@@ -39,7 +39,7 @@ func findRootAndQuality(chord: String) -> (root: Chord.Root?, quality: Chord.Qua
 /// Find possible chords consisted from notes
 /// - Parameter notes: List of note arranged from lower note. ex ["C", "Eb", "G"]
 /// - Returns: A ``ChordDefinition``array
-func findChordsFromNotes(notes: [Chord.Root]) -> [ChordDefinition] {
+func findChordsFromNotes(notes: [Chord.Root], tuning: Tuning) -> [ChordDefinition] {
     if notes.isEmpty {
         return []
     }
@@ -75,6 +75,7 @@ func findChordsFromNotes(notes: [Chord.Root]) -> [ChordDefinition] {
                         baseFret: 0,
                         root: tempRoot,
                         quality: qualityEnum,
+                        tuning: tuning,
                         status: .standard
                     )
                 )

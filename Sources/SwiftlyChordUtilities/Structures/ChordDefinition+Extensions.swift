@@ -52,7 +52,7 @@ public extension ChordDefinition {
     /// Find chords matching the ``ChordDefinition`` notes
     var chordFinder: [ChordDefinition] {
         let uniqueNotes = components.filter { $0.note != .none} .uniqued(by: \.note).map(\.note)
-        return findChordsFromNotes(notes: uniqueNotes)
+        return findChordsFromNotes(notes: uniqueNotes, tuning: tuning)
     }
 }
 

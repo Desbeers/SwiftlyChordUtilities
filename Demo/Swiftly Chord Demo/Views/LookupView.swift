@@ -39,7 +39,7 @@ struct LookupView: View {
         }
         .animation(.default, value: status)
         .task(id: name) {
-            if let chord = ChordDefinition(name: name) {
+            if let chord = ChordDefinition(name: name, tuning: .guitarStandardETuning) {
                 chords = Chords.guitar.matching(root: chord.root).matching(quality: chord.quality)
                 status = .ready
             } else {
