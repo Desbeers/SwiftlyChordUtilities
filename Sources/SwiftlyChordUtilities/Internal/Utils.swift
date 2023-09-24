@@ -68,3 +68,19 @@ func fingersToBarres(fingers: [Int]) -> [Int] {
     }
     return barres
 }
+
+func getChordComponents(chord: ChordDefinition) -> [Chord.Root] {
+
+    guard let qualities = qualities.first(where: { $0.key == chord.quality }) else {
+        return []
+    }
+
+    let rootValue = noteToValue(note: chord.root)
+
+    //let intComponents = getIntComponents(root: chord.root)
+    var components: [Chord.Root] = []
+    for component in qualities.value {
+        components.append(valueToNote(value: component + rootValue, scale: chord.root))
+    }
+    return components
+}

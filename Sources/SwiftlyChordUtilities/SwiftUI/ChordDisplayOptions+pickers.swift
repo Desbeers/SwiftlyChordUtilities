@@ -195,7 +195,12 @@ extension ChordDisplayOptions {
                                 .tag(-1)
                                 .foregroundColor(.red)
                             ForEach(0...5, id: \.self) { value in
-                                Text("\(value)")
+                                /// Calculate the fret note
+                                /// - Note: Only add the basefret after the first row because the note can still be played open
+                                let fret = options.definition.instrument.offset[fret] + (value == 0 ? 1 : options.definition.baseFret) + 40 + value
+                                /// Convert the fret to a label
+                                let label = valueToNote(value: fret, scale: options.definition.root)
+                                Text(label.display.symbol)
                                     .tag(value)
                             }
                         },

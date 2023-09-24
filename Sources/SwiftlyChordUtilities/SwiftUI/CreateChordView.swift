@@ -21,6 +21,8 @@ public struct CreateChordView: View {
     @Environment(\.colorScheme) private var colorScheme
     /// The chord finder result
     @State private var chordFinder: [ChordDefinition] = []
+    /// The chord components result
+    @State private var chordComponents: [Chord.Root] = []
     /// The body of the `View`
     public var body: some View {
         VStack {
@@ -61,6 +63,19 @@ public struct CreateChordView: View {
             HStack {
                 VStack {
                     diagramView(width: 240)
+                    Label(
+                        title: {
+                            HStack {
+                                Text("**\(options.definition.displayName(options: .init()))** contains")
+                                ForEach(chordComponents, id: \.self) { component in
+                                    Text(component.display.symbol)
+                                }
+                            }
+                        },
+                        icon: { Image(systemName: "info.circle.fill") }
+                    )
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom)
                     chordFinderList
                 }
                 .frame(width: 300, height: 450)
@@ -102,6 +117,7 @@ public struct CreateChordView: View {
             )
             self.diagram = diagram
             chordFinder = diagram.chordFinder
+            chordComponents = getChordComponents(chord: diagram)
         }
     }
 
