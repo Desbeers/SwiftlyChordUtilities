@@ -22,11 +22,13 @@ public struct CreateChordView: View {
     /// The chord finder result
     @State private var chordFinder: [ChordDefinition] = []
     /// The chord components result
-    @State private var chordComponents: [Chord.Root] = []
+    @State private var chordComponents: [[Chord.Root]] = []
+
+    @State private var validate: Bool = false
     /// The body of the `View`
     public var body: some View {
         VStack {
-            Text("\(options.definition.root.rawValue) \(options.definition.quality.rawValue)")
+            Text("\(options.definition.displayName(options: .init(rootDisplay: .raw, qualityDisplay: .raw)))")
                 .font(.largeTitle)
             options.rootPicker
                 .pickerStyle(.segmented)
@@ -65,10 +67,23 @@ public struct CreateChordView: View {
                     diagramView(width: 240)
                     Label(
                         title: {
-                            HStack {
-                                Text("**\(options.definition.displayName(options: .init()))** contains")
-                                ForEach(chordComponents, id: \.self) { component in
-                                    Text(component.display.symbol)
+                            VStack(alignment: .leading) {
+                                ForEach(chordComponents.indices, id: \.self) { component in
+                                    HStack {
+                                        if component == 0 {
+                                            Text("**\(options.definition.displayName(options: .init()))** contains")
+                                            ForEach(chordComponents[component], id: \.self) { element in
+                                                Text(element.display.symbol)
+                                            }
+                                        } else {
+                                            let omitted = chordComponents[0].filter { !chordComponents[component].contains($0) }
+                                            ForEach(omitted, id: \.self) { element in
+
+                                                Text("\(element.display.symbol)")
+                                            }
+                                            Text("can be omitted")
+                                        }
+                                    }
                                 }
                             }
                         },
@@ -76,7 +91,10 @@ public struct CreateChordView: View {
                     )
                     .foregroundStyle(.secondary)
                     .padding(.bottom)
-                    chordFinderList
+                    Text(diagram?.validate.label ?? "Unknown status")
+                        .foregroundStyle(diagram?.validate.color ?? .primary)
+                    //Text(diagram?.validate ?? false ? "Chord is correct" : "Chord seems not correct")
+                    //chordFinderList
                 }
                 .frame(width: 300, height: 450)
                 VStack {
@@ -116,22 +134,8 @@ public struct CreateChordView: View {
                 status: .standard
             )
             self.diagram = diagram
-            chordFinder = diagram.chordFinder
             chordComponents = getChordComponents(chord: diagram)
-        }
-    }
-
-    @ViewBuilder var chordFinderList: some View {
-        if let diagram {
-            HStack {
-                Text(diagram.chordFinder.isEmpty ? "Found nothing" : "Found")
-                ForEach(diagram.chordFinder) { result in
-                    Text(result.displayName(options: .init(rootDisplay: .symbol, qualityDisplay: .symbolized)))
-                        .foregroundColor(
-                            options.definition.root == result.root && options.definition.quality == result.quality ? .accentColor : .primary
-                        )
-                }
-            }
+            dump(chordComponents)
         }
     }
 
@@ -163,4 +167,3 @@ public struct CreateChordView: View {
         }
     }
 }
-

@@ -20,10 +20,10 @@ func define(from define: String, instrument: Instrument) -> ChordDefinition? {
         var frets: [Int] = []
         var fingers: [Int] = []
 
-        let rootAndQuality = findRootAndQuality(chord: definition.1)
+        let elements = findChordElements(chord: definition.1)
         guard
-            let root = rootAndQuality.root,
-            let quality = rootAndQuality.quality
+            let root = elements.root,
+            let quality = elements.quality
         else {
             return nil
         }
@@ -46,7 +46,7 @@ func define(from define: String, instrument: Instrument) -> ChordDefinition? {
             baseFret: definition.2 ?? 1,
             root: root,
             quality: quality, 
-            bass: rootAndQuality.bass,
+            bass: elements.bass,
             instrument: instrument
         )
         return chordDefinition

@@ -156,6 +156,11 @@ extension ChordDisplayOptions {
                         .tag(value)
                 }
             }
+            .task {
+                if let bassNote = options.definition.bass {
+                    bass = bassNote
+                }
+            }
             .task(id: bass) {
                 options.definition.bass = bass == .none ? nil : bass
             }

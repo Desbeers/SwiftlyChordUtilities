@@ -88,14 +88,14 @@ public extension ChordDefinition {
     /// Init the ``ChordDefinition`` with the name of a chord
     init?(name: String, instrument: Instrument) {
         /// Parse the chord name
-        let rootAndQuality = findRootAndQuality(chord: name)
+        let elements = findChordElements(chord: name)
         /// Get the chords for the instrument
         let chords = Chords.getAllChordsForInstrument(instrument: instrument)
         /// See if we can find it
         guard
-            let root = rootAndQuality.root,
-            let quality = rootAndQuality.quality,
-            let chord = chords.matching(root: root).matching(quality: quality).matching(bass: rootAndQuality.bass).first
+            let root = elements.root,
+            let quality = elements.quality,
+            let chord = chords.matching(root: root).matching(quality: quality).matching(bass: elements.bass).first
         else {
             return nil
         }
@@ -106,7 +106,7 @@ public extension ChordDefinition {
         self.baseFret = chord.baseFret
         self.root = chord.root
         self.quality = chord.quality
-        self.bass = rootAndQuality.bass
+        self.bass = elements.bass
         self.name = name
         self.instrument = instrument
         self.status = .standard
