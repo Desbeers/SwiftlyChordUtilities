@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "swiftlychordutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "975a701a2a229dbb13cf8cee552a6d0a10e16ddd"
+      }
+    },
+    {
       "identity" : "swiftlystructcache",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Desbeers/SwiftlyStructCache",

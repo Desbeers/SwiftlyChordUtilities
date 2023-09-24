@@ -28,7 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D706D00D2ABC1CA600EDE2D9 /* SwiftlyChordUtilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftlyChordUtilities; path = ..; sourceTree = "<group>"; };
 		D706D00E2ABC23A200EDE2D9 /* ChordsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsModel.swift; sourceTree = "<group>"; };
 		D72DAFA02AB452C200DA0E65 /* DiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
 		D7622B442ABEDB28008CAC63 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
@@ -83,7 +82,6 @@
 		D7EC192C2AAA0546001973BA = {
 			isa = PBXGroup;
 			children = (
-				D706D00D2ABC1CA600EDE2D9 /* SwiftlyChordUtilities */,
 				D7EC19372AAA0546001973BA /* Swiftly Chord Demo */,
 				D7EC19362AAA0546001973BA /* Products */,
 			);
