@@ -10,6 +10,7 @@ import Foundation
 extension Chord {
 
     public enum Root: String, CaseIterable, Codable, Comparable {
+        case none = "None"
         // swiftlint:disable identifier_name
         case c = "C"
         case cSharp = "C#"
@@ -29,7 +30,6 @@ extension Chord {
         case bFlat = "Bb"
         case b = "B"
         // swiftlint:enable identifier_name
-        case none
 
         /// Implement Comparable
         public static func < (lhs: Self, rhs: Self) -> Bool {

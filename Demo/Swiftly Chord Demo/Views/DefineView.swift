@@ -9,9 +9,16 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 struct DefineView: View {
+    /// The status of the `View`
     @State private var status: Status = .loading
+    /// The chord definition
     @State private var definition: String = "C base-fret 1 frets x 3 2 0 1 0 fingers 0 3 2 0 1 0"
+    /// The optional diagram
     @State private var chord: ChordDefinition?
+    /// Chords model
+    @EnvironmentObject private var model: ChordsModel
+    /// Chord Display Options
+    @EnvironmentObject private var options: ChordDisplayOptions
     /// The body of the `View`
     var body: some View {
         ScrollView {
@@ -31,14 +38,11 @@ struct DefineView: View {
                 ProgressView()
             case .ready:
                 if let chord {
-                    Text("let chord = ChordDefinition(definition: \"\(definition)\")")
+                    // swiftlint:disable:next line_length
+                    Text("let chord = ChordDefinition(definition: \"\(definition)\", instrument: .\(options.instrument.rawValue))")
                         .fontDesign(.monospaced)
+                        .padding()
                     DiagramView(chord: chord)
-                    Label(
-                        " A custom chord always has a * behind its name in the diagram",
-                        systemImage: "info.circle.fill"
-                    )
-                    .font(.caption)
                 }
             case .empty:
                 Router.define.emptyMessage
@@ -47,13 +51,20 @@ struct DefineView: View {
         }
         .animation(.default, value: definition)
         .task(id: definition) {
-            if definition.isEmpty {
-                chord = nil
-                status = .empty
-            } else {
-                chord = ChordDefinition(definition: definition, tuning: .guitarStandardETuning)
-                status = chord == nil ? .empty : .ready
-            }
+            defineChord()
+        }
+        .task(id: model.chords) {
+            defineChord()
+        }
+    }
+    /// Define the chord
+    private func defineChord() {
+        if definition.isEmpty {
+            chord = nil
+            status = .empty
+        } else {
+            chord = ChordDefinition(definition: definition, instrument: options.instrument)
+            status = chord == nil ? .empty : .ready
         }
     }
 }

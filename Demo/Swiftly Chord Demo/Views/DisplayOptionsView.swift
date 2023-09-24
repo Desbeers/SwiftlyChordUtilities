@@ -12,37 +12,30 @@ struct DisplayOptionsView: View {
     /// Chord Display Options
     @EnvironmentObject var options: ChordDisplayOptions
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                options.fingersButton
-                options.notesButton
-                options.mirrorButton
+        Group {
+            options.nameToggle
+            HStack(spacing: 0) {
+                Image(systemName: "textformat.size.larger")
+                options.displayRootPicker
+                Image(systemName: "textformat.size.smaller")
+                options.displayQualityPicker
             }
-            Rectangle()
-                .frame(width: 1, height: 40)
-            VStack(alignment: .leading, spacing: 4) {
-                options.nameButton
-                HStack {
-                    Image(systemName: "textformat.size.larger")
-                    options.displayRootPicker
-                    Image(systemName: "textformat.size.smaller")
-                    options.displayQualityPicker
-                }
-                .disabled(!options.displayOptions.showName)
+            .padding(.leading)
+            .labelsHidden()
+            .disabled(!options.displayOptions.showName)
+            options.fingersToggle
+            options.notesToggle
+            options.mirrorToggle
+            options.playToggle
+            HStack(spacing: 0) {
+                Image(systemName: "guitars.fill")
+                options.midiInstrumentPicker
             }
-            Rectangle()
-                .frame(width: 1, height: 40)
-            VStack(alignment: .leading, spacing: 4) {
-                options.playButton
-                HStack {
-                    Image(systemName: "guitars.fill")
-                    options.instrumentPicker
-                }
-                .disabled(!options.displayOptions.showPlayButton)
-            }
+            .padding(.leading)
+            .labelsHidden()
+            .disabled(!options.displayOptions.showPlayButton)
         }
-        .labelsHidden()
-        .padding(.top)
+        .tint(.accentColor)
         .buttonStyle(.plain)
         .animation(.default, value: options.displayOptions)
     }

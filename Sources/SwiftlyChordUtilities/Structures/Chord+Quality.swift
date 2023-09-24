@@ -52,29 +52,9 @@ extension Chord {
         case minorMajorEleven = "mmaj11"
         case addNine = "add9"
         case minorAddNine = "madd9"
-        case slashE = "/E"
-        case slashF = "/F"
-        case slashFSharp = "/F#"
-        case slashG = "/G"
-        case slashGSharp = "/G#"
-        case slashA = "/A"
-        case slashASharp = "/A#"
-        case slashBFlat = "/Bb"
-        case slashB = "/B"
-        case slashC = "/C"
-        case slashCSharp = "/C#"
-        case minorSlashB = "m/B"
-        case minorSlashC = "m/C"
-        case minorSlashCSharp = "m/C#"
-        case slashD = "/D"
-        case minorSlashD = "m/D"
-        case slashDSharp = "/D#"
-        case minorSlashDSharp = "m/D#"
-        case minorSlashE = "m/E"
-        case minorSlashF = "m/F"
-        case minorSlashFSharp = "m/F#"
-        case minorSlashG = "m/G"
-        case minorSlashGSharp = "m/G#"
+
+        /// Fallback
+        case unknown
 
         /// Implement Comparable
         public static func < (lhs: Self, rhs: Self) -> Bool {
@@ -102,7 +82,7 @@ extension Chord {
             case .major:
                 (" major", "", "", "")
             case .minor:
-                (" minor", "min", "m", "m")
+                (" minor", "m", "m", "m")
             case .dim:
                 (" diminished", "dim", "dim", "dim")
             case .dimSeven:
@@ -148,17 +128,17 @@ extension Chord {
             case .thirteen:
                 (" thirteen", "13", "¹³", "¹³")
             case .majorSeven:
-                (" major seven", "Maj7", "Maj⁷", "M⁷")
+                (" major seven", "maj7", "maj⁷", "M⁷")
             case .majorSevenFlatFive:
-                (" major seven flat five", "Maj7b5", "Maj⁷♭⁵", "M⁷♭⁵")
+                (" major seven flat five", "maj7b5", "maj⁷♭⁵", "M⁷♭⁵")
             case .majorSevenSharpFive:
-                (" major seven sharp five", "Maj7#5", "Maj⁷♯⁵", "M⁷♯⁵")
+                (" major seven sharp five", "maj7#5", "maj⁷♯⁵", "M⁷♯⁵")
             case .majorNine:
-                (" major nine", "Maj9", "Maj⁹", "M⁹")
+                (" major nine", "maj9", "maj⁹", "M⁹")
             case .majorEleven:
-                (" major eleven", "Maj11", "Maj¹¹", "M¹¹")
+                (" major eleven", "maj11", "maj¹¹", "m¹¹")
             case .majorThirteen:
-                (" major thirteen", "Maj13", "Maj¹³", "M¹³")
+                (" major thirteen", "maj13", "maj¹³", "M¹³")
             case .minorSix:
                 (" minor six", "m6", "m⁶", "m⁶")
             case .minorSixNine:
@@ -183,52 +163,8 @@ extension Chord {
                 (" add nine", "add9", "add⁹", "ᵃᵈᵈ⁹")
             case .minorAddNine:
                 (" minor add nine", "madd9", "madd⁹", "mᵃᵈᵈ⁹")
-            case .slashE:
-                (" slash E", "/E", "/E", "/E")
-            case .slashF:
-                (" slash F", "/F", "/F", "/F")
-            case .slashFSharp:
-                (" slash F sharp", "/F#", "/F♯", "/F♯")
-            case .slashG:
-                (" slash G", "/G", "/G", "/G")
-            case .slashGSharp:
-                (" slash G sharp", "/G#", "/G♯", "/G♯")
-            case .slashA:
-                (" slash A", "/A", "/A", "/A")
-            case .slashASharp:
-                (" slash A sharp", "/A#", "/A♯", "/A♯")
-            case .slashBFlat:
-                (" slash B flat", "/Bb", "/B♭", "/B♭")
-            case .slashB:
-                (" slash B", "/B", "/B", "/B")
-            case .slashC:
-                (" slash C", "/C", "/C", "/C")
-            case .slashCSharp:
-                (" slash C sharp", "/C#", "/C♯", "/C♯")
-            case .minorSlashB:
-                (" minor slash B", "m/B", "m/B", "m/B")
-            case .minorSlashC:
-                (" minor slash C", "m/C", "m/C", "m/C")
-            case .minorSlashCSharp:
-                (" minor slash C sharp", "m/C#", "m/C♯", "m/C♯")
-            case .slashD:
-                (" slash D", "/D", "/D", "/D")
-            case .minorSlashD:
-                (" minor slash D", "m/D", "m/D", "m/D")
-            case .slashDSharp:
-                (" slash D sharp", "/D#", "/D♯", "/D♯")
-            case .minorSlashDSharp:
-                (" minor slash D sharp", "m/D#", "m/D♯", "m/D♯")
-            case .minorSlashE:
-                (" minor slash E", "m/E", "m/E", "m/E")
-            case .minorSlashF:
-                (" minor slash F", "m/F", "m/F", "m/F")
-            case .minorSlashFSharp:
-                (" minor slash F sharp", "m/F#", "m/F♯", "m/F♯")
-            case .minorSlashG:
-                (" minor slash G", "m/G", "m/G", "m/G")
-            case .minorSlashGSharp:
-                (" minor slash G sharp", "m/G#", "m/G♯", "m/G♯")
+            case .unknown:
+                (" unknown", "?", "?", "?")
             }
         }
 
@@ -242,9 +178,9 @@ extension Chord {
         var group: Chord.Group {
             // swiftlint:disable line_length
             switch self {
-            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addNine, .slashE, .slashF, .slashFSharp, .slashG, .slashGSharp, .slashA, .slashASharp, .slashBFlat, .slashB, .slashC, .slashCSharp, .slashD, .slashDSharp:
+            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addNine:
                 .major
-            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorSlashB, .minorSlashC, .minorSlashCSharp, .minorSlashD, .minorSlashDSharp, .minorSlashE, .minorSlashF, .minorSlashFSharp, .minorSlashG, .minorNine, .minorSlashGSharp:
+            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine:
                 .minor
             case .dim, .dimSeven:
                 .diminished
@@ -252,7 +188,7 @@ extension Chord {
                 .suspended
             case .aug, .augSeven, .augNine:
                 .augmented
-            case .altered, .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive:
+            case .altered, .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive, .unknown:
                 .other
             }
             // swiftlint:enable line_length

@@ -34,13 +34,13 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
     /// - Note: A calculated value by the init
     var barres: [Int]
 
-    /// The tuning of the chord
-    public var tuning: Tuning
+    /// The instrument of the chord
+    public var instrument: Instrument
 
     /// The appended notes on the chord
     var appended: [String] = []
     /// The base note of an optional 'slash' chord
-    public var slashNote: Chord.Root?
+    public var bass: Chord.Root?
     /// The components of the chord definition
     public var components: [Chord.Component] = []
     /// The status of the chord
@@ -57,6 +57,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
         case baseFret
         case root
         case quality
+        case bass
     }
     
 
@@ -71,5 +72,6 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
         try container.encode(self.baseFret, forKey: ChordDefinition.CodingKeys.baseFret)
         try container.encode(self.root, forKey: ChordDefinition.CodingKeys.root)
         try container.encode(self.quality, forKey: ChordDefinition.CodingKeys.quality)
+        try container.encode(self.bass, forKey: ChordDefinition.CodingKeys.bass)
     }
 }

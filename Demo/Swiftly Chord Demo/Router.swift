@@ -9,9 +9,9 @@ import SwiftUI
 
 enum Router: Hashable, CaseIterable {
     case database
+    case create
     case define
     case lookup
-
 }
 
 extension Router {
@@ -37,14 +37,20 @@ extension Router {
     var item: Item {
         switch self {
 
-            // MARK: General
-
         case .database:
             return Item(
                 title: "Browse the database",
                 description: "Browse all the chords in the database",
                 loading: "Loading the chords",
                 empty: "No chords found",
+                icon: "square.stack.3d.up"
+            )
+        case .create:
+            return Item(
+                title: "Create a chord",
+                description: "Create your own chord with pickers",
+                loading: "Loading the chord",
+                empty: "No chord found",
                 icon: "square.stack.3d.up"
             )
         case .define:
@@ -68,13 +74,13 @@ extension Router {
 }
 
 extension Router {
+
+    /// An empty message `View`
     var emptyMessage: some View {
         VStack {
             Text(self.item.empty)
                 .font(.title)
             Image(systemName: "questionmark.app")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
                 .font(.system(size: 200, weight: .thin, design: .default))
         }
         .padding()

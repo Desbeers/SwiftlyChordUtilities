@@ -18,6 +18,7 @@ public extension Color {
         )
     }
 
+    /// Generate a random light Color
     static var randomLight: Color {
         return Color(
             red: .random(in: 0.6...1),

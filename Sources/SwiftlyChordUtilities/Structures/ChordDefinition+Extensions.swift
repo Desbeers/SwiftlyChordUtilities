@@ -38,9 +38,8 @@ public extension ChordDefinition {
             case .altSymbol:
                 name += "\(self.quality.display.altSymbol)"
             }
-            /// Add an `*` for a custom chord as per ChordPro specifications
-            if self.status == .custom || self.status == .customTransposed {
-                name += "*"
+            if let bass = self.bass {
+                name += "/\(bass.display.symbol)"
             }
         }
         return name
@@ -52,31 +51,30 @@ public extension ChordDefinition {
     /// Find chords matching the ``ChordDefinition`` notes
     var chordFinder: [ChordDefinition] {
         let uniqueNotes = components.filter { $0.note != .none} .uniqued(by: \.note).map(\.note)
-        return findChordsFromNotes(notes: uniqueNotes, tuning: tuning)
+        return findChordsFromNotes(notes: uniqueNotes, instrumemt: instrument)
     }
 }
 
-public extension ChordDefinition {
-
-    /// Find the first matching chord from the database
-    var firstChordFromDatabase: ChordDefinition? {
-
-        guard
-            let chord = Chords.guitar.first(where: {
-                $0.root == self.root && $0.quality == self.quality }
-            )
-        else {
-            return nil
-        }
-        return chord
-    }
-}
 public extension ChordDefinition {
 
     /// Convert a ``ChordDefinition`` into a ChordPro `{define}`
     var define: String {
-        var define = "{define: "
-        define += root.rawValue + quality.display.short
+        var define = root.rawValue
+        
+        switch quality {
+        case .major:
+            define += ""
+        case .sixNine:
+            define += "69"
+        case .minorSixNine:
+            define += "m69"
+        default:
+            define += quality.display.short
+        }
+        if let bass {
+            define += "/\(bass.rawValue)"
+        }
+
         define += " base-fret "
         define += baseFret.description
         define += " frets "
@@ -87,7 +85,6 @@ public extension ChordDefinition {
         for finger in fingers {
             define += " \(finger)"
         }
-        define += "}"
         return define
     }
 }

@@ -9,12 +9,17 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 struct LookupView: View {
+    /// The name of the chord
     @State private var name: String = "C"
-
+    /// The status of the `View`
     @State private var status: Status = .loading
-
+    /// The chords to show
     @State private var chords: [ChordDefinition] = []
-
+    /// Chords model
+    @EnvironmentObject private var model: ChordsModel
+    /// Chord Display Options
+    @EnvironmentObject private var options: ChordDisplayOptions
+    /// The boduy of the `View`
     var body: some View {
         ScrollView {
             Text(Router.lookup.item.description)
@@ -29,7 +34,7 @@ struct LookupView: View {
             case .loading:
                 ProgressView()
             case .ready:
-                Text("let chord = ChordDefinition(name: \"\(name)\")")
+                Text("let chord = ChordDefinition(name: \"\(name)\", instrument: .\(options.instrument.rawValue))")
                     .fontDesign(.monospaced)
                 GridView(chords: chords)
             case .empty:
@@ -39,13 +44,20 @@ struct LookupView: View {
         }
         .animation(.default, value: status)
         .task(id: name) {
-            if let chord = ChordDefinition(name: name, tuning: .guitarStandardETuning) {
-                chords = Chords.guitar.matching(root: chord.root).matching(quality: chord.quality)
-                status = .ready
-            } else {
-                chords = []
-                status = .empty
-            }
+            findChords()
+        }
+        .task(id: model.chords) {
+            findChords()
+        }
+    }
+    /// Find the chords
+    private func findChords() {
+        if let chord = ChordDefinition(name: name, instrument: options.instrument) {
+            chords = model.chords.matching(root: chord.root).matching(quality: chord.quality).matching(bass: chord.bass)
+            status = .ready
+        } else {
+            chords = []
+            status = .empty
         }
     }
 }

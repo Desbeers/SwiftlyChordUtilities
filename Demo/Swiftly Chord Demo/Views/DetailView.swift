@@ -9,22 +9,22 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 struct DetailView: View {
-
+    /// The selected router item
     @Binding var router: Router?
-
+    /// The current appearance
     @AppStorage("Appearance") private var appearance: Appearance = .light
-
+    /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
-
     /// Chord Display Options
     @EnvironmentObject var options: ChordDisplayOptions
-
+    /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
-            DisplayOptionsView()
             switch router {
             case .database:
                 DatabaseView()
+            case .create:
+                CreateView()
             case .define:
                 DefineView()
             case .lookup:
@@ -34,11 +34,11 @@ struct DetailView: View {
             }
         }
         .toolbar {
+            options.instrumentPicker
             AppearancePickerView()
                 .pickerStyle(.segmented)
             DiagramSizeSliderView()
         }
-
         .preferredColorScheme(appearance == .print ? colorScheme : appearance == .dark ? .dark : .light)
     }
 }

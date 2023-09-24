@@ -17,12 +17,16 @@ public extension Array where Element == ChordDefinition {
         return self.map(\.quality)
     }
 
+    func matching(root: Chord.Root) -> [ChordDefinition] {
+        return self.filter { $0.root == root }
+    }
+
     func matching(quality: Chord.Quality) -> [ChordDefinition] {
         return self.filter { $0.quality == quality }
     }
 
-    func matching(root: Chord.Root) -> [ChordDefinition] {
-        return self.filter { $0.root == root }
+    func matching(bass: Chord.Root?) -> [ChordDefinition] {
+        return self.filter { $0.bass == bass }
     }
 
     func matching(group: Chord.Group) -> [ChordDefinition] {

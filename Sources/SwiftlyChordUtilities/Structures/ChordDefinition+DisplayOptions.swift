@@ -20,8 +20,7 @@ extension ChordDefinition {
             qualityDisplay: Display.Quality = .symbolized,
             showFingers: Bool = true,
             mirrorDiagram: Bool = false,
-            instrument: Midi.Instrument = .acousticSteelGuitar,
-            tuning: Tuning = .guitarStandardETuning
+            midiInstrument: Midi.Instrument = .acousticSteelGuitar
         ) {
             self.showName = showName
             self.showPlayButton = showPlayButton
@@ -30,8 +29,7 @@ extension ChordDefinition {
             self.qualityDisplay = qualityDisplay
             self.showFingers = showFingers
             self.mirrorDiagram = mirrorDiagram
-            self.instrument = instrument
-            self.tuning = tuning
+            self.midiInstrument = midiInstrument
         }
         /// Show the name in the chord shape
         public var showName: Bool
@@ -48,9 +46,7 @@ extension ChordDefinition {
         /// Mirror the chord diagram for lefthanded users
         public var mirrorDiagram: Bool
         /// The instrument to use for playing the chord with MIDI
-        public var instrument: Midi.Instrument
-        /// The tuning of the instrument
-        public var tuning: Tuning
+        public var midiInstrument: Midi.Instrument
 
         /// Display options for the chord name
         public enum Display {

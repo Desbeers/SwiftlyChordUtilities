@@ -2,21 +2,22 @@
 //  DiagramView.swift
 //  Swiftly Chord Demo
 //
-//  Created by Nick Berendsen on 15/09/2023.
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftlyChordUtilities
 
 struct DiagramView: View {
+    /// The chord to show
     let chord: ChordDefinition
-
     /// Chord Display Options
     @EnvironmentObject private var options: ChordDisplayOptions
-
+    /// The current width of the diagram
     @AppStorage("Diagram Width") private var width: Double = 300
+    /// The current appearance
     @AppStorage("Appearance") private var appearance: Appearance = .light
-
+    /// The body of the `View`
     var body: some View {
         let color = appearance.colors
         ChordDefinitionView(chord: chord, width: width, options: options.displayOptions)

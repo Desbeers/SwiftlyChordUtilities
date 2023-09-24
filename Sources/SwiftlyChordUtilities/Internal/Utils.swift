@@ -33,24 +33,23 @@ func transposeNote(note: Chord.Root, transpose: Int, scale: Chord.Root = .c) -> 
     return valueToNote(value: value, scale: scale)
 }
 
-
 /// Calculate the chord components
 func fretsToComponents(
     root: Chord.Root,
     frets: [Int],
     baseFret: Int,
-    tuning: Tuning
+    instrument: Instrument
 ) -> [Chord.Component] {
     var components: [Chord.Component] = []
     if !frets.isEmpty {
-        for string in tuning.strings {
+        for string in instrument.strings {
             var fret = frets[string]
             /// Don't bother with ignored frets
             if fret == -1 {
                 components.append(Chord.Component(note: .none, midi: nil))
             } else {
                 /// Add base fret if the fret is not 0 and the offset
-                fret += tuning.offset[string] + (fret == 0 ? 1 : baseFret) + 40
+                fret += instrument.offset[string] + (fret == 0 ? 1 : baseFret) + 40
                 let key = valueToNote(value: fret, scale: root)
                 components.append(Chord.Component(note: key, midi: fret))
             }

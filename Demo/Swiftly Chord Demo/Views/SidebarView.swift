@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct SidebarView: View {
+    /// The selected router item
     @Binding var router: Router?
+    /// The body of the `View`
     var body: some View {
         List(selection: $router) {
-            ForEach(Router.allCases, id: \.self) { route in
-                sidebarItem(router: route)
+                ForEach(Router.allCases, id: \.self) { route in
+                    sidebarItem(router: route)
+                }
+            Section("Display Options") {
+                DisplayOptionsView()
             }
         }
     }

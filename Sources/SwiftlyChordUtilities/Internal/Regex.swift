@@ -8,6 +8,8 @@
 import Foundation
 import RegexBuilder
 
+// MARK: Regex to parse a chord name
+
 /// The regex for a `chord` string
 ///
 /// It will parse the chord to find the `root` and optional `quality`
@@ -19,66 +21,95 @@ import RegexBuilder
 ///
 let chordRegex = Regex {
     /// The root
-    Capture {
-        OneOrMore {
-            CharacterClass(
-                .anyOf("CDEFGABb#")
-            )
-        }
-    }
+    rootRegex
     /// The optional quality
     Optionally {
         Capture {
-            OneOrMore(.any)
+            OneOrMore {
+                CharacterClass(
+                    (.word),
+                    (.digit),
+                    .anyOf("#?")
+                )
+            }
+        } transform: { quality in
+            for name in Chord.qualityNameDict {
+                if name.value.contains(String(quality)) {
+                    return name.key
+                }
+            }
+            return Chord.Quality.unknown
         }
     }
-}
-
-let inversionRegex = Regex {
-    "/"
-    Capture {
-        OneOrMore(("0"..."9"))
-    }
-    Capture {
-        ZeroOrMore(.any)
+    Optionally {
+        "/"
+        rootRegex
     }
 }
 
-let slashRegex = Regex {
-    /// The slash
-    Capture {
-        OneOrMore("/")
-    }
-    /// The following chord
-    Capture {
-        OneOrMore(.any)
-    }
-}
+// MARK: Regex to parse a define
 
-/// The regex for a `define` directive
-///
-///     /// ## Example
-///
-///     {define: Bes base-fret 1 frets 1 1 3 3 3 1 fingers 1 1 2 3 4 1}
-///
-///     Key: Bes
-///     Definition: base-fret 1 frets 1 1 3 3 3 1 fingers 1 1 2 3 4 1
-///
 let defineRegex = Regex {
-    TryCapture {
+    /// Capture the name
+    Capture {
         OneOrMore {
             CharacterClass(
-                .anyOf("#b"),
+                .anyOf("#b/+?"),
                 (.word),
                 (.digit)
             )
         }
-    } transform: {
-        $0.trimmingCharacters(in: .whitespacesAndNewlines)
+    } transform: { name in
+        String(name)
     }
-    TryCapture {
-        OneOrMore(.any)
-    } transform: {
-        $0.trimmingCharacters(in: .whitespacesAndNewlines)
+    /// Capture the base-fret
+    Optionally {
+        " base-fret "
+        Capture {
+            OneOrMore(.digit)
+        } transform: { baseFret in
+            Int(baseFret) ?? 0
+        }
     }
+    /// Capture the frets
+    Optionally {
+        " frets "
+        Capture {
+            OneOrMore {
+                CharacterClass(
+                    .anyOf("x"),
+                    (.digit),
+                    (.whitespace)
+                )
+            }
+        } transform: { frets in
+              String(frets).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
+    /// Capture the fingers
+    Optionally {
+        "fingers "
+        Capture {
+            OneOrMore {
+                CharacterClass(
+                    (.digit),
+                    (.whitespace)
+                )
+            }
+        } transform: { fingers in
+            return String(fingers).trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
+}
+
+// MARK: Regex to parse the root of a chord
+
+let rootRegex = Capture {
+    OneOrMore {
+        CharacterClass(
+            .anyOf("CDEFGABb#")
+        )
+    }
+} transform: { root in
+    Chord.Root(rawValue: String(root)) ?? Chord.Root.none
 }

@@ -10,36 +10,27 @@ import Foundation
 /// Find the root and quality of a named chord
 /// - Parameter chord: The name of the chord
 /// - Returns: The root and quality
-func findRootAndQuality(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?) {
+func findRootAndQuality(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, bass: Chord.Root?) {
 
     var root: Chord.Root?
     var quality: Chord.Quality?
-    if let match = chord.wholeMatch(of: chordRegex) {
-        let chordRoot = String(match.1)
-        root = Chord.Root(rawValue: chordRoot)
-        //var chordQuality = Chords.Quality.major.rawValue
-        if let matchSuffix = match.2 {
-
-            var chordQuality = String(matchSuffix)
-            /// ChordPro suffix are not always the suffixes in the database...
-            switch chordQuality {
-            case "m":
-                chordQuality = "minor"
-            default:
-                break
-            }
-            quality = Chord.Quality(rawValue: chordQuality)
+    var bass: Chord.Root?
+    if let match = chord.firstMatch(of: chordRegex) {
+        root = match.1
+        if let qualityMatch = match.2 {
+            quality = qualityMatch
         } else {
             quality = Chord.Quality.major
         }
+        bass = match.3
     }
-    return (root, quality)
+    return (root, quality, bass)
 }
 
 /// Find possible chords consisted from notes
 /// - Parameter notes: List of note arranged from lower note. ex ["C", "Eb", "G"]
 /// - Returns: A ``ChordDefinition``array
-func findChordsFromNotes(notes: [Chord.Root], tuning: Tuning) -> [ChordDefinition] {
+func findChordsFromNotes(notes: [Chord.Root], instrumemt: Instrument) -> [ChordDefinition] {
     if notes.isEmpty {
         return []
     }
@@ -58,13 +49,9 @@ func findChordsFromNotes(notes: [Chord.Root], tuning: Tuning) -> [ChordDefinitio
     for (tempRoot, positions) in rootAndPositions {
         if let qualities = findQualitiesFromComponents(components: positions) {
             for quality in qualities {
-                var on: Chord.Root?
+                var bass: Chord.Root?
                 if tempRoot != root {
-                    on = root
-                }
-                var qualityEnum = quality.name
-                if let on {
-                    qualityEnum = on.slashQuality
+                    bass = root
                 }
                 chords.append(
                     ChordDefinition(
@@ -74,8 +61,9 @@ func findChordsFromNotes(notes: [Chord.Root], tuning: Tuning) -> [ChordDefinitio
                         fingers: [],
                         baseFret: 0,
                         root: tempRoot,
-                        quality: qualityEnum,
-                        tuning: tuning,
+                        quality: quality.name,
+                        bass: bass,
+                        instrument: instrumemt,
                         status: .standard
                     )
                 )
@@ -96,8 +84,6 @@ func getAllRotatedNotes(notes: [Chord.Root]) -> [[Chord.Root]] {
     for index in 0..<notes.count {
         notesList.append(Array(notes[index...] + notes[..<index]))
     }
-    // print("----")
-    // print(notesList)
     return notesList
 }
 
@@ -121,6 +107,5 @@ func notesToPositions(notes: [Chord.Root], root: Chord.Root) -> [Int] {
         positions.append(notePostion - rootPosition)
         currentPosition = notePostion
     }
-    // print(positions)
     return positions
 }
