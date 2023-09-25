@@ -61,7 +61,7 @@ public extension Instrument {
         case .guitaleleStandardATuning:
             [4, 9, 14, 19, 23, 28]
         case .ukuleleStandardGTuning:
-            [2, 7, 11, 16]
+            [26,19, 23, 28]
         }
     }
 }

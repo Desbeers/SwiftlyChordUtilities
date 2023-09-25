@@ -12,18 +12,18 @@ import Foundation
 
 /*
 
- 0:  R:     Perfect Unison
- 1:  m2:    Minor Second
- 2:  M2:    Major Second
- 3:  m3:    Augmented Second / Minor Third
- 4:  M3:    Major Third
- 5:  P4:    Perfect Fourth
- 6:  A4/d5: Augmented Fourth / Diminished Fifth
- 7:  P5:    Perfect Fifth
- 8:  A5/m6: Augmented Fifth / Minor Sixth
- 9:  M6:    Major Sixth
- 10: m7:    Minor Seventh
- 11: M7:    Major Seventh
+ 0:  R:     C  Perfect Unison
+ 1:  m2:    C# Minor Second
+ 2:  M2:    D  Major Second
+ 3:  m3:    D# Augmented Second / Minor Third
+ 4:  M3:    E  Major Third
+ 5:  P4:    F  Perfect Fourth
+ 6:  A4/d5: F# Augmented Fourth / Diminished Fifth
+ 7:  P5:    G  Perfect Fifth
+ 8:  A5/m6: G# Augmented Fifth / Minor Sixth
+ 9:  M6:    A  Major Sixth
+ 10: m7:    A# Minor Seventh
+ 11: M7:    B  Major Seventh
 
  */
 
@@ -63,6 +63,13 @@ var qualities: KeyValuePairs<Chord.Quality, [Int]> {
          */
         /// # 'sus2' chords
             .susTwo: [0, 2, 7],
+
+        /*
+         Notes: C D G Bb
+         Interval structure: R M2 P5 m7
+         */
+        /// # '7sus2' chords
+            .sevenSusTwo: [0, 2, 7, 10],
 
         /*
          Notes: C F G
@@ -204,6 +211,15 @@ var qualities: KeyValuePairs<Chord.Quality, [Int]> {
         .thirteen: [0, 4, 9, 10],
 
         /*
+         Notes: C Eb G (o) Bb D (o) F (o) A
+         Interval structure: R m3 P5 (o) m7 9 (o) 11 (o) 13
+         */
+        /// # 'm13' chords
+            .minorThirteen: [0, 3, 7, 10, 14, 17, 21],
+        /// - Note: The 5th can be omitted
+        .minorThirteen: [0, 3, 10, 21],
+
+        /*
          Notes: C E G B
          Interval structure: R M3 P5 M7
          */
@@ -285,10 +301,12 @@ var qualities: KeyValuePairs<Chord.Quality, [Int]> {
 
         /*
          Notes: C Eb G Bb D
-         Interval structure: R M2 m3 P5 m7
+         Interval structure: R m3 P5 m7 M2
          */
         /// # 'minor9' chords
-            .minorNine: [0, 2, 3, 7, 10],
+            .minorNine: [0, 3, 7, 10, 14],
+        /// - Note: The 5th can be omitted
+        .minorNine: [0, 3, 10, 14],
 
         /*
          Notes: C Eb G Bb F

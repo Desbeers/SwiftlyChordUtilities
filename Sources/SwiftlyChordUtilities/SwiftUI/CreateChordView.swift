@@ -135,7 +135,6 @@ public struct CreateChordView: View {
             )
             self.diagram = diagram
             chordComponents = getChordComponents(chord: diagram)
-            dump(chordComponents)
         }
     }
 

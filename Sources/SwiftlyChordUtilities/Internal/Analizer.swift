@@ -39,16 +39,14 @@ func validateChord(chord: ChordDefinition) -> ChordValidation {
     for component in components {
         if let bass = chord.bass {
             if notes.first != bass {
-                print("Bass is wrong")
                 return .wrongBassNote
             } else if !component.contains(bass) {
                 notes.removeAll(where: { $0 == bass })
             }
         } else if notes.first != chord.root {
-            print("Root is wrong")
             validation = .wrongRootNote
         }
-        if component.allSatisfy(notes.contains) {
+        if component.sorted() == notes.sorted() {
             return validation
         }
     }

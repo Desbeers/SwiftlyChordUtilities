@@ -10,48 +10,71 @@ import Foundation
 extension Chord {
 
     public enum Quality: String, CaseIterable, Codable, Comparable {
+
+        // MARK: Triad
+
         case major = "major"
         case minor = "minor"
+        case aug = "aug"
         case dim = "dim"
+        
+        // MARK: Seventh
+
+        case seven = "7"
+        case sevenSharpFive = "7#5"
+        case sevenFlatFive = "7b5"
+        case minorSeven = "m7"
+        case majorSeven = "maj7"
+        case augSeven = "aug7"
         case dimSeven = "dim7"
+        case majorSevenFlatFive = "maj7b5"
+        case majorSevenSharpFive = "maj7#5"
+        case minorSevenFlatFive = "m7b5"
+
+        case minorMajorSeven = "mmaj7"
+        case minorMajorSeventFlatFive = "mmaj7b5"
+
+        // MARK: Suspended
+
         case susTwo = "sus2"
         case susFour = "sus4"
+        case sevenSusTwo = "7sus2"
         case sevenSusFour = "7sus4"
-        case five = "5"
-        case altered = "alt"
-        case aug = "aug"
-        case six = "6"
-        case sixNine = "6/9"
-        case seven = "7"
-        case sevenFlatFive = "7b5"
-        case augSeven = "aug7"
+
+        // MARK: Extended
+
         case nine = "9"
+        case majorNine = "maj9"
+        case minorMajorNine = "mmaj9"
+        case minorNine = "m9"
         case nineFlatFive = "9b5"
+        case nineSharpEleven = "9#11"
+
+        case eleven = "11"
+        case majorEleven = "maj11"
+        case minorEleven = "m11"
+        case minorMajorEleven = "mmaj11"
+
+        case thirteen = "13"
+        case majorThirteen = "maj13"
+        case minorThirteen = "m13"
+
+        // MARK: Added
+
+        case five = "5"
+        case six = "6"
+        case minorSix = "m6"
+        case addNine = "add9"
+        case minorAddNine = "madd9"
+
+        // MARK: Other
+
+        case altered = "alt"
+        case sixNine = "6/9"
         case augNine = "aug9"
         case sevenFlatNine = "7b9"
         case sevenSharpNine = "7#9"
-        case eleven = "11"
-        case nineSharpEleven = "9#11"
-        case thirteen = "13"
-        case majorSeven = "maj7"
-        case majorSevenFlatFive = "maj7b5"
-        case majorSevenSharpFive = "maj7#5"
-        case sevenSharpFive = "7#5"
-        case majorNine = "maj9"
-        case majorEleven = "maj11"
-        case majorThirteen = "maj13"
-        case minorSix = "m6"
         case minorSixNine = "m6/9"
-        case minorSeven = "m7"
-        case minorSevenFlatFive = "m7b5"
-        case minorNine = "m9"
-        case minorEleven = "m11"
-        case minorMajorSeven = "mmaj7"
-        case minorMajorSeventFlatFive = "mmaj7b5"
-        case minorMajorNine = "mmaj9"
-        case minorMajorEleven = "mmaj11"
-        case addNine = "add9"
-        case minorAddNine = "madd9"
 
         /// Fallback
         case unknown
@@ -91,6 +114,8 @@ extension Chord {
                 (" suss two", "sus2", "sus²", "sus²")
             case .susFour:
                 (" suss four", "sus4", "sus⁴", "sus⁴")
+            case .sevenSusTwo:
+                (" seven sus two", "7sus2", "⁷sus²", "⁷sus²")
             case .sevenSusFour:
                 (" seven sus four", "7sus4", "⁷sus⁴", "⁷sus⁴")
             case .five:
@@ -127,6 +152,8 @@ extension Chord {
                 (" nine sharp eleven", "9#11", "⁹♯¹¹", "⁹♯¹¹")
             case .thirteen:
                 (" thirteen", "13", "¹³", "¹³")
+            case .minorThirteen:
+                (" minor thirteen", "m13", "m¹³", "m¹³")
             case .majorSeven:
                 (" major seven", "maj7", "maj⁷", "M⁷")
             case .majorSevenFlatFive:
@@ -180,11 +207,11 @@ extension Chord {
             switch self {
             case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addNine:
                 .major
-            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine:
+            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
                 .minor
             case .dim, .dimSeven:
                 .diminished
-            case .susTwo, .susFour, .sevenSusFour:
+            case .susTwo, .susFour, .sevenSusTwo, .sevenSusFour:
                 .suspended
             case .aug, .augSeven, .augNine:
                 .augmented
