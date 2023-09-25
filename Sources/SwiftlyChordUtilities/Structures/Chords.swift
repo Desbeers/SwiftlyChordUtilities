@@ -45,6 +45,20 @@ extension Chords {
     public static func exportDatabase(definitions: [ChordDefinition]) -> String {
         exportDefinitions(definitions: definitions)
     }
+    
+    /// Get all chord definitions for an instrument
+    /// - Parameter instrument: The ``Instrument``
+    /// - Returns: An ``ChordDefinition`` array
+    public static func getAllChordsForInstrument(instrument: Instrument) -> [ChordDefinition] {
+        switch instrument {
+        case .guitarStandardETuning:
+            Chords.guitar
+        case .guitaleleStandardATuning:
+            Chords.guitalele
+        case .ukuleleStandardGTuning:
+            Chords.ukulele
+        }
+    }
 
     // MARK: Private
 
@@ -114,17 +128,6 @@ extension Chords {
                 return result
             }
             return ChordDefinition(unknown: "Unknown", instrument: instrument)
-        }
-    }
-
-    static func getAllChordsForInstrument(instrument: Instrument) -> [ChordDefinition] {
-        switch instrument {
-        case .guitarStandardETuning:
-            Chords.guitar
-        case .guitaleleStandardATuning:
-            Chords.guitalele
-        case .ukuleleStandardGTuning:
-            Chords.ukulele
         }
     }
 }
