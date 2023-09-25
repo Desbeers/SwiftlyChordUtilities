@@ -33,6 +33,6 @@ struct DatabaseView: View {
     }
     /// Filter the chords by selected root
     private func filterChords() {
-        chords = model.chords.matching(root: options.definition.root)
+        chords = model.chords.matching(root: options.definition.root).sorted(using: KeyPathComparator(\.quality))
     }
 }
