@@ -33,3 +33,13 @@ public extension Array where Element == ChordDefinition {
         return self.filter { $0.quality.group == group }
     }
 }
+
+extension Array {
+
+    /// Get all combinations of an array
+    ///  - Note: Used to get all chord notes combinations in `getChordComponents`
+    var combinationsWithoutRepetition: [[Element]] {
+        guard !isEmpty else { return [[]] }
+        return Array(self[1...]).combinationsWithoutRepetition.flatMap { [$0, [self[0]] + $0] }
+    }
+}

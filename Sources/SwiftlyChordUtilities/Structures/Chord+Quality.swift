@@ -23,16 +23,17 @@ extension Chord {
         case seven = "7"
         case sevenSharpFive = "7#5"
         case sevenFlatFive = "7b5"
+        case sevenSharpNine = "7#9"
+        case sevenFlatNine = "7b9"
         case minorSeven = "m7"
         case majorSeven = "maj7"
         case augSeven = "aug7"
         case dimSeven = "dim7"
-        case majorSevenFlatFive = "maj7b5"
         case majorSevenSharpFive = "maj7#5"
-        case minorSevenFlatFive = "m7b5"
-
+        case majorSevenFlatFive = "maj7b5"
         case minorMajorSeven = "mmaj7"
         case minorMajorSeventFlatFive = "mmaj7b5"
+        case minorSevenFlatFive = "m7b5"
 
         // MARK: Suspended
 
@@ -64,18 +65,18 @@ extension Chord {
         case five = "5"
         case six = "6"
         case minorSix = "m6"
+        case sixNine = "6/9"
+        case minorSixNine = "m6/9"
         case addNine = "add9"
         case minorAddNine = "madd9"
+
+        // MARK: Augmented
+
+        case augNine = "aug9"
 
         // MARK: Other
 
         case altered = "alt"
-        case sixNine = "6/9"
-        case augNine = "aug9"
-        case sevenFlatNine = "7b9"
-        case sevenSharpNine = "7#9"
-        case minorSixNine = "m6/9"
-
         /// Fallback
         case unknown
 

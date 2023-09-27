@@ -69,19 +69,34 @@ func fingersToBarres(fingers: [Int]) -> [Int] {
     return barres
 }
 
+
+/// Get all possible chord notes for a ``ChordDefinition``
+/// - Parameters:
+///   - chord: The ``ChordDefinition``
+///   - addBase: Bool to add the optional bass to the notes
+/// - Returns: An array with ``Chord/Root`` arrays
 func getChordComponents(chord: ChordDefinition, addBase: Bool = true) -> [[Chord.Root]] {
-    let qualities = qualities.filter { $0.key == chord.quality }
+    /// All the possible note combinations
+    var result: [[Chord.Root]] = []
+    /// Get the root note value
     let rootValue = noteToValue(note: chord.root)
-    var components: [[Chord.Root]] = []
-    for quality in qualities {
-        var elements: [Chord.Root] = []
-        for component in quality.value {
-            elements.append(valueToNote(value: component + rootValue, scale: chord.root))
-        }
-        if addBase, let bass = chord.bass, !elements.contains(bass) {
-            elements.insert(bass, at: 0)
-        }
-        components.append(elements)
+    /// Get all notes
+    let notes = chord.quality.intervals.intervals.map(\.semitones).map { tone in
+        valueToNote(value: tone + rootValue, scale: chord.root)
     }
-    return components
+    /// Get a list of optional notes that can be ommited
+    let optionals = chord.quality.intervals.optional.map(\.semitones).map { tone in
+        valueToNote(value: tone + rootValue, scale: chord.root)
+    }.combinationsWithoutRepetition
+    /// Make all combinations
+    for optional in optionals {
+        var components = notes.filter { !optional.contains($0) }
+        /// Add the optional bass
+        if addBase, let bass = chord.bass, !components.contains(bass) {
+            components.insert(bass, at: 0)
+        }
+        result.append(components)
+    }
+    /// Return the result
+    return result
 }

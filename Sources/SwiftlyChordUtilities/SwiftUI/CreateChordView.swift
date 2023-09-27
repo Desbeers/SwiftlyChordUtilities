@@ -30,6 +30,11 @@ public struct CreateChordView: View {
         VStack {
             Text("\(options.definition.displayName(options: .init(rootDisplay: .raw, qualityDisplay: .raw)))")
                 .font(.largeTitle)
+            HStack {
+                ForEach(options.definition.quality.intervals.intervals, id: \.self) { interval in
+                    Text(interval.description)
+                }
+            }
             options.rootPicker
                 .pickerStyle(.segmented)
                 .padding(.bottom)
@@ -67,34 +72,21 @@ public struct CreateChordView: View {
                     diagramView(width: 240)
                     Label(
                         title: {
-                            VStack(alignment: .leading) {
-                                ForEach(chordComponents.indices, id: \.self) { component in
-                                    HStack {
-                                        if component == 0 {
-                                            Text("**\(options.definition.displayName(options: .init()))** contains")
-                                            ForEach(chordComponents[component], id: \.self) { element in
-                                                Text(element.display.symbol)
-                                            }
-                                        } else {
-                                            let omitted = chordComponents[0].filter { !chordComponents[component].contains($0) }
-                                            ForEach(omitted, id: \.self) { element in
-
-                                                Text("\(element.display.symbol)")
-                                            }
-                                            Text("can be omitted")
-                                        }
+                            if let components = chordComponents.first {
+                                HStack {
+                                    Text("**\(options.definition.displayName(options: .init()))** contains")
+                                    ForEach(components, id: \.self) { element in
+                                        Text(element.display.symbol)
+                                            .fontWeight(checkRequiredNote(note: element) ? .bold : .regular)
                                     }
                                 }
                             }
                         },
                         icon: { Image(systemName: "info.circle.fill") }
                     )
-                    .foregroundStyle(.secondary)
                     .padding(.bottom)
                     Text(diagram?.validate.label ?? "Unknown status")
                         .foregroundStyle(diagram?.validate.color ?? .primary)
-                    //Text(diagram?.validate ?? false ? "Chord is correct" : "Chord seems not correct")
-                    //chordFinderList
                 }
                 .frame(width: 300, height: 450)
                 VStack {
@@ -146,15 +138,21 @@ public struct CreateChordView: View {
             ProgressView()
         }
     }
-
-    func bassNote() -> Chord.Root? {
-
-        let firstNote = diagram?.components.first(where: {$0.note != .none})?.note
-
-        if let firstNote {
-            return firstNote == options.definition.root ? nil : firstNote
+    
+    /// Check if a note is required for a chord
+    ///
+    /// The first array of the `chordComponents` contains all notes
+    ///
+    /// The last array of the `chordComponents` contains the least notes
+    ///
+    /// - Parameter note: The note to check
+    /// - Returns: True or False
+    func checkRequiredNote(note: Chord.Root) -> Bool {
+        if let first = chordComponents.first, let last = chordComponents.last {
+            let omitted = first.filter { !last.contains($0) }
+            return omitted.contains(note) ? false : true
         }
-        return nil
+        return true
     }
 
     func header(text: String) -> some View {

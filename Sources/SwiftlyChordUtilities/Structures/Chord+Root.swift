@@ -77,6 +77,49 @@ extension Chord {
                 ("X", "X")
             }
         }
+
+        /// The name of the root for a **ChordPro** definition
+        /// - Note changes to this definition will break the databases
+        var definition: String {
+            switch self {
+            case .c:
+                "C"
+            case .cSharp:
+                "C#"
+            case .dFlat:
+                "Bb"
+            case .d:
+                "D"
+            case .dSharp:
+                "D#"
+            case .eFlat:
+                "Ab"
+            case .e:
+                "E"
+            case .f:
+                "F"
+            case .fSharp:
+                "F#"
+            case .gFlat:
+                "Gb"
+            case .g:
+                "G"
+            case .gSharp:
+                "G#"
+            case .aFlat:
+                "Ab"
+            case .a:
+                "A"
+            case .aSharp:
+                "A#"
+            case .bFlat:
+                "Bb"
+            case .b:
+                "B"
+            case .none:
+                "X"
+            }
+        }
     }
 }
 

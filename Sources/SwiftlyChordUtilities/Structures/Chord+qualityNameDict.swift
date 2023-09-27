@@ -10,6 +10,7 @@ import Foundation
 public extension Chord {
     
     /// A dictionary with optional names for a quality
+    /// - Note: Used to parse a **ChordPro** definition
     static var qualityNameDict: [Quality: [String]] {
         [
             .major: ["major", "maj"],
