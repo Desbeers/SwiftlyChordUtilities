@@ -9,8 +9,10 @@ import Foundation
 
 extension Chord {
 
+    /// The root of a chord
+    /// - Note: Changes to the raw value might break the databases
     public enum Root: String, CaseIterable, Codable, Comparable {
-        case none = "None"
+        case none = "X"
         // swiftlint:disable identifier_name
         case c = "C"
         case cSharp = "C#"
@@ -75,49 +77,6 @@ extension Chord {
                 ("B", "B")
             case .none:
                 ("X", "X")
-            }
-        }
-
-        /// The name of the root for a **ChordPro** definition
-        /// - Note changes to this definition will break the databases
-        var definition: String {
-            switch self {
-            case .c:
-                "C"
-            case .cSharp:
-                "C#"
-            case .dFlat:
-                "Bb"
-            case .d:
-                "D"
-            case .dSharp:
-                "D#"
-            case .eFlat:
-                "Ab"
-            case .e:
-                "E"
-            case .f:
-                "F"
-            case .fSharp:
-                "F#"
-            case .gFlat:
-                "Gb"
-            case .g:
-                "G"
-            case .gSharp:
-                "G#"
-            case .aFlat:
-                "Ab"
-            case .a:
-                "A"
-            case .aSharp:
-                "A#"
-            case .bFlat:
-                "Bb"
-            case .b:
-                "B"
-            case .none:
-                "X"
             }
         }
     }

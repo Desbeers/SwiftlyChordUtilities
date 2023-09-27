@@ -9,11 +9,13 @@ import Foundation
 
 extension Chord {
 
+    /// All the chord qualities we know about
+    /// - Note: Changes to the raw value might break the databases
     public enum Quality: String, CaseIterable, Codable, Comparable {
 
         // MARK: Triad
 
-        case major = "major"
+        case major = ""
         case minor = "minor"
         case aug = "aug"
         case dim = "dim"
@@ -31,8 +33,8 @@ extension Chord {
         case dimSeven = "dim7"
         case majorSevenSharpFive = "maj7#5"
         case majorSevenFlatFive = "maj7b5"
-        case minorMajorSeven = "mmaj7"
-        case minorMajorSeventFlatFive = "mmaj7b5"
+        case minorMajorSeven = "mMaj7"
+        case minorMajorSeventFlatFive = "mMaj7b5"
         case minorSevenFlatFive = "m7b5"
 
         // MARK: Suspended
@@ -46,7 +48,7 @@ extension Chord {
 
         case nine = "9"
         case majorNine = "maj9"
-        case minorMajorNine = "mmaj9"
+        case minorMajorNine = "mMaj9"
         case minorNine = "m9"
         case nineFlatFive = "9b5"
         case nineSharpEleven = "9#11"
@@ -54,7 +56,7 @@ extension Chord {
         case eleven = "11"
         case majorEleven = "maj11"
         case minorEleven = "m11"
-        case minorMajorEleven = "mmaj11"
+        case minorMajorEleven = "mMaj11"
 
         case thirteen = "13"
         case majorThirteen = "maj13"
@@ -65,8 +67,8 @@ extension Chord {
         case five = "5"
         case six = "6"
         case minorSix = "m6"
-        case sixNine = "6/9"
-        case minorSixNine = "m6/9"
+        case sixNine = "69"
+        case minorSixNine = "m69"
         case addNine = "add9"
         case minorAddNine = "madd9"
 

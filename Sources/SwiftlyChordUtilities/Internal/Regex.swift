@@ -33,11 +33,13 @@ let chordRegex = Regex {
                 )
             }
         } transform: { quality in
-            for name in Chord.qualityNameDict {
-                if name.value.contains(String(quality)) {
-                    return name.key
+            /// Try to find the name of the quality
+            for name in Chord.Quality.allCases {
+                if name.name.contains(String(quality)) {
+                    return name
                 }
             }
+            /// The quality is unknown
             return Chord.Quality.unknown
         }
     }

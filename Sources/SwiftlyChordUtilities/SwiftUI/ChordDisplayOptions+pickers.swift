@@ -108,7 +108,7 @@ extension ChordDisplayOptions {
         var body: some View {
             Picker("Root:", selection: $options.definition.root) {
                 ForEach(Chord.Root.allCases.dropFirst(), id: \.rawValue) { value in
-                    Text(value.rawValue)
+                    Text(value.display.symbol)
                         .tag(value)
                 }
             }

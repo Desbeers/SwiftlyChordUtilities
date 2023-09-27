@@ -56,7 +56,7 @@ public extension ChordDefinition {
 
 public extension ChordDefinition {
 
-    /// Convert a ``ChordDefinition`` into a ChordPro `{define}`
+    /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}`
     var define: String {
         var define = root.rawValue
         
