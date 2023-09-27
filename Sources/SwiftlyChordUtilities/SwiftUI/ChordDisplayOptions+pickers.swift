@@ -129,10 +129,39 @@ extension ChordDisplayOptions {
         var body: some View {
             Picker("Quality:", selection: $options.definition.quality) {
                 ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
-                    Text(value.rawValue)
+                    Text(value == .major ? "major" : value.rawValue)
                         .tag(value)
                 }
             }
+        }
+    }
+
+    // MARK: Base Fret Picker
+
+    /// SwiftUI `View` with a `Picker` to select a `baseFret` value
+    public var baseFretPicker: some View {
+        BaseFretPicker()
+    }
+    /// SwiftUI `View` with a `Picker` to select a `baseFret` value
+    struct BaseFretPicker: View {
+        /// Chord Display Options object
+        @EnvironmentObject var options: ChordDisplayOptions
+        /// The selected bass note
+        @State private var bass: Chord.Root = .none
+        /// The body of the `View`
+        var body: some View {
+            Picker("Base fret:", selection: $options.definition.baseFret) {
+                ForEach(1...20, id: \.self) { value in
+                    Text(fretLabel(fret: value))
+                        .tag(value)
+                }
+            }
+        }
+        /// Make the label fancy
+        private func fretLabel(fret: Int) -> String {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .ordinal
+            return formatter.string(from: NSNumber(integerLiteral: fret)) ?? "\(fret)"
         }
     }
 

@@ -105,93 +105,93 @@ extension Chord {
         public var display: (accessible: String, short: String, symbolized: String, altSymbol: String) {
             switch self {
             case .major:
-                (" major", "", "", "")
+                ("major", "", "", "")
             case .minor:
-                (" minor", "m", "m", "m")
+                ("minor", "m", "m", "m")
             case .dim:
-                (" diminished", "dim", "dim", "dim")
+                ("diminished", "dim", "dim", "dim")
             case .dimSeven:
-                (" dim seven", "dim7", "dim⁷", "°")
+                ("dim seven", "dim7", "dim⁷", "°")
             case .susTwo:
-                (" suss two", "sus2", "sus²", "sus²")
+                ("suss two", "sus2", "sus²", "sus²")
             case .susFour:
-                (" suss four", "sus4", "sus⁴", "sus⁴")
+                ("suss four", "sus4", "sus⁴", "sus⁴")
             case .sevenSusTwo:
-                (" seven sus two", "7sus2", "⁷sus²", "⁷sus²")
+                ("seven sus two", "7sus2", "⁷sus²", "⁷sus²")
             case .sevenSusFour:
-                (" seven sus four", "7sus4", "⁷sus⁴", "⁷sus⁴")
+                ("seven sus four", "7sus4", "⁷sus⁴", "⁷sus⁴")
             case .five:
-                (" power", "5", "⁵", "⁵")
+                ("power", "5", "⁵", "⁵")
             case .aug:
-                (" augmented", "aug", "aug", "⁺")
+                ("augmented", "aug", "aug", "⁺")
             case .six:
-                (" six", "6", "⁶", "⁶")
+                ("six", "6", "⁶", "⁶")
             case .sixNine:
-                (" six slash nine", "6/9", "⁶ᐟ⁹", "⁶ᐟ⁹")
+                ("six slash nine", "6/9", "⁶ᐟ⁹", "⁶ᐟ⁹")
             case .seven:
-                (" seven", "7", "⁷", "⁷")
+                ("seven", "7", "⁷", "⁷")
             case .sevenFlatFive:
-                (" seven flat five", "7b5", "⁷♭⁵", "⁷♭⁵")
+                ("seven flat five", "7b5", "⁷♭⁵", "⁷♭⁵")
             case .augSeven:
-                (" org seven", "aug7", "aug⁷", "⁺⁷")
+                ("org seven", "aug7", "aug⁷", "⁺⁷")
             case .nine:
-                (" nine", "9", "⁹", "⁹")
+                ("nine", "9", "⁹", "⁹")
             case .nineFlatFive:
-                (" nine flat five", "9b5", "⁹♭⁵", "⁹♭⁵")
+                ("nine flat five", "9b5", "⁹♭⁵", "⁹♭⁵")
             case .augNine:
-                (" org nine", "aug9", "aug⁹", "⁺⁹")
+                ("org nine", "aug9", "aug⁹", "⁺⁹")
             case .sevenFlatNine:
-                (" seven flat nine", "7b9", "⁷♭⁹", "⁷♭⁹")
+                ("seven flat nine", "7b9", "⁷♭⁹", "⁷♭⁹")
             case .sevenSharpNine:
-                (" seven sharp nine", "7#9", "⁷♯⁹", "⁷♯⁹")
+                ("seven sharp nine", "7#9", "⁷♯⁹", "⁷♯⁹")
             case .sevenSharpFive:
-                (" dominant sharp five", "7#5", "⁷♯⁵", "⁷♯⁵")
+                ("dominant sharp five", "7#5", "⁷♯⁵", "⁷♯⁵")
             case .eleven:
-                (" eleven", "11", "¹¹", "¹¹")
+                ("eleven", "11", "¹¹", "¹¹")
             case .nineSharpEleven:
-                (" nine sharp eleven", "9#11", "⁹♯¹¹", "⁹♯¹¹")
+                ("nine sharp eleven", "9#11", "⁹♯¹¹", "⁹♯¹¹")
             case .thirteen:
-                (" thirteen", "13", "¹³", "¹³")
+                ("thirteen", "13", "¹³", "¹³")
             case .minorThirteen:
-                (" minor thirteen", "m13", "m¹³", "m¹³")
+                ("minor thirteen", "m13", "m¹³", "m¹³")
             case .majorSeven:
-                (" major seven", "maj7", "maj⁷", "M⁷")
+                ("major seven", "maj7", "maj⁷", "M⁷")
             case .majorSevenFlatFive:
-                (" major seven flat five", "maj7b5", "maj⁷♭⁵", "M⁷♭⁵")
+                ("major seven flat five", "maj7b5", "maj⁷♭⁵", "M⁷♭⁵")
             case .majorSevenSharpFive:
-                (" major seven sharp five", "maj7#5", "maj⁷♯⁵", "M⁷♯⁵")
+                ("major seven sharp five", "maj7#5", "maj⁷♯⁵", "M⁷♯⁵")
             case .majorNine:
-                (" major nine", "maj9", "maj⁹", "M⁹")
+                ("major nine", "maj9", "maj⁹", "M⁹")
             case .majorEleven:
-                (" major eleven", "maj11", "maj¹¹", "m¹¹")
+                ("major eleven", "maj11", "maj¹¹", "m¹¹")
             case .majorThirteen:
-                (" major thirteen", "maj13", "maj¹³", "M¹³")
+                ("major thirteen", "maj13", "maj¹³", "M¹³")
             case .minorSix:
-                (" minor six", "m6", "m⁶", "m⁶")
+                ("minor six", "m6", "m⁶", "m⁶")
             case .minorSixNine:
-                (" minor six slash nine", "m6/9", "m⁶ᐟ⁹", "m⁶ᐟ⁹")
+                ("minor six slash nine", "m6/9", "m⁶ᐟ⁹", "m⁶ᐟ⁹")
             case .minorSeven:
-                (" minor seven", "m7", "m⁷", "m⁷")
+                ("minor seven", "m7", "m⁷", "m⁷")
             case .minorSevenFlatFive:
-                (" minor seven flat five", "m7b5", "m⁷♭⁵", "ø⁷")
+                ("minor seven flat five", "m7b5", "m⁷♭⁵", "ø⁷")
             case .minorNine:
-                (" minor nine", "m9", "m⁹", "m⁹")
+                ("minor nine", "m9", "m⁹", "m⁹")
             case .minorEleven:
-                (" minor eleven", "m11", "m¹¹", "m¹¹")
+                ("minor eleven", "m11", "m¹¹", "m¹¹")
             case .minorMajorSeven:
-                (" minor major seven", "mMaj7", "mMaj⁷", "mᴹ⁷")
+                ("minor major seven", "mMaj7", "mMaj⁷", "mᴹ⁷")
             case .minorMajorSeventFlatFive:
-                (" minor major seven flat five", "mMaj7b5", "mMaj⁷♭⁵", "mᴹ⁷♭⁵")
+                ("minor major seven flat five", "mMaj7b5", "mMaj⁷♭⁵", "mᴹ⁷♭⁵")
             case .minorMajorNine:
-                (" minor major nine", "mMaj9", "mMaj⁹", "mᴹ⁹")
+                ("minor major nine", "mMaj9", "mMaj⁹", "mᴹ⁹")
             case .minorMajorEleven:
-                (" minor major eleven", "mMaj11", "mMaj¹¹", "mᴹ¹¹")
+                ("minor major eleven", "mMaj11", "mMaj¹¹", "mᴹ¹¹")
             case .addNine:
-                (" add nine", "add9", "add⁹", "ᵃᵈᵈ⁹")
+                ("add nine", "add9", "add⁹", "ᵃᵈᵈ⁹")
             case .minorAddNine:
-                (" minor add nine", "madd9", "madd⁹", "mᵃᵈᵈ⁹")
+                ("minor add nine", "madd9", "madd⁹", "mᵃᵈᵈ⁹")
             case .unknown:
-                (" unknown", "?", "?", "?")
+                ("unknown", "?", "?", "?")
             }
         }
 

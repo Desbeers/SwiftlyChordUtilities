@@ -48,12 +48,7 @@ public struct CreateChordView: View {
                 })
                 .frame(maxWidth: 150)
                 LabeledContent(content: {
-                    Picker("Base fret:", selection: $options.definition.baseFret) {
-                        ForEach(1...20, id: \.self) { value in
-                            Text(value.description)
-                                .tag(value)
-                        }
-                    }
+                    options.baseFretPicker
                     .labelsHidden()
                 }, label: {
                     Text("Base fret:")

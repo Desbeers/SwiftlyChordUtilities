@@ -12,7 +12,7 @@ extension Chord {
     /// The root of a chord
     /// - Note: Changes to the raw value might break the databases
     public enum Root: String, CaseIterable, Codable, Comparable {
-        case none = "X"
+        case none = "None"
         // swiftlint:disable identifier_name
         case c = "C"
         case cSharp = "C#"
