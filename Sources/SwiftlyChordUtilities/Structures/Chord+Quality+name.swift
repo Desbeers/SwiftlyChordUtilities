@@ -99,8 +99,6 @@ extension Chord.Quality {
             ["madd9"]
         case .augNine:
             ["aug9"]
-        case .altered:
-            ["alt"]
         case .unknown:
             ["?"]
         }

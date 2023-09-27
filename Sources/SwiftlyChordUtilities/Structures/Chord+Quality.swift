@@ -78,7 +78,6 @@ extension Chord {
 
         // MARK: Other
 
-        case altered = "alt"
         /// Fallback
         case unknown
 
@@ -123,8 +122,6 @@ extension Chord {
                 (" seven sus four", "7sus4", "⁷sus⁴", "⁷sus⁴")
             case .five:
                 (" power", "5", "⁵", "⁵")
-            case .altered:
-                (" alt", "alt", "alt", "alt")
             case .aug:
                 (" augmented", "aug", "aug", "⁺")
             case .six:
@@ -218,7 +215,7 @@ extension Chord {
                 .suspended
             case .aug, .augSeven, .augNine:
                 .augmented
-            case .altered, .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive, .unknown:
+            case .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive, .unknown:
                 .other
             }
             // swiftlint:enable line_length

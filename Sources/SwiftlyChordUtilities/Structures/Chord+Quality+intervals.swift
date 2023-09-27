@@ -186,12 +186,6 @@ public extension Chord.Quality {
             /// C    E    G#    Bb    D
             ([.P1, .M3, .A5, .m7, .M9], [])
 
-            // MARK: - Other
-
-        case .altered:
-            /// I'm going to remove this one
-            ([], [])
-
             // MARK: - Unknown
 
         case.unknown:
