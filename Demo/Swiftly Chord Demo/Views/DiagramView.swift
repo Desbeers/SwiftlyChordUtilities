@@ -21,7 +21,7 @@ struct DiagramView: View {
     var body: some View {
         let color = appearance.colors
         ChordDefinitionView(chord: chord, width: width, options: options.displayOptions)
-            .frame(height: width * 1.6)
+            .frame(height: width * 1.75)
             .foregroundStyle(color.primary, color.secondary)
             .background(appearance == .print ? Color.white : color.primary.opacity(0.2))
             .animation(.default, value: options.displayOptions)
