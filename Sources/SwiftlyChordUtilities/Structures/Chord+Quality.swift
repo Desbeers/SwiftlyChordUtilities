@@ -16,7 +16,7 @@ extension Chord {
         // MARK: Triad
 
         case major = ""
-        case minor = "minor"
+        case minor = "m"
         case aug = "aug"
         case dim = "dim"
         

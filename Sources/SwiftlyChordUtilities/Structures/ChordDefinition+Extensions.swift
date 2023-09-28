@@ -59,21 +59,10 @@ public extension ChordDefinition {
     /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}`
     var define: String {
         var define = root.rawValue
-        
-        switch quality {
-        case .major:
-            define += ""
-        case .sixNine:
-            define += "69"
-        case .minorSixNine:
-            define += "m69"
-        default:
-            define += quality.display.short
-        }
+        define += quality.rawValue
         if let bass {
             define += "/\(bass.rawValue)"
         }
-
         define += " base-fret "
         define += baseFret.description
         define += " frets "

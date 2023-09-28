@@ -7,12 +7,17 @@
 
 import SwiftUI
 
+/// The validation of a ``ChordDefinition``
 public enum ChordValidation: String {
+    /// The definition is correct
     case correct
+    /// The definition has a wrong bass note
     case wrongBassNote
+    /// The definition has a wrong root note
     case wrongRootNote
+    /// The definition contains wrong notes
     case wronggNotes
-
+    /// The color for a label
     public var color: Color {
         switch self {
         case .correct:
@@ -25,7 +30,7 @@ public enum ChordValidation: String {
                 .red
         }
     }
-
+    /// The label for the validations
     public var label: String {
         switch self {
         case .correct:
