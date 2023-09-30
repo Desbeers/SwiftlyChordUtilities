@@ -119,7 +119,7 @@ extension Chords {
                 definitions.append(result)
             }
         }
-        return definitions
+        return definitions.sorted(using: KeyPathComparator(\.baseFret))
     }
 
     static func parseDefinitions(instrument: Instrument, definitions: String) -> [ChordDefinition] {
