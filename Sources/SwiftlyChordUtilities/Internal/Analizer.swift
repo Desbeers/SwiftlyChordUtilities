@@ -31,24 +31,35 @@ func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Qual
 /// - Returns: The ``ChordValidation``
 func validateChord(chord: ChordDefinition) -> ChordValidation {
     if chord.quality == .unknown {
-        return .wronggNotes
+        return .wrongNotes
     }
     var validation: ChordValidation = .correct
     var notes = chord.components.filter { $0.note != .none} .uniqued(by: \.note).map(\.note)
     let components = getChordComponents(chord: chord, addBase: false)
     for component in components {
+        /// Check bass note
         if let bass = chord.bass {
             if notes.first != bass {
                 return .wrongBassNote
             } else if !component.contains(bass) {
                 notes.removeAll(where: { $0 == bass })
             }
-        } else if notes.first != chord.root {
+        } 
+        /// Check root note
+        else if notes.first != chord.root {
             validation = .wrongRootNote
+        }
+        /// Check fingers
+        else {
+            for index in chord.frets.enumerated() {
+                if chord.frets[index.offset] == -1 && chord.fingers[index.offset] != 0 {
+                    return .wrongFingers
+                }
+            }
         }
         if component.sorted() == notes.sorted() {
             return validation
         }
     }
-    return .wronggNotes
+    return .wrongNotes
 }

@@ -16,7 +16,9 @@ public enum ChordValidation: String {
     /// The definition has a wrong root note
     case wrongRootNote
     /// The definition contains wrong notes
-    case wronggNotes
+    case wrongNotes
+    /// The definition contains wrong fingers
+    case wrongFingers
     /// The color for a label
     public var color: Color {
         switch self {
@@ -26,8 +28,10 @@ public enum ChordValidation: String {
                 .red
         case .wrongRootNote:
                 .purple
-        case .wronggNotes:
+        case .wrongNotes:
                 .red
+        case .wrongFingers:
+                .brown
         }
     }
     /// The label for the validations
@@ -39,8 +43,10 @@ public enum ChordValidation: String {
             "The chord does not start with the bass note"
         case .wrongRootNote:
             "The chord does not start with the root note"
-        case .wronggNotes:
+        case .wrongNotes:
             "The chord contains incorrect notes"
+        case .wrongFingers:
+            "The chord contains incorrect fingers"
         }
     }
 }
