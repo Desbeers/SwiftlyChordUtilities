@@ -115,7 +115,11 @@ extension Chords {
     static func importDatabase(database: Database) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []
         for definition in database.definitions {
-            if let result = ChordDefinition(definition: definition, instrument: database.instrument) {
+            if let result = ChordDefinition(
+                definition: definition,
+                instrument: database.instrument,
+                status: .standard
+            ) {
                 definitions.append(result)
             }
         }
@@ -124,7 +128,11 @@ extension Chords {
 
     static func parseDefinitions(instrument: Instrument, definitions: String) -> [ChordDefinition] {
         definitions.split(separator: "\n", omittingEmptySubsequences: true).map { definition in
-            if let result = ChordDefinition(definition: String(definition), instrument: instrument) {
+            if let result = ChordDefinition(
+                definition: String(definition),
+                instrument: instrument,
+                status: .standard
+            ) {
                 return result
             }
             return ChordDefinition(unknown: "Unknown", instrument: instrument)

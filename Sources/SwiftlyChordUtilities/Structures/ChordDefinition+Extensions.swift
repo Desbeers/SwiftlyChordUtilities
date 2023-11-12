@@ -42,6 +42,9 @@ public extension ChordDefinition {
                 name += "/\(bass.display.symbol)"
             }
         }
+        if self.status == .custom || self.status == .customTransposed {
+            name += "*"
+        }
         return name
     }
 }

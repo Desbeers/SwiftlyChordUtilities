@@ -63,7 +63,11 @@ struct DefineView: View {
             chord = nil
             status = .empty
         } else {
-            chord = ChordDefinition(definition: definition, instrument: options.instrument)
+            chord = ChordDefinition(
+                definition: definition,
+                instrument: options.instrument,
+                status: .unknown
+            )
             status = chord == nil ? .empty : .ready
         }
     }

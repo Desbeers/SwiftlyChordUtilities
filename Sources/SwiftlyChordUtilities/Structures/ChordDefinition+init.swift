@@ -61,7 +61,14 @@ public extension ChordDefinition {
     // MARK: Init with a definition
 
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
-    init?(definition: String, instrument: Instrument) {
+    ///
+    /// If the status is 'unknown', this functuon will try to find trhe chrd in the database
+    ///
+    /// - Parameters:
+    ///   - definition: The **ChordPro** definition
+    ///   - instrument: The ``Instrument``
+    ///   - status: The ``Chord/Status``
+    init?(definition: String, instrument: Instrument, status: Chord.Status) {
         /// Parse the chord definition
         if let definition = SwiftlyChordUtilities.define(from: definition, instrument: instrument) {
             /// Set the properties
@@ -74,7 +81,20 @@ public extension ChordDefinition {
             self.name = definition.name
             self.bass = definition.bass
             self.instrument = instrument
-            self.status = .custom
+            self.status = status
+            if status == .unknown {
+                /// Get the optional matching chords
+                let chords = Chords.getAllChordsForInstrument(instrument: instrument)
+                    .matching(root: definition.root)
+                    .matching(quality: definition.quality)
+                    .matching(bass: definition.bass)
+                /// See if we can find it
+                if chords.firstIndex(where: {$0.frets == definition.frets && $0.baseFret == definition.baseFret}) != nil {
+                    self.status = .standard
+                } else {
+                    self.status = .custom
+                }
+            }
             /// Calculated values
             self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
             self.barres = fingersToBarres(fingers: fingers)
@@ -86,6 +106,10 @@ public extension ChordDefinition {
     // MARK: Init with a name
 
     /// Init the ``ChordDefinition`` with the name of a chord
+    ///
+    /// - Parameters:
+    ///   - name: The name of the chord, e.g 'Am7'
+    ///   - instrument: The ``Instrument``
     init?(name: String, instrument: Instrument) {
         /// Parse the chord name
         let elements = findChordElements(chord: name)
@@ -115,9 +139,13 @@ public extension ChordDefinition {
         self.barres = fingersToBarres(fingers: fingers)
     }
 
-    // MARK: Init with unknown
+    // MARK: Init with an unknown name
 
     /// Init the ``ChordDefinition`` with an unknown chord
+    ///
+    /// - Parameters:
+    ///   - unknown: The name of the unknown chord
+    ///   - instrument: The ``Instrument``
     init(unknown: String, instrument: Instrument) {
         /// Set the properties
         self.id = UUID()
