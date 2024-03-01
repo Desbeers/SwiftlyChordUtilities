@@ -12,27 +12,28 @@ struct DatabaseView: View {
     /// The chords in this `View`
     @State private var chords: [ChordDefinition] = []
     /// Chords model
-    @EnvironmentObject private var model: ChordsModel
+    @Environment(ChordsModel.self) private var chordsModel
     /// Chord Display Options
-    @EnvironmentObject private var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
-            options.rootPicker
+            chordDisplayOptions.rootPicker
                 .pickerStyle(.segmented)
                 .padding()
             GridView(chords: chords)
-                .id(options.definition.root)
+                .id(chordDisplayOptions.definition.root)
         }
-        .task(id: options.definition.root) {
+        .task(id: chordDisplayOptions.definition.root) {
             filterChords()
         }
-        .task(id: model.chords) {
+        .task(id: chordsModel.chords) {
             filterChords()
         }
     }
     /// Filter the chords by selected root
     private func filterChords() {
-        chords = model.chords.matching(root: options.definition.root).sorted(using: KeyPathComparator(\.quality))
+        chords = chordsModel.chords.matching(root: chordDisplayOptions.definition.root)
+            .sorted(using: KeyPathComparator(\.quality))
     }
 }

@@ -12,7 +12,7 @@ struct DiagramView: View {
     /// The chord to show
     let chord: ChordDefinition
     /// Chord Display Options
-    @EnvironmentObject private var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The current width of the diagram
     @AppStorage("Diagram Width") private var width: Double = 300
     /// The current appearance
@@ -20,10 +20,10 @@ struct DiagramView: View {
     /// The body of the `View`
     var body: some View {
         let color = appearance.colors
-        ChordDefinitionView(chord: chord, width: width, options: options.displayOptions)
+        ChordDefinitionView(chord: chord, width: width, options: chordDisplayOptions.displayOptions)
             .frame(height: width * 1.75)
             .foregroundStyle(color.primary, color.secondary)
             .background(appearance == .print ? Color.white : color.primary.opacity(0.2))
-            .animation(.default, value: options.displayOptions)
+            .animation(.default, value: chordDisplayOptions.displayOptions)
     }
 }

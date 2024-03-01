@@ -16,9 +16,9 @@ struct LookupView: View {
     /// The chords to show
     @State private var chords: [ChordDefinition] = []
     /// Chords model
-    @EnvironmentObject private var model: ChordsModel
+    @Environment(ChordsModel.self) private var chordsModel
     /// Chord Display Options
-    @EnvironmentObject private var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The boduy of the `View`
     var body: some View {
         ScrollView {
@@ -34,7 +34,8 @@ struct LookupView: View {
             case .loading:
                 ProgressView()
             case .ready:
-                Text("let chord = ChordDefinition(name: \"\(name)\", instrument: .\(options.instrument.rawValue))")
+                // swiftlint:disable:next line_length
+                Text("let chord = ChordDefinition(name: \"\(name)\", instrument: .\(chordDisplayOptions.instrument.rawValue))")
                     .fontDesign(.monospaced)
                 GridView(chords: chords)
             case .empty:
@@ -46,14 +47,17 @@ struct LookupView: View {
         .task(id: name) {
             findChords()
         }
-        .task(id: model.chords) {
+        .task(id: chordsModel.chords) {
             findChords()
         }
     }
     /// Find the chords
     private func findChords() {
-        if let chord = ChordDefinition(name: name, instrument: options.instrument) {
-            chords = model.chords.matching(root: chord.root).matching(quality: chord.quality).matching(bass: chord.bass)
+        if let chord = ChordDefinition(name: name, instrument: chordDisplayOptions.instrument) {
+            chords = chordsModel.chords
+                .matching(root: chord.root)
+                .matching(quality: chord.quality)
+                .matching(bass: chord.bass)
             status = .ready
         } else {
             chords = []

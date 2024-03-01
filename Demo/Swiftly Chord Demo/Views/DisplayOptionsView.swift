@@ -10,33 +10,33 @@ import SwiftlyChordUtilities
 
 struct DisplayOptionsView: View {
     /// Chord Display Options
-    @EnvironmentObject var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     var body: some View {
         Group {
-            options.nameToggle
+            chordDisplayOptions.nameToggle
             HStack(spacing: 0) {
                 Image(systemName: "textformat.size.larger")
-                options.displayRootPicker
+                chordDisplayOptions.displayRootPicker
                 Image(systemName: "textformat.size.smaller")
-                options.displayQualityPicker
+                chordDisplayOptions.displayQualityPicker
             }
             .padding(.leading)
             .labelsHidden()
-            .disabled(!options.displayOptions.showName)
-            options.fingersToggle
-            options.notesToggle
-            options.mirrorToggle
-            options.playToggle
+            .disabled(!chordDisplayOptions.displayOptions.showName)
+            chordDisplayOptions.fingersToggle
+            chordDisplayOptions.notesToggle
+            chordDisplayOptions.mirrorToggle
+            chordDisplayOptions.playToggle
             HStack(spacing: 0) {
                 Image(systemName: "guitars.fill")
-                options.midiInstrumentPicker
+                chordDisplayOptions.midiInstrumentPicker
             }
             .padding(.leading)
             .labelsHidden()
-            .disabled(!options.displayOptions.showPlayButton)
+            .disabled(!chordDisplayOptions.displayOptions.showPlayButton)
         }
         .tint(.accentColor)
         .buttonStyle(.plain)
-        .animation(.default, value: options.displayOptions)
+        .animation(.default, value: chordDisplayOptions.displayOptions)
     }
 }

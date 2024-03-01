@@ -11,13 +11,12 @@ import SwiftlyStructCache
 /**
  An `Observable` Class with SwiftUI elements
 
- This class contains Toogles and Pickers you can add to your application to change the appearance of the chord diagrams.
-
- To use these elements, this Class must be added to your application as an `EnvironmentObject`
+ This class contains SwiftUI Toggles and Pickers you can add to your application to change the appearance of the chord diagrams.
 
  - Note: The ``ChordDefinition/DisplayOptions`` will be preserved on disk.
  */
-public final class ChordDisplayOptions: ObservableObject {
+@Observable
+public final class ChordDisplayOptions {
     /// Init the Class with optional defaults
     public init(defaults: ChordDefinition.DisplayOptions? = nil) {
         do {
@@ -29,7 +28,7 @@ public final class ChordDisplayOptions: ObservableObject {
     }
 
     /// All the ``ChordDefinition/DisplayOptions``
-    @Published public var displayOptions: ChordDefinition.DisplayOptions {
+    public var displayOptions: ChordDefinition.DisplayOptions {
         didSet {
             try? Cache.set(key: "DisplayOptions", object: displayOptions)
         }
@@ -37,8 +36,9 @@ public final class ChordDisplayOptions: ObservableObject {
 
     /// All the values of a ``ChordDefinition``
     /// - Note: Used for editing a chord
-    @Published public var definition: ChordDefinition
+    public var definition: ChordDefinition
 
     /// The current instrument
-    @AppStorage("Instrument") public var instrument: Instrument = .guitarStandardETuning
+    public var instrument: Instrument = .guitarStandardETuning
+
 }

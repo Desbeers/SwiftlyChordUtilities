@@ -51,7 +51,7 @@ public struct ChordDefinitionView: View {
         self.lineHeight = width / 8
         /// This looks nice to me
         self.gridHeight = width * 0.9
-        /// Calculate the cell width; one extra fcolumn or some padding
+        /// Calculate the cell width
         self.cellWidth = width / Double(chord.instrument.strings.count + 1)
         /// Calculate the horizontal padding
         self.horizontalPadding = cellWidth / 2

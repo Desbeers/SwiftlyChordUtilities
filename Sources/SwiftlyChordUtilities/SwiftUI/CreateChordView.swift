@@ -9,12 +9,12 @@ import SwiftUI
 /**
  A SwiftUI `View` to create a ``ChordDefinition`` with pickers
 
- To use this `View`, the `ChordDisplayOptions` class must be added to your application as an `EnvironmentObject`
+ To use this `View`, the `ChordDisplayOptions` class must be added to your application as an `Environment`
  */
 public struct CreateChordView: View {
     public init() {}
     /// Chord Display Options object
-    @EnvironmentObject var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The chord diagram
     @State private var diagram: ChordDefinition?
     /// The current color scheme
@@ -28,34 +28,34 @@ public struct CreateChordView: View {
     /// The body of the `View`
     public var body: some View {
         VStack {
-            Text("\(options.definition.displayName(options: .init(rootDisplay: .raw, qualityDisplay: .raw)))")
+            Text("\(chordDisplayOptions.definition.displayName(options: .init(rootDisplay: .raw, qualityDisplay: .raw)))")
                 .font(.largeTitle)
             HStack {
-                ForEach(options.definition.quality.intervals.intervals, id: \.self) { interval in
+                ForEach(chordDisplayOptions.definition.quality.intervals.intervals, id: \.self) { interval in
                     Text(interval.description)
                 }
             }
-            options.rootPicker
+            chordDisplayOptions.rootPicker
                 .pickerStyle(.segmented)
                 .padding(.bottom)
                 .labelsHidden()
             HStack {
                 LabeledContent(content: {
-                    options.qualityPicker
+                    chordDisplayOptions.qualityPicker
                         .labelsHidden()
                 }, label: {
                     Text("Quality:")
                 })
                 .frame(maxWidth: 150)
                 LabeledContent(content: {
-                    options.baseFretPicker
+                    chordDisplayOptions.baseFretPicker
                     .labelsHidden()
                 }, label: {
                     Text("Base fret:")
                 })
                 .frame(maxWidth: 150)
                 LabeledContent(content: {
-                    options.bassPicker
+                    chordDisplayOptions.bassPicker
                         .labelsHidden()
                 }, label: {
                     Text("Optional bass:")
@@ -69,7 +69,7 @@ public struct CreateChordView: View {
                         title: {
                             if let components = chordComponents.first {
                                 HStack {
-                                    Text("**\(options.definition.displayName(options: .init()))** contains")
+                                    Text("**\(chordDisplayOptions.definition.displayName(options: .init()))** contains")
                                     ForEach(components, id: \.self) { element in
                                         Text(element.display.symbol)
                                             .fontWeight(checkRequiredNote(note: element) ? .bold : .regular)
@@ -87,13 +87,13 @@ public struct CreateChordView: View {
                 VStack {
                     Section(
                         content: {
-                            options.fretsPicker
+                            chordDisplayOptions.fretsPicker
                         }, header: {
                             header(text: "Frets")
                         })
                     Section(
                         content: {
-                            options.fingersPicker
+                            chordDisplayOptions.fingersPicker
                         }, header: {
                             header(text: "Fingers")
                         })
@@ -107,17 +107,17 @@ public struct CreateChordView: View {
             }
             .frame(height: 440)
         }
-        .task(id: options.definition) {
+        .task(id: chordDisplayOptions.definition) {
             let diagram = ChordDefinition(
-                id: options.definition.id,
-                name: options.definition.name,
-                frets: options.definition.frets,
-                fingers: options.definition.fingers,
-                baseFret: options.definition.baseFret,
-                root: options.definition.root,
-                quality: options.definition.quality,
-                bass: options.definition.bass,
-                instrument: options.definition.instrument,
+                id: chordDisplayOptions.definition.id,
+                name: chordDisplayOptions.definition.name,
+                frets: chordDisplayOptions.definition.frets,
+                fingers: chordDisplayOptions.definition.fingers,
+                baseFret: chordDisplayOptions.definition.baseFret,
+                root: chordDisplayOptions.definition.root,
+                quality: chordDisplayOptions.definition.quality,
+                bass: chordDisplayOptions.definition.bass,
+                instrument: chordDisplayOptions.definition.instrument,
                 status: .standard
             )
             self.diagram = diagram
@@ -127,7 +127,7 @@ public struct CreateChordView: View {
 
     @ViewBuilder func diagramView(width: Double) -> some View {
         if let diagram {
-            ChordDefinitionView(chord: diagram, width: width, options: options.displayOptions)
+            ChordDefinitionView(chord: diagram, width: width, options: chordDisplayOptions.displayOptions)
                 .foregroundStyle(.primary, colorScheme == .light ? .white : .black)
         } else {
             ProgressView()

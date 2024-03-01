@@ -10,22 +10,22 @@ import SwiftlyChordUtilities
 
 struct CreateView: View {
     /// Chord Display Options
-    @EnvironmentObject private var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
         ScrollView {
             CreateChordView()
                 .padding()
         }
-        .animation(.default, value: options.displayOptions)
-        .task(id: options.instrument) {
+        .animation(.default, value: chordDisplayOptions.displayOptions)
+        .task(id: chordDisplayOptions.instrument) {
             setDefinition()
         }
     }
     /// Set the definition
     private func setDefinition() {
-        if let chord = ChordDefinition(name: "C", instrument: options.instrument) {
-            options.definition = chord
+        if let chord = ChordDefinition(name: "C", instrument: chordDisplayOptions.instrument) {
+            chordDisplayOptions.definition = chord
         }
     }
 }

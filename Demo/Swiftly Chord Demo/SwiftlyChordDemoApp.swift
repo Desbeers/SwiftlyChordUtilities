@@ -20,24 +20,24 @@ import SwiftlyChordUtilities
         mirrorDiagram: false
     )
     /// Chords model
-    @StateObject private var model = ChordsModel()
+    @State private var chordsModel = ChordsModel()
     /// Chord Display Options
-    @StateObject private var options = ChordDisplayOptions(defaults: defaults)
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
     /// The body of the `Scene`
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(model)
-                .environmentObject(options)
+                .environment(chordsModel)
+                .environment(chordDisplayOptions)
             /// Load the chords from the selected instrument
-                .task(id: options.instrument) {
-                    switch options.instrument {
+                .task(id: chordDisplayOptions.instrument) {
+                    switch chordDisplayOptions.instrument {
                     case .guitarStandardETuning:
-                        model.chords = Chords.guitar
+                        chordsModel.chords = Chords.guitar
                     case .guitaleleStandardATuning:
-                        model.chords = Chords.guitalele
+                        chordsModel.chords = Chords.guitalele
                     case .ukuleleStandardGTuning:
-                        model.chords = Chords.ukulele
+                        chordsModel.chords = Chords.ukulele
                     }
                 }
         }

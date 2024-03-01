@@ -10,7 +10,7 @@ import SwiftlyChordUtilities
 
 struct GridView: View {
     /// Chord Display Options
-    @EnvironmentObject var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The current width of the diagram
     @AppStorage("Diagram Width") private var width: Double = 300
     /// The current appearance
@@ -32,7 +32,7 @@ struct GridView: View {
             }
             .padding(.horizontal)
         }
-        .animation(.default, value: options.displayOptions)
+        .animation(.default, value: chordDisplayOptions.displayOptions)
         .animation(.default, value: chords)
     }
 }

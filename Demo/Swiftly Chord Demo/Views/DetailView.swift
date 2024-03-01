@@ -16,7 +16,7 @@ struct DetailView: View {
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
     /// Chord Display Options
-    @EnvironmentObject var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -34,7 +34,7 @@ struct DetailView: View {
             }
         }
         .toolbar {
-            options.instrumentPicker
+            chordDisplayOptions.instrumentPicker
             AppearancePickerView()
                 .pickerStyle(.segmented)
             DiagramSizeSliderView()

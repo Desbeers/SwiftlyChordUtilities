@@ -16,9 +16,9 @@ struct DefineView: View {
     /// The optional diagram
     @State private var chord: ChordDefinition?
     /// Chords model
-    @EnvironmentObject private var model: ChordsModel
+    @Environment(ChordsModel.self) private var chordsModel
     /// Chord Display Options
-    @EnvironmentObject private var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
         ScrollView {
@@ -39,7 +39,7 @@ struct DefineView: View {
             case .ready:
                 if let chord {
                     // swiftlint:disable:next line_length
-                    Text("let chord = ChordDefinition(definition: \"\(definition)\", instrument: .\(options.instrument.rawValue))")
+                    Text("let chord = ChordDefinition(definition: \"\(definition)\", instrument: .\(chordDisplayOptions.instrument.rawValue))")
                         .fontDesign(.monospaced)
                         .padding()
                     DiagramView(chord: chord)
@@ -53,7 +53,7 @@ struct DefineView: View {
         .task(id: definition) {
             defineChord()
         }
-        .task(id: model.chords) {
+        .task(id: chordsModel.chords) {
             defineChord()
         }
     }
@@ -65,7 +65,7 @@ struct DefineView: View {
         } else {
             chord = ChordDefinition(
                 definition: definition,
-                instrument: options.instrument,
+                instrument: chordDisplayOptions.instrument,
                 status: .unknown
             )
             status = chord == nil ? .empty : .ready

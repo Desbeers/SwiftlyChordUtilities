@@ -9,6 +9,7 @@ import Foundation
 import SwiftlyChordUtilities
 
 /// The class with all the chords of the selected instrument
-final class ChordsModel: ObservableObject {
-    @Published var chords: [ChordDefinition] = []
+@Observable
+final class ChordsModel {
+    var chords: [ChordDefinition] = []
 }

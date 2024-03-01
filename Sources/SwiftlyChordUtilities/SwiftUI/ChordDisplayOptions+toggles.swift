@@ -14,16 +14,16 @@ extension ChordDisplayOptions{
 
     /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
     public var nameToggle: some View {
-        NameToggle()
+        NameToggle(chordDisplayOptions: self)
     }
     //// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
     struct NameToggle: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $options.displayOptions.showName) {
-                Label("Show name", systemImage:  options.displayOptions.showName ? "a.square.fill" : "a.square")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.showName) {
+                Label("Show name", systemImage:  chordDisplayOptions.displayOptions.showName ? "a.square.fill" : "a.square")
             }
         }
     }
@@ -32,16 +32,16 @@ extension ChordDisplayOptions{
 
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
     public var fingersToggle: some View {
-        FingersToggle()
+        FingersToggle(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
     struct FingersToggle: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $options.displayOptions.showFingers) {
-                Label("Show fingers", systemImage: options.displayOptions.showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.showFingers) {
+                Label("Show fingers", systemImage: chordDisplayOptions.displayOptions.showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread")
             }
         }
     }
@@ -50,16 +50,16 @@ extension ChordDisplayOptions{
 
     /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
     public var notesToggle: some View {
-        NotesToggle()
+        NotesToggle(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
     struct NotesToggle: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $options.displayOptions.showNotes) {
-                Label("Show notes", systemImage:  options.displayOptions.showNotes ? "music.note.list" : "music.note")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.showNotes) {
+                Label("Show notes", systemImage:  chordDisplayOptions.displayOptions.showNotes ? "music.note.list" : "music.note")
             }
         }
     }
@@ -68,16 +68,16 @@ extension ChordDisplayOptions{
 
     /// SwiftUI `View` with a `Toggle`  to mirror the diagram
     public var mirrorToggle: some View {
-        MirrorToggle()
+        MirrorToggle(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Toggle`  to mirror the diagram
     struct MirrorToggle: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $options.displayOptions.mirrorDiagram) {
-                Label("Mirror diagram", systemImage:  options.displayOptions.mirrorDiagram ? "hand.point.left.fill" : "hand.point.right.fill")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.mirrorDiagram) {
+                Label("Mirror diagram", systemImage:  chordDisplayOptions.displayOptions.mirrorDiagram ? "hand.point.left.fill" : "hand.point.right.fill")
             }
         }
     }
@@ -86,16 +86,16 @@ extension ChordDisplayOptions{
 
     /// SwiftUI `View` with a `Toggle` to show or hide the play button
     public var playToggle: some View {
-        PlayToggle()
+        PlayToggle(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Toggle`  to show or hide the play button
     struct PlayToggle: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $options.displayOptions.showPlayButton) {
-                Label("Show play button", systemImage:  options.displayOptions.showPlayButton ? "play.fill" : "play")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.showPlayButton) {
+                Label("Show play button", systemImage:  chordDisplayOptions.displayOptions.showPlayButton ? "play.fill" : "play")
             }
         }
     }

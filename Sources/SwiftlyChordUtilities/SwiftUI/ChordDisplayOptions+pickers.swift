@@ -14,15 +14,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root/display`` value
     public var displayRootPicker: some View {
-        DisplayRootPicker()
+        DisplayRootPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root/display`` value
     struct DisplayRootPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Root:", selection: $options.displayOptions.rootDisplay) {
+            Picker("Root:", selection: $chordDisplayOptions.displayOptions.rootDisplay) {
                 ForEach(ChordDefinition.DisplayOptions.Display.Root.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
@@ -35,15 +35,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality/display`` value
     public var displayQualityPicker: some View {
-        DisplayQualityPicker()
+        DisplayQualityPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality/display`` value
     struct DisplayQualityPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Quality:", selection: $options.displayOptions.qualityDisplay) {
+            Picker("Quality:", selection: $chordDisplayOptions.displayOptions.qualityDisplay) {
                 ForEach(ChordDefinition.DisplayOptions.Display.Quality.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
@@ -56,15 +56,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
     public var midiInstrumentPicker: some View {
-        MidiInstrumentPicker()
+        MidiInstrumentPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
     struct MidiInstrumentPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         public var body: some View {
-            Picker("MIDI Instrument:", selection: $options.displayOptions.midiInstrument) {
+            Picker("MIDI Instrument:", selection: $chordDisplayOptions.displayOptions.midiInstrument) {
                 ForEach(Midi.Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)
@@ -77,15 +77,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `Picker` to select a  ``Instrument`` value
     public var instrumentPicker: some View {
-        InstrumentPicker()
+        InstrumentPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `Picker` to select a  ``Instrument`` value
     struct InstrumentPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         public var body: some View {
-            Picker("Instrument:", selection: $options.instrument) {
+            Picker("Instrument:", selection: $chordDisplayOptions.instrument) {
                 ForEach(Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)
@@ -98,15 +98,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
     public var rootPicker: some View {
-        RootPicker()
+        RootPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
     struct RootPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Root:", selection: $options.definition.root) {
+            Picker("Root:", selection: $chordDisplayOptions.definition.root) {
                 ForEach(Chord.Root.allCases.dropFirst(), id: \.rawValue) { value in
                     Text(value.display.symbol)
                         .tag(value)
@@ -119,15 +119,15 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
     public var qualityPicker: some View {
-        QualityPicker()
+        QualityPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
     struct QualityPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Quality:", selection: $options.definition.quality) {
+            Picker("Quality:", selection: $chordDisplayOptions.definition.quality) {
                 ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
                     Text(value == .major ? "major" : value.rawValue)
                         .tag(value)
@@ -140,17 +140,17 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a `baseFret` value
     public var baseFretPicker: some View {
-        BaseFretPicker()
+        BaseFretPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a `baseFret` value
     struct BaseFretPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The selected bass note
         @State private var bass: Chord.Root = .none
         /// The body of the `View`
         var body: some View {
-            Picker("Base fret:", selection: $options.definition.baseFret) {
+            Picker("Base fret:", selection: $chordDisplayOptions.definition.baseFret) {
                 ForEach(1...20, id: \.self) { value in
                     Text(fretLabel(fret: value))
                         .tag(value)
@@ -169,12 +169,12 @@ extension ChordDisplayOptions {
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
     public var bassPicker: some View {
-        BassPicker()
+        BassPicker(chordDisplayOptions: self)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
     struct BassPicker: View {
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The selected bass note
         @State private var bass: Chord.Root = .none
         /// The body of the `View`
@@ -186,12 +186,12 @@ extension ChordDisplayOptions {
                 }
             }
             .task {
-                if let bassNote = options.definition.bass {
+                if let bassNote = chordDisplayOptions.definition.bass {
                     bass = bassNote
                 }
             }
             .task(id: bass) {
-                options.definition.bass = bass == .none ? nil : bass
+                chordDisplayOptions.definition.bass = bass == .none ? nil : bass
             }
         }
     }
@@ -202,7 +202,8 @@ extension ChordDisplayOptions {
     public var fretsPicker: some View {
         FretsPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings
+            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings,
+            chordDisplayOptions: self
         )
     }
 
@@ -213,7 +214,7 @@ extension ChordDisplayOptions {
         /// The order of the tuning
         let guitarTuningOrder: [Int]
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
             HStack {
@@ -223,7 +224,7 @@ extension ChordDisplayOptions {
                         .font(.title3)
 #endif
                     Picker(
-                        selection: $options.definition.frets[fret],
+                        selection: $chordDisplayOptions.definition.frets[fret],
                         content: {
                             Text("⛌")
                                 .tag(-1)
@@ -231,9 +232,9 @@ extension ChordDisplayOptions {
                             ForEach(0...5, id: \.self) { value in
                                 /// Calculate the fret note
                                 /// - Note: Only add the basefret after the first row because the note can still be played open
-                                let fret = options.definition.instrument.offset[fret] + (value == 0 ? 1 : options.definition.baseFret) + 40 + value
+                                let fret = chordDisplayOptions.definition.instrument.offset[fret] + (value == 0 ? 1 : chordDisplayOptions.definition.baseFret) + 40 + value
                                 /// Convert the fret to a label
-                                let label = valueToNote(value: fret, scale: options.definition.root)
+                                let label = valueToNote(value: fret, scale: chordDisplayOptions.definition.root)
                                 Text(label.display.symbol)
                                     .tag(value)
                             }
@@ -254,7 +255,8 @@ extension ChordDisplayOptions {
     public var fingersPicker: some View {
         FingersPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings
+            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings,
+            chordDisplayOptions: self
         )
     }
     /// SwiftUI `View` with a `Picker` to select `finger` values
@@ -264,7 +266,7 @@ extension ChordDisplayOptions {
         /// The order of the tuning
         let guitarTuningOrder: [Int]
         /// Chord Display Options object
-        @EnvironmentObject var options: ChordDisplayOptions
+        @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
             HStack {
@@ -274,7 +276,7 @@ extension ChordDisplayOptions {
                         .font(.title3)
 #endif
                     Picker(
-                        selection: $options.definition.fingers[finger],
+                        selection: $chordDisplayOptions.definition.fingers[finger],
                         content: {
                             ForEach(0...4, id: \.self) { value in
                                 Text("\(value)")
