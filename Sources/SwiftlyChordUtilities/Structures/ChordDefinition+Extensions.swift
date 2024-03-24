@@ -15,8 +15,8 @@ public extension ChordDefinition {
     func displayName(options: DisplayOptions) -> String {
         var name: String = ""
 
-        if self.status == .unknown {
-            /// We don't know anything about this chord
+        if self.status == .unknown || self.quality == .unknown {
+            /// We don't know anything about this chord; so use the original name
             name = self.name
         } else {
             switch options.rootDisplay {
@@ -41,9 +41,6 @@ public extension ChordDefinition {
             if let bass = self.bass {
                 name += "/\(bass.display.symbol)"
             }
-        }
-        if self.status == .custom || self.status == .customTransposed {
-            name += "*"
         }
         return name
     }

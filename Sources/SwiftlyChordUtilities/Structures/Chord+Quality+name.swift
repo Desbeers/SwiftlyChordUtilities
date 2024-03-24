@@ -93,8 +93,12 @@ extension Chord.Quality {
             ["6/9", "69"]
         case .minorSixNine:
             ["m6/9", "m69"]
+        case .addFour:
+            ["add4"]
         case .addNine:
             ["add9"]
+        case .addEleven:
+            ["add11"]
         case .minorAddNine:
             ["madd9"]
         case .augNine:

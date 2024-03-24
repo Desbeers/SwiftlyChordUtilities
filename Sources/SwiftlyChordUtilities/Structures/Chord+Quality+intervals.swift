@@ -173,9 +173,15 @@ public extension Chord.Quality {
         case .minorSixNine:
             /// C    Eb    G (optional)    A    D
             ([.P1, .m3, .P5, .M6, .M9], [.P5])
+        case .addFour:
+            /// C    E    F   G  (optional) 
+            ([.P1, .M3, .P4, .P5], [.P5])
         case .addNine:
             /// C    E    G (optional)    D
             ([.P1, .M3, .P5, .M9], [.P5])
+        case .addEleven:
+            /// C    E    G (optional)    F
+            ([.P1, .M3, .P5, .P11], [.P5])
         case .minorAddNine:
             /// C    Eb    G (optional)    D
             ([.P1, .m3, .P5, .M9], [.P5])

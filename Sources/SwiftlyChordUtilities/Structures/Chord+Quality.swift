@@ -69,7 +69,9 @@ extension Chord {
         case minorSix = "m6"
         case sixNine = "69"
         case minorSixNine = "m69"
+        case addFour = "add4"
         case addNine = "add9"
+        case addEleven = "add11"
         case minorAddNine = "madd9"
 
         // MARK: Augmented
@@ -186,10 +188,14 @@ extension Chord {
                 ("minor major nine", "mMaj9", "mMaj⁹", "mᴹ⁹")
             case .minorMajorEleven:
                 ("minor major eleven", "mMaj11", "mMaj¹¹", "mᴹ¹¹")
+            case .addFour:
+                ("add four", "add4", "add⁴", "ᵃᵈᵈ⁴")
             case .addNine:
                 ("add nine", "add9", "add⁹", "ᵃᵈᵈ⁹")
             case .minorAddNine:
                 ("minor add nine", "madd9", "madd⁹", "mᵃᵈᵈ⁹")
+            case .addEleven:
+                ("add eleven", "add11", "add¹¹", "ᵃᵈᵈ¹¹")
             case .unknown:
                 ("unknown", "?", "?", "?")
             }
@@ -205,7 +211,7 @@ extension Chord {
         var group: Chord.Group {
             // swiftlint:disable line_length
             switch self {
-            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addNine:
+            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addFour, .addNine, .addEleven:
                 .major
             case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
                 .minor
