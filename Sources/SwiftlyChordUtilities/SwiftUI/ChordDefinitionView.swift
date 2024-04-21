@@ -94,7 +94,7 @@ public struct ChordDefinitionView: View {
 
     var grid: some View {
         GridShape(instrument: chord.instrument)
-            .stroke(.primary, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round))
+            .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
             .padding(.horizontal, cellWidth)
             //.frame(height: gridHeight)
     }

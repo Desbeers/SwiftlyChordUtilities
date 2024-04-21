@@ -32,7 +32,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
 
     /// The fingers you have to bar for the chord
     /// - Note: A calculated value by the init
-    var barres: [Int]
+    public var barres: [Int]
 
     /// The instrument of the chord
     public var instrument: Instrument

@@ -1,8 +1,8 @@
 //
 //  Bundle+Extensions.swift
-//  NewChordDatabase
+//  SwiftlyChordUtilities
 //
-//  Created by Nick Berendsen on 18/09/2023.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
