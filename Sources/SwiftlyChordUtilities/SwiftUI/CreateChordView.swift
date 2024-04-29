@@ -23,8 +23,6 @@ public struct CreateChordView: View {
     @State private var chordFinder: [ChordDefinition] = []
     /// The chord components result
     @State private var chordComponents: [[Chord.Root]] = []
-
-    @State private var validate: Bool = false
     /// The body of the `View`
     public var body: some View {
         VStack {

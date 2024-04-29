@@ -29,6 +29,10 @@ public extension Array where Element == ChordDefinition {
         return self.filter { $0.bass == bass }
     }
 
+    func matching(baseFret: Int) -> [ChordDefinition] {
+        return self.filter { $0.baseFret == baseFret }
+    }
+
     func matching(group: Chord.Group) -> [ChordDefinition] {
         return self.filter { $0.quality.group == group }
     }
