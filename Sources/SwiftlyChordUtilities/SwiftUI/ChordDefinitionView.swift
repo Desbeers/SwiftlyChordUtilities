@@ -44,6 +44,23 @@ It will caclulate all the bits and pieces based on the *width* and will be not a
  If you want to render the chord for print; just set the style to 'black and white' and use `ImageRenderer` to get your image.
  */
 public struct ChordDefinitionView: View {
+
+    /// The chord to display in a diagram
+    let chord: ChordDefinition
+    /// The chord display options
+    let options: ChordDefinition.DisplayOptions
+
+    let width: Double
+    let gridHeight: Double
+    let lineHeight: Double
+    let cellWidth: Double
+    let horizontalPadding: Double
+
+    /// The frets of the chord; adjusted for left-handed if needed
+    let frets: [Int]
+    /// The fingers of the chord; adjusted for left-handed if needed
+    let fingers: [Int]
+
     public init(chord: ChordDefinition, width: Double, options: ChordDefinition.DisplayOptions) {
         self.chord = chord
         self.options = options
@@ -55,15 +72,11 @@ public struct ChordDefinitionView: View {
         self.cellWidth = width / Double(chord.instrument.strings.count + 1)
         /// Calculate the horizontal padding
         self.horizontalPadding = cellWidth / 2
+
+        self.frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
+        self.fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
     }
-    
-    let chord: ChordDefinition
-    let options: ChordDefinition.DisplayOptions
-    let width: Double
-    let gridHeight: Double
-    let lineHeight: Double
-    let cellWidth: Double
-    let horizontalPadding: Double
+
 
     // MARK: Body of the View
 
@@ -96,13 +109,12 @@ public struct ChordDefinitionView: View {
         GridShape(instrument: chord.instrument)
             .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
             .padding(.horizontal, cellWidth)
-            //.frame(height: gridHeight)
     }
 
     // MARK: Diagram
 
     @ViewBuilder var diagram: some View  {
-        if chord.frets.contains(-1) || chord.frets.contains(0) {
+        if frets.contains(-1) || frets.contains(0) {
             topBar
         }
         if chord.baseFret == 1 {
@@ -139,8 +151,8 @@ public struct ChordDefinitionView: View {
 
     var topBar: some View {
         HStack(spacing: 0) {
-            ForEach(chord.frets.indices, id: \.self) { index in
-                let fret = chord.frets[index]
+            ForEach(frets.indices, id: \.self) { index in
+                let fret = frets[index]
                 VStack {
                     switch fret {
                     case -1:
@@ -159,14 +171,11 @@ public struct ChordDefinitionView: View {
             }
         }
         .padding(.horizontal, horizontalPadding)
-        .rotation3DEffect(options.mirrorDiagram ? .degrees(180) : .degrees(0), axis: (x:0, y:1, z:0))
     }
 
     // MARK: Fret Grid
 
     var fretGrid: some View {
-        let frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
-        let fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
         return Grid(alignment: .top, horizontalSpacing: 0, verticalSpacing: 0) {
             ForEach((1...5), id: \.self) { row in
                 GridRow {
@@ -204,82 +213,41 @@ public struct ChordDefinitionView: View {
     var barGrid: some View {
         VStack(spacing: 0) {
             ForEach((1...5), id: \.self) { row in
-                checkBar(barre: row)
+                if let barre = chord.checkBarre(fret: row, mirrorDiagram: options.mirrorDiagram) {
+                    HStack(spacing: 0) {
+                        if barre.startIndex != 0 {
+                            Color.clear
+                                .frame(width: cellWidth * Double(barre.startIndex))
+                        }
+                        ZStack {
+                            RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
+                                .frame(height: lineHeight)
+                                .frame(width: cellWidth * Double(barre.length))
+                            if options.showFingers {
+                                Image(systemName: "\(barre.finger).circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.secondary, .clear)
+                                    .frame(height: lineHeight)
+                            }
+                        }
+                        if barre.endIndex < chord.instrument.strings.count {
+                            Color.clear
+                                .frame(width: cellWidth * Double(chord.instrument.strings.count - barre.endIndex))
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    Color.clear
+                }
             }
         }
         .padding(.horizontal, horizontalPadding)
         .frame(width: width, height: gridHeight)
     }
 
-    private func checkBar(barre: Int) -> some View {
-        var isBarre: Bool = false
-        var finger: Int = 0
-        for column in chord.frets.indices {
-            if chord.frets[safe: column] == barre && chord.barres.contains(chord.fingers[safe: column] ?? -1) {
-                isBarre = true
-                finger = chord.fingers[safe: column] ?? 0
-            }
-        }
-        return Group {
-            switch isBarre {
-            case true:
-                calculateBar(barre: barre, finger: finger)
-            case false:
-                Color.clear
-            }
-        }
-    }
-
-    private func calculateBar(barre: Int, finger: Int) -> some View {
-        /// Draw barre behind all frets that are above the barre chord
-        var startIndex = (chord.frets.firstIndex { $0 == barre } ?? 0)
-        let barreFretCount = chord.frets.filter { $0 == barre }.count
-        var length = 0
-
-        for index in startIndex..<chord.frets.count {
-            let dot = chord.frets[index]
-            if dot >= barre {
-                length += 1
-            } else if dot < barre && length < barreFretCount {
-                length = 0
-                startIndex = index + 1
-            } else {
-                break
-            }
-        }
-
-        let endIndex = startIndex + length
-
-        return HStack(spacing: 0) {
-            if startIndex != 0 {
-                Color.clear
-                    .frame(width: cellWidth * Double(startIndex))
-            }
-            ZStack {
-                RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
-                    .frame(height: lineHeight)
-                    .frame(width: cellWidth * Double(length))
-                if options.showFingers {
-                    Image(systemName: "\(finger).circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.secondary, .clear)
-                        .frame(height: lineHeight)
-                        .rotation3DEffect(options.mirrorDiagram ? .degrees(180) : .degrees(0), axis: (x:0, y:1, z:0))
-                }
-            }
-            if endIndex < chord.instrument.strings.count {
-                Color.clear
-                    .frame(width: cellWidth * Double(chord.instrument.strings.count - endIndex))
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .rotation3DEffect(options.mirrorDiagram ? .degrees(180) : .degrees(0), axis: (x:0, y:1, z:0))
-    }
-
     // MARK: Notes Bar
-
 
     /// Show the notes of the chord
     var notesBar: some View {
@@ -309,19 +277,14 @@ public struct ChordDefinitionView: View {
 extension ChordDefinitionView {
     
     struct GridShape: Shape {
-
         let instrument: Instrument
-
         func path(in rect: CGRect) -> Path {
             let columns = instrument.strings.count - 1
             let width = rect.width
             let height = rect.height
             let xSpacing = width / Double(columns)
             let ySpacing = height / 5
-
             var path = Path()
-
-            //for index in 0...instrument.strings.count - 1 {
             for index in 0...columns {
                 let vOffset: CGFloat = CGFloat(index) * xSpacing
                 path.move(to: CGPoint(x: vOffset, y: 0))
@@ -332,7 +295,6 @@ extension ChordDefinitionView {
                 path.move(to: CGPoint(x: 0, y: hOffset))
                 path.addLine(to: CGPoint(x: width, y: hOffset))
             }
-
             return path
         }
     }
