@@ -24,7 +24,7 @@ public extension ChordDefinition {
         self.bass = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.bass)
         /// Calculated values
         self.name = "\(root.rawValue)\(quality.rawValue)"
-        self.barres = fingersToBarres(fingers: fingers)
+        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
         self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitarStandardETuning)
         self.status = .standard
         self.instrument = .guitarStandardETuning
@@ -55,7 +55,7 @@ public extension ChordDefinition {
         self.status = status
         /// Calculated values
         self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = fingersToBarres(fingers: fingers)
+        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
     }
 
     // MARK: Init with a definition
@@ -97,7 +97,7 @@ public extension ChordDefinition {
             }
             /// Calculated values
             self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = fingersToBarres(fingers: fingers)
+            self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
         } else {
             return nil
         }
@@ -136,7 +136,7 @@ public extension ChordDefinition {
         self.status = .standard
         /// Calculated values
         self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = fingersToBarres(fingers: fingers)
+        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
     }
 
     // MARK: Init with an unknown name

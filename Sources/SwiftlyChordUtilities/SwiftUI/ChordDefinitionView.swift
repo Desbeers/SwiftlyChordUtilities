@@ -131,9 +131,9 @@ public struct ChordDefinitionView: View {
                     .frame(height: gridHeight / 5)
             }
             if !chord.barres.isEmpty {
-                barGrid
+                barresGrid
             }
-            fretGrid
+            fretsGrid
         }
         .frame(height: gridHeight)
         if options.showNotes {
@@ -173,22 +173,31 @@ public struct ChordDefinitionView: View {
         .padding(.horizontal, horizontalPadding)
     }
 
-    // MARK: Fret Grid
+    // MARK: Frets Grid
 
-    var fretGrid: some View {
+    var fretsGrid: some View {
         return Grid(alignment: .top, horizontalSpacing: 0, verticalSpacing: 0) {
-            ForEach((1...5), id: \.self) { row in
+            ForEach((1...5), id: \.self) { fret in
                 GridRow {
-                    ForEach(chord.instrument.strings, id: \.self) { column in
-                        if frets[column] == row && !chord.barres.contains(fingers[column]) {
+                    ForEach(chord.instrument.strings, id: \.self) { string in
+                        if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
                             VStack(spacing: 0) {
                                 switch options.showFingers {
                                 case true:
-                                    Image(systemName: "\(fingers[column]).circle.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(.secondary, .primary)
+                                    Group {
+                                        switch fingers[string] {
+                                        case 0:
+                                            /// Hide a 'zero' finger
+                                            Image(systemName: "circle.fill")
+                                            .resizable()
+                                        default:
+                                            Image(systemName: "\(fingers[string]).circle.fill")
+                                            .resizable()
+                                                .foregroundStyle(.secondary, .primary)
+                                        }
+                                    }
+                                    .aspectRatio(contentMode: .fit)
+                                    .symbolRenderingMode(.palette)
                                 case false:
                                     Image(systemName: "circle.fill")
                                         .resizable()
@@ -208,12 +217,14 @@ public struct ChordDefinitionView: View {
         .padding(.horizontal, horizontalPadding)
     }
 
-    // MARK: Bar Grid
+    // MARK: Barre Grid
 
-    var barGrid: some View {
+    var barresGrid: some View {
         VStack(spacing: 0) {
-            ForEach((1...5), id: \.self) { row in
-                if let barre = chord.checkBarre(fret: row, mirrorDiagram: options.mirrorDiagram) {
+            ForEach((1...5), id: \.self) { fret in
+                if let barre = chord.barres.first(where: {$0.fret == fret }) {
+                    /// Mirror for left-handed if needed
+                    let barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                     HStack(spacing: 0) {
                         if barre.startIndex != 0 {
                             Color.clear

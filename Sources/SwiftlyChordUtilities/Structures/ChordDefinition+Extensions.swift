@@ -87,3 +87,19 @@ public extension ChordDefinition {
         }
     }
 }
+
+public extension ChordDefinition {
+
+    /// Mirror a `Barre` for a left-handed chord
+    /// - Parameter barre: The original barre
+    /// - Returns: The left-handed barre
+    func mirrorBarre(_ barre: Chord.Barre) -> Chord.Barre {
+        let strings = instrument.strings.count
+        return Chord.Barre(
+            finger: barre.finger,
+            fret: barre.fret,
+            startIndex: strings - barre.endIndex,
+            endIndex: strings - barre.startIndex
+        )
+    }
+}

@@ -58,17 +58,74 @@ func fretsToComponents(
     return components
 }
 
-func fingersToBarres(fingers: [Int]) -> [Int] {
-    var barres: [Int] = []
-    /// set the barres but use not '0' as barres
-    let mappedItems = fingers.map { ($0, 1) }
-    let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-    for (key, value) in counts where value > 1 && key != 0 {
-        barres.append(key)
+/// Check if fingers should be barred
+/// - Parameters:
+///   - frets: The frest of the chord
+///   - fingers: The fingers of the chord
+///   - baseFret: The base fret of the chord
+/// - Returns: An array with fingers that shoud be barred
+func fingersToBarres(
+    frets: [Int],
+    fingers: [Int],
+    baseFret: Int
+) -> [Chord.Barre] {
+    var barres: [Chord.Barre] = []
+    /// Map the fingers to a  key-value pair
+    let mappedItems = fingers.map { finger -> (finger: Int, count: Int) in
+        (finger, 1)
     }
+    /// Create a dictionary with unique fingers so we get the total count for each finger
+    let counts = Dictionary(mappedItems, uniquingKeysWith: +)
+    /// set the barres but use not '0' as barres
+    for (finger, count) in counts where count > 1 && finger != 0 {
+        guard
+            let firstFinger = fingers.firstIndex(of: finger),
+            let lastFinger = fingers.lastIndex(of: finger),
+            let fret = frets[safe: firstFinger]
+        else {
+            break
+        }
+        let barre = Chord.Barre(
+            finger: finger,
+            fret: fret,
+            startIndex: firstFinger,
+            endIndex: lastFinger + 1
+        )
+        /// Don't add a barre when the fingers are not correct; the first fret should never be zero
+        if fret != 0 {
+            barres.append(barre)
+        }
+    }
+    /// Return the fingers that should be barred
     return barres
 }
 
+///// Helper function to calculate the bar size
+///// - Parameters:
+/////   - fret: The fret with the bar
+/////   - finger: The fingers of the chord; adjusted for left-handed if needed
+///// - Returns: The start, end and lenght of the bar
+//// swiftlint:disable:next large_tuple
+//func calculateBar(fret: Int, finger: Int) -> (startIndex: Int, endIndex: Int, length: Int) {
+//    /// Draw barre behind all frets that are above the barre chord
+//    var startIndex = (frets.firstIndex { $0 == fret } ?? 0)
+//    let barreFretCount = frets.filter { $0 == fret }.count
+//    var length = 0
+//
+//    for index in startIndex..<frets.count {
+//        let dot = frets[index]
+//        if dot >= fret {
+//            length += 1
+//        } else if dot < fret && length < barreFretCount {
+//            length = 0
+//            startIndex = index + 1
+//        } else {
+//            break
+//        }
+//    }
+//    let endIndex = startIndex + length
+//    return (startIndex, endIndex, length)
+//}
 
 /// Get all possible chord notes for a ``ChordDefinition``
 /// - Parameters:
