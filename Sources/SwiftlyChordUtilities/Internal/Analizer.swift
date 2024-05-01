@@ -14,7 +14,7 @@ func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Qual
     var root: Chord.Root?
     var quality: Chord.Quality?
     var bass: Chord.Root?
-    if let match = chord.firstMatch(of: chordRegex) {
+    if let match = chord.wholeMatch(of: chordRegex) {
         root = match.1
         if let qualityMatch = match.2 {
             quality = qualityMatch
