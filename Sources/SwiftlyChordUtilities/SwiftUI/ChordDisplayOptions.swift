@@ -37,8 +37,4 @@ public final class ChordDisplayOptions {
     /// All the values of a ``ChordDefinition``
     /// - Note: Used for editing a chord
     public var definition: ChordDefinition
-
-    /// The current instrument
-    public var instrument: Instrument = .guitarStandardETuning
-
 }

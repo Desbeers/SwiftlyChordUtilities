@@ -10,7 +10,7 @@ import Foundation
 extension ChordDefinition {
 
     /// The structure for display options passed to the ``ChordDefinitionView``
-    public struct DisplayOptions: Codable, Equatable {
+    public struct DisplayOptions: Codable, Equatable, Sendable {
         /// Init the structure with default values
         public init(
             showName: Bool = true,
@@ -20,6 +20,7 @@ extension ChordDefinition {
             qualityDisplay: Display.Quality = .symbolized,
             showFingers: Bool = true,
             mirrorDiagram: Bool = false,
+            instrument: Instrument = .guitarStandardETuning,
             midiInstrument: Midi.Instrument = .acousticSteelGuitar
         ) {
             self.showName = showName
@@ -29,6 +30,7 @@ extension ChordDefinition {
             self.qualityDisplay = qualityDisplay
             self.showFingers = showFingers
             self.mirrorDiagram = mirrorDiagram
+            self.instrument = instrument
             self.midiInstrument = midiInstrument
         }
         /// Show the name in the chord shape
@@ -45,20 +47,22 @@ extension ChordDefinition {
         public var showFingers: Bool
         /// Mirror the chord diagram for lefthanded users
         public var mirrorDiagram: Bool
+        /// The instrument
+        public var instrument: Instrument
         /// The instrument to use for playing the chord with MIDI
         public var midiInstrument: Midi.Instrument
 
         /// Display options for the chord name
         public enum Display {
             /// Root display options
-            public enum Root: String, Codable, CaseIterable {
+            public enum Root: String, Codable, CaseIterable, Sendable {
                 /// Display the raw value
                 case raw
                 case accessible
                 case symbol
             }
             /// Quality display options
-            public enum Quality: String, Codable, CaseIterable {
+            public enum Quality: String, Codable, CaseIterable, Sendable {
                 /// Display the raw value
                 case raw
                 case short

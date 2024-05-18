@@ -17,7 +17,7 @@ public enum Midi {
 public extension Midi {
 
     /// The available MIDI instruments
-    enum Instrument: Int, CaseIterable, Codable {
+    enum Instrument: Int, CaseIterable, Codable, Sendable {
         case acousticNylonGuitar = 24
         case acousticSteelGuitar
         case electricJazzGuitar

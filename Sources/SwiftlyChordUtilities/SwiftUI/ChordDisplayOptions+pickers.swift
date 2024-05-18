@@ -85,7 +85,7 @@ extension ChordDisplayOptions {
         @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         public var body: some View {
-            Picker("Instrument:", selection: $chordDisplayOptions.instrument) {
+            Picker("Instrument:", selection: $chordDisplayOptions.displayOptions.instrument) {
                 ForEach(Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)
