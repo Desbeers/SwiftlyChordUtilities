@@ -62,7 +62,7 @@ public extension ChordDefinition {
 
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
     ///
-    /// If the status is 'unknown', this functuon will try to find trhe chrd in the database
+    /// If the status is 'unknown', this function will try to find the chord in the database
     ///
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
@@ -71,6 +71,10 @@ public extension ChordDefinition {
     init?(definition: String, instrument: Instrument, status: Chord.Status) {
         /// Parse the chord definition
         if let definition = SwiftlyChordUtilities.define(from: definition, instrument: instrument) {
+            /// A definition for 6 fingers is not valid for an ukulele
+            if instrument == .ukuleleStandardGTuning && definition.frets.count != instrument.strings.count {
+                return nil
+            }
             /// Set the properties
             self.id = UUID()
             self.frets = definition.frets

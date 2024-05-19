@@ -62,7 +62,7 @@ public struct CreateChordView: View {
             }
             HStack {
                 VStack {
-                    diagramView(width: 240)
+                    diagramView(width: 200)
                     Label(
                         title: {
                             if let components = chordComponents.first {
@@ -81,7 +81,7 @@ public struct CreateChordView: View {
                     Text(diagram?.validate.label ?? "Unknown status")
                         .foregroundStyle(diagram?.validate.color ?? .primary)
                 }
-                .frame(width: 300, height: 450)
+                .frame(width: 300)
                 VStack {
                     Section(
                         content: {
@@ -103,7 +103,10 @@ public struct CreateChordView: View {
 #endif
                 .frame(width: 400)
             }
-            .frame(height: 440)
+        }
+        .padding(.bottom)
+        .overlay(alignment: .topLeading) {
+            Label(chordDisplayOptions.displayOptions.instrument.label, systemImage: "guitars")
         }
         .task(id: chordDisplayOptions.definition) {
             let diagram = ChordDefinition(
