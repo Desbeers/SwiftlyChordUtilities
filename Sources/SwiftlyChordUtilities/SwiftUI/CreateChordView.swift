@@ -62,7 +62,7 @@ public struct CreateChordView: View {
             }
             HStack {
                 VStack {
-                    diagramView(width: 200)
+                    diagramView(width: 180)
                     Label(
                         title: {
                             if let components = chordComponents.first {

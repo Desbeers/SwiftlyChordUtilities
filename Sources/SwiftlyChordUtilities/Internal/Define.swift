@@ -12,10 +12,12 @@ import Foundation
 ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
 ///
 /// - Parameter define: ChordPro string definition of the chord
-/// - Returns: A  `ChordPostion` struct, if found, else `nil`
-func define(from define: String, instrument: Instrument) -> ChordDefinition? {
+/// - Returns: A  `ChordPostion` struct, if found, else an Error
+func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
 
     if let definition = define.firstMatch(of: defineRegex) {
+
+        let positions = instrument.strings.count
 
         var frets: [Int] = []
         var fingers: [Int] = []
@@ -25,18 +27,25 @@ func define(from define: String, instrument: Instrument) -> ChordDefinition? {
             let root = elements.root,
             let quality = elements.quality
         else {
-            return nil
+            throw ChordDefinitionError.noChord
         }
 
         if let fretsDefinition = definition.3 {
             frets = fretsDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? -1 }
         }
-        while frets.count < instrument.strings.count { frets.append(0) }
 
         if let fingersDefinition = definition.4 {
             fingers = fingersDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? 0 }
         }
+        /// Fill the fingers if not set (complete)
         while fingers.count < instrument.strings.count { fingers.append(0) }
+        /// Throw an error if the defined frets does not mach the instrument
+        if frets.count < positions {
+            throw ChordDefinitionError.notEnoughFrets
+        }
+        if frets.count > positions {
+            throw ChordDefinitionError.toManyFrets
+        }
 
         let chordDefinition = ChordDefinition(
             id: UUID(),
@@ -51,5 +60,5 @@ func define(from define: String, instrument: Instrument) -> ChordDefinition? {
         )
         return chordDefinition
     }
-    return nil
+    throw ChordDefinitionError.noChord
 }

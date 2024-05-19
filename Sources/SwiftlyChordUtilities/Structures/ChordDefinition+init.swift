@@ -68,13 +68,10 @@ public extension ChordDefinition {
     ///   - definition: The **ChordPro** definition
     ///   - instrument: The ``Instrument``
     ///   - status: The ``Chord/Status``
-    init?(definition: String, instrument: Instrument, status: Chord.Status) {
+    init(definition: String, instrument: Instrument, status: Chord.Status) throws {
         /// Parse the chord definition
-        if let definition = SwiftlyChordUtilities.define(from: definition, instrument: instrument) {
-            /// A definition for 6 fingers is not valid for an ukulele
-            if instrument == .ukuleleStandardGTuning && definition.frets.count != instrument.strings.count {
-                return nil
-            }
+        do {
+            let definition = try SwiftlyChordUtilities.define(from: definition, instrument: instrument)
             /// Set the properties
             self.id = UUID()
             self.frets = definition.frets
@@ -102,8 +99,8 @@ public extension ChordDefinition {
             /// Calculated values
             self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
             self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
-        } else {
-            return nil
+        } catch {
+            throw error
         }
     }
 
