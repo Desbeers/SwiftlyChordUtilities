@@ -30,8 +30,8 @@ import SwiftlyChordUtilities
                 .environment(chordsModel)
                 .environment(chordDisplayOptions)
             /// Load the chords from the selected instrument
-                .task(id: chordDisplayOptions.instrument) {
-                    switch chordDisplayOptions.instrument {
+                .task(id: chordDisplayOptions.displayOptions.instrument) {
+                    switch chordDisplayOptions.displayOptions.instrument {
                     case .guitarStandardETuning:
                         chordsModel.chords = Chords.guitar
                     case .guitaleleStandardATuning:

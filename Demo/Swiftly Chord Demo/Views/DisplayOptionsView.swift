@@ -35,6 +35,7 @@ struct DisplayOptionsView: View {
             .labelsHidden()
             .disabled(!chordDisplayOptions.displayOptions.showPlayButton)
         }
+        .lineLimit(nil)
         .tint(.accentColor)
         .buttonStyle(.plain)
         .animation(.default, value: chordDisplayOptions.displayOptions)

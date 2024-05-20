@@ -35,7 +35,7 @@ struct LookupView: View {
                 ProgressView()
             case .ready:
                 // swiftlint:disable:next line_length
-                Text("let chord = ChordDefinition(name: \"\(name)\", instrument: .\(chordDisplayOptions.instrument.rawValue))")
+                Text("let chord = ChordDefinition(name: \"\(name)\", instrument: .\(chordDisplayOptions.displayOptions.instrument.rawValue))")
                     .fontDesign(.monospaced)
                 GridView(chords: chords)
             case .empty:
@@ -53,7 +53,7 @@ struct LookupView: View {
     }
     /// Find the chords
     private func findChords() {
-        if let chord = ChordDefinition(name: name, instrument: chordDisplayOptions.instrument) {
+        if let chord = ChordDefinition(name: name, instrument: chordDisplayOptions.displayOptions.instrument) {
             chords = chordsModel.chords
                 .matching(root: chord.root)
                 .matching(quality: chord.quality)

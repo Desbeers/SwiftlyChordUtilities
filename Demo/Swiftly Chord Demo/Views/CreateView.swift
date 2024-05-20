@@ -18,13 +18,13 @@ struct CreateView: View {
                 .padding()
         }
         .animation(.default, value: chordDisplayOptions.displayOptions)
-        .task(id: chordDisplayOptions.instrument) {
+        .task(id: chordDisplayOptions.displayOptions.instrument) {
             setDefinition()
         }
     }
     /// Set the definition
     private func setDefinition() {
-        if let chord = ChordDefinition(name: "C", instrument: chordDisplayOptions.instrument) {
+        if let chord = ChordDefinition(name: "C", instrument: chordDisplayOptions.displayOptions.instrument) {
             chordDisplayOptions.definition = chord
         }
     }

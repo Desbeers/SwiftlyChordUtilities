@@ -39,7 +39,7 @@ struct DefineView: View {
             case .ready:
                 if let chord {
                     // swiftlint:disable:next line_length
-                    Text("let chord = ChordDefinition(definition: \"\(definition)\", instrument: .\(chordDisplayOptions.instrument.rawValue))")
+                    Text("let chord = ChordDefinition(definition: \"\(definition)\", instrument: .\(chordDisplayOptions.displayOptions.instrument.rawValue))")
                         .fontDesign(.monospaced)
                         .padding()
                     DiagramView(chord: chord)
@@ -63,9 +63,9 @@ struct DefineView: View {
             chord = nil
             status = .empty
         } else {
-            chord = ChordDefinition(
+            chord = try? ChordDefinition(
                 definition: definition,
-                instrument: chordDisplayOptions.instrument,
+                instrument: chordDisplayOptions.displayOptions.instrument,
                 status: .unknown
             )
             status = chord == nil ? .empty : .ready
