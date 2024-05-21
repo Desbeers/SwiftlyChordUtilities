@@ -10,7 +10,7 @@ import SwiftUI
 import AVFoundation
 
 /// Play a ``ChordDefinition`` with its MIDI values
-class MidiPlayer {
+final class MidiPlayer: @unchecked Sendable {
     /// Make it a shared class
     static let shared = MidiPlayer()
     /// The MIDI player

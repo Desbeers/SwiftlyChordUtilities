@@ -14,8 +14,8 @@ import Foundation
 /// - Parameter define: ChordPro string definition of the chord
 /// - Returns: A  `ChordPostion` struct, if found, else an Error
 func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
-
-    if let definition = define.firstMatch(of: defineRegex) {
+    let regex = Regexes()
+    if let definition = define.firstMatch(of: regex.defineRegex) {
 
         let positions = instrument.strings.count
 

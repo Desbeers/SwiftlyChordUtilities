@@ -17,7 +17,7 @@ extension Chord {
      - An unknown chord can not show a diagram
      - A custom chord that is transposed  can not show a diagram
      */
-    public enum Status: String {
+    public enum Status: String, Sendable {
         /// A standard chord from the database
         case standard
         /// A transposed chord

@@ -17,13 +17,13 @@ extension Chords {
     // MARK: Public
 
     /// Get all the guitar chords in a ``ChordDefinition`` array
-    public static var guitar = Chords.importDefinitions(instrument: .guitarStandardETuning)
+    public static let guitar = Chords.importDefinitions(instrument: .guitarStandardETuning)
 
     /// Get all the guitalile chords in a ``ChordDefinition`` array
-    public static var guitalele = Chords.importDefinitions(instrument: .guitaleleStandardATuning)
+    public static let guitalele = Chords.importDefinitions(instrument: .guitaleleStandardATuning)
 
     /// Get all the ukulele chords in a ``ChordDefinition`` array
-    public static var ukulele = Chords.importDefinitions(instrument: .ukuleleStandardGTuning)
+    public static let ukulele = Chords.importDefinitions(instrument: .ukuleleStandardGTuning)
 
     /// Get all the database definitions in JSON format
     /// - Parameter instrument: The ``Instrument``

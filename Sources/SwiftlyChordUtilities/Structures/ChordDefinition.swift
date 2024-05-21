@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure of a chord definition
-public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable {
+public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
 
     // MARK: Database items
 

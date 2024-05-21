@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure for an interval
-public struct Interval: Hashable {
+public struct Interval: Hashable, Sendable {
 
     /// Quality of the interval
     public var quality: Quality
@@ -148,7 +148,7 @@ public struct Interval: Hashable {
 
 public extension Interval {
 
-    enum Quality {
+    enum Quality: Sendable {
 
         /// Perfect
         case perfect

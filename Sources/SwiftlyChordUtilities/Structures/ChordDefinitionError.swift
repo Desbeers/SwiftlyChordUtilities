@@ -23,8 +23,6 @@ enum ChordDefinitionError: String, LocalizedError {
             "To many frets"
         case .notEnoughFrets:
             "Not enough frets"
-        default:
-            self.rawValue
         }
     }
     /// The error description of the status
@@ -41,8 +39,6 @@ enum ChordDefinitionError: String, LocalizedError {
             "You can not edit this chord definition because it has to many frets defined for you current instrument."
         case .notEnoughFrets:
             "You can not edit this chord definition because it has not enough frets defined for you current instrument."
-        default:
-            ""
         }
     }
 }

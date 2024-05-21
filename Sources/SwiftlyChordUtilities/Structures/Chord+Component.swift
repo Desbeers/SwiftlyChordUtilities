@@ -9,7 +9,7 @@ import Foundation
 extension Chord {
 
     /// The structure of a chord component
-    public struct Component: Identifiable, Hashable {
+    public struct Component: Identifiable, Hashable, Sendable {
         /// The unique ID
         public var id = UUID()
         /// The note
