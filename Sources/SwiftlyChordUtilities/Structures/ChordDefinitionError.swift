@@ -1,8 +1,8 @@
 //
 //  ChordDefinitionError.swift
+//  SwiftlyChordUtilities
 //
-//
-//  Created by Nick Berendsen on 19/05/2024.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation

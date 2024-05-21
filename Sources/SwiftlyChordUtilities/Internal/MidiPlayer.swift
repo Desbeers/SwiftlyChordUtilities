@@ -7,18 +7,18 @@
 //  Thanks: https://readdarek.com/how-to-play-midi-in-swift/
 
 import SwiftUI
-import AVFoundation
+@preconcurrency import AVFoundation
 
 /// Play a ``ChordDefinition`` with its MIDI values
-final class MidiPlayer: @unchecked Sendable {
-    /// Make it a shared class
+actor MidiPlayer {
+    /// Make it a shared actor
     static let shared = MidiPlayer()
     /// The MIDI player
     var midiPlayer: AVMIDIPlayer?
     /// The URL of the SoundBank
     /// - Note: A stripped version of the `GeneralUser GS MuseScore` bank
     var bankURL: URL
-    /// Private init to make sure the class is shared
+    /// Private init to make sure the actor is shared
     private init() {
         /// Get the Sound Font
         guard let bankURL = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2") else {
@@ -27,7 +27,7 @@ final class MidiPlayer: @unchecked Sendable {
         self.bankURL = bankURL
     }
 
-    /// Prepair a chord
+    /// Prepare a chord
     /// - Parameter chord: The ``chord`` to play
     func prepareChord(chord: Chord) {
         /// Black magic
@@ -58,7 +58,7 @@ final class MidiPlayer: @unchecked Sendable {
     /// Play a chord with its MIDI values
     /// - Parameters:
     ///   - notes: The notes to play
-    ///   - instument: The ``Instrument`` to use
+    ///   - instrument: The ``Instrument`` to use
     func playChord(notes: [Int], instrument: Midi.Instrument = .acousticNylonGuitar) async {
         let composer = Chord()
         let chord = composer.compose(notes: notes, instrument: instrument)
