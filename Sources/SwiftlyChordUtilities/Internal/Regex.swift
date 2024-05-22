@@ -108,16 +108,6 @@ struct Regexes {
 
     // MARK: Regex to parse the root of a chord
 
-    let rootRegex = Capture {
-        OneOrMore {
-            CharacterClass(
-                .anyOf("CDEFGABb#")
-            )
-        }
-    } transform: { root in
-        Chord.Root(rawValue: String(root)) ?? Chord.Root.none
-    }
-
     static var rootRegex: Capture<(Substring, Chord.Root)> {
         Capture {
             OneOrMore {
