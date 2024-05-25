@@ -14,7 +14,7 @@ For guitar, guitalele and ukulele chords.
 
 This package is **not stable** because it's written for the 'Chord handling part' of my [Chord Provider](https://github.com/Desbeers/Chord-Provider) application.
 
-See the Demo for details how to use the package.
+See the [Demo Application](https://github.com/Desbeers/Demos/tree/main/SwiftlyChordUtilities) for details how to use the package.
 
 ![Demo](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/screenshot-macOS.jpg)
 
