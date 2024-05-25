@@ -7,23 +7,30 @@
 
 import Foundation
 
-// MARK: Midi
+// MARK: Play a `ChordDefinition` with MIDI
 
-/// Play ` ``ChordDefinition`` with MIDI
+/// Play a ``ChordDefinition`` with MIDI
 public enum Midi {
     /// Just a placeholder
 }
 
 public extension Midi {
 
-    /// The available MIDI instruments
+    /// The available MIDI instruments for the player
     enum Instrument: Int, CaseIterable, Codable, Sendable {
+        /// Acoustic Nylon Guitar
         case acousticNylonGuitar = 24
+        /// Acoustic Steel Guitar
         case acousticSteelGuitar
+        /// Electric Jazz Guitar
         case electricJazzGuitar
+        /// Electric Clean Guitar
         case electricCleanGuitar
+        /// Electric Muted Guitar
         case electricMutedGuitar
+        /// Overdriven Guitar
         case overdrivenGuitar
+        /// Distortion Guitar
         case distortionGuitar
 
         //// The label for the instrument

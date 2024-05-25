@@ -6,12 +6,11 @@
 //
 import SwiftUI
 
-/**
- A SwiftUI `View` to create a ``ChordDefinition`` with pickers
-
- To use this `View`, the `ChordDisplayOptions` class must be added to your application as an `Environment`
- */
+/// A SwiftUI `View` to create a ``ChordDefinition`` with pickers
+///
+/// To use this `View`, the `ChordDisplayOptions` class must be added to your application as an `Environment`
 public struct CreateChordView: View {
+    /// Init the `View`
     public init() {}
     /// Chord Display Options object
     @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
@@ -78,7 +77,7 @@ public struct CreateChordView: View {
                         icon: { Image(systemName: "info.circle.fill") }
                     )
                     .padding(.bottom)
-                    Text(diagram?.validate.label ?? "Unknown status")
+                    Text(diagram?.validate.description ?? "Unknown status")
                         .foregroundStyle(diagram?.validate.color ?? .primary)
                 }
                 .frame(width: 300)
@@ -119,13 +118,14 @@ public struct CreateChordView: View {
                 quality: chordDisplayOptions.definition.quality,
                 bass: chordDisplayOptions.definition.bass,
                 instrument: chordDisplayOptions.definition.instrument,
-                status: .standard
+                status: .standardChord
             )
             self.diagram = diagram
-            chordComponents = getChordComponents(chord: diagram)
+            chordComponents = Utils.getChordComponents(chord: diagram)
         }
     }
 
+    /// The diagram `View`
     @ViewBuilder func diagramView(width: Double) -> some View {
         if let diagram {
             ChordDefinitionView(chord: diagram, width: width, options: chordDisplayOptions.displayOptions)
@@ -134,7 +134,7 @@ public struct CreateChordView: View {
             ProgressView()
         }
     }
-    
+
     /// Check if a note is required for a chord
     ///
     /// The first array of the `chordComponents` contains all notes
@@ -151,6 +151,9 @@ public struct CreateChordView: View {
         return true
     }
 
+    /// The header `View`
+    /// - Parameter text: The text as `String`
+    /// - Returns: A `View` with the header title
     func header(text: String) -> some View {
         VStack {
             Text(text)

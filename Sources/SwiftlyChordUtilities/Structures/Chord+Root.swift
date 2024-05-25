@@ -12,25 +12,45 @@ extension Chord {
     /// The root of a chord
     /// - Note: Changes to the raw value might break the databases
     public enum Root: String, CaseIterable, Codable, Comparable, Sendable {
-        case none = "None"
+
         // swiftlint:disable identifier_name
+
+        /// None
+        case none = "None"
+        /// C
         case c = "C"
+        /// C sharp
         case cSharp = "C#"
-        case dFlat = "Db"
+        /// D
         case d = "D"
+        /// D sharp
         case dSharp = "D#"
-        case eFlat = "Eb"
+        /// D flat
+        case dFlat = "Db"
+        /// E
         case e = "E"
+        /// E flat
+        case eFlat = "Eb"
+        /// F
         case f = "F"
+        /// F sharp
         case fSharp = "F#"
-        case gFlat = "Gb"
+        /// G
         case g = "G"
+        /// G sharp
         case gSharp = "G#"
-        case aFlat = "Ab"
+        /// G flat
+        case gFlat = "Gb"
+        /// A
         case a = "A"
+        /// A sharp
         case aSharp = "A#"
-        case bFlat = "Bb"
+        /// A flat
+        case aFlat = "Ab"
+        /// B
         case b = "B"
+        /// B flat
+        case bFlat = "Bb"
         // swiftlint:enable identifier_name
 
         /// Implement Comparable
@@ -89,7 +109,7 @@ public extension Chord.Root {
     ///   - transpose: The transpose value
     ///   - scale: The scale of the note
     mutating func transpose(transpose: Int, scale: Chord.Root) {
-        self = transposeNote(note: self, transpose: transpose, scale: scale)
+        self = Utils.transposeNote(note: self, transpose: transpose, scale: scale)
     }
 }
 

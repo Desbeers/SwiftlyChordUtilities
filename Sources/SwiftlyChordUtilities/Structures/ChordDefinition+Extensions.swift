@@ -15,7 +15,7 @@ public extension ChordDefinition {
     func displayName(options: DisplayOptions) -> String {
         var name: String = ""
 
-        if self.status == .unknown || self.quality == .unknown {
+        if self.status == .unknownChord || self.quality == .unknown {
             /// We don't know anything about this chord; so use the original name
             name = self.name
         } else {
@@ -49,8 +49,8 @@ public extension ChordDefinition {
 public extension ChordDefinition {
 
     /// Try to validate a ``ChordDefinition``
-    var validate: ChordValidation {
-        validateChord(chord: self)
+    var validate: Chord.Status {
+        Analizer.validateChord(chord: self)
     }
 }
 

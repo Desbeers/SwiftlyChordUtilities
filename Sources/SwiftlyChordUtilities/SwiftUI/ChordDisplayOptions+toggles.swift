@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-extension ChordDisplayOptions{
+extension ChordDisplayOptions {
 
     // MARK: Name Toggle
 
@@ -23,7 +23,7 @@ extension ChordDisplayOptions{
         /// The body of the `View`
         var body: some View {
             Toggle(isOn: $chordDisplayOptions.displayOptions.showName) {
-                Label("Show name", systemImage:  chordDisplayOptions.displayOptions.showName ? "a.square.fill" : "a.square")
+                Label("Show name", systemImage: chordDisplayOptions.displayOptions.showName ? "a.square.fill" : "a.square")
             }
         }
     }
@@ -41,7 +41,11 @@ extension ChordDisplayOptions{
         /// The body of the `View`
         var body: some View {
             HStack(alignment: .top) {
-                Image(systemName: chordDisplayOptions.displayOptions.showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread")
+                Image(
+                    systemName: chordDisplayOptions
+                        .displayOptions
+                        .showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread"
+                )
                 Toggle(isOn: $chordDisplayOptions.displayOptions.showFingers) {
                     Text("Show fingers")
                     Text("Show the suggested finger positions for the chord")

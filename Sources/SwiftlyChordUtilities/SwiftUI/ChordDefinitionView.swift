@@ -7,60 +7,72 @@
 
 import SwiftUI
 
+// swiftlint:disable indentation_width
+
 /**
-A SwiftUI `View` for a ``ChordDefinition``
+ A SwiftUI `View` for a ``ChordDefinition``
 
  The `View` can be styled with the passed `DisplayOptions` and further with the usual SwiftUI modifiers.
 
-**The color of the diagram are styled with the `.foregroundStyle` modifier**
-- The color of the diagram is the primary color.
-- The labels are the secondary color
+ **The color of the diagram are styled with the `.foregroundStyle` modifier**
+ - The color of the diagram is the primary color.
+ - The labels are the secondary color
 
- - Note: If you don't attacht a .foregroundStyle modifier, the labels are hard to see because the primary and secondary color are not that different.
+ - Note: If you don't attach a .foregroundStyle modifier, the labels are hard to see because the primary and secondary color are not that different.
 
-**The height of the `View` is just as needed**
+ **The height of the `View` is just as needed**
 
-It will caclulate all the bits and pieces based on the *width* and will be not a fixed height. As always, you can set the *height* with a modifier as it pleases you.
+ It will calculate all the bits and pieces based on the *width* and will be not a fixed height. As always, you can set the *height* with a modifier as it pleases you.
 
  Best is to wrap the `View` in another `View` to attach any modifiers:
  ```swift
  /// SwiftUI `View` for a chord diagram
  struct ChordDiagramView: View {
-     /// The chord
-     let chord: ChordDefinition
-     /// Width of the chord diagram
-     var width: Double
-     /// Display options
-     var options: ChordDefinition.DisplayOptions
-     /// The current color scheme
-     @Environment(\.colorScheme) var colorScheme
-     /// The body of the `View`
-     var body: some View {
-         ChordDefinitionView(chord: chord, width: width, options: options)
-             .foregroundStyle(.primary, colorScheme == .dark ? .black : .white)
-     }
+ /// The chord
+ let chord: ChordDefinition
+ /// Width of the chord diagram
+ var width: Double
+ /// Display options
+ var options: ChordDefinition.DisplayOptions
+ /// The current color scheme
+ @Environment(\.colorScheme) var colorScheme
+ /// The body of the `View`
+ var body: some View {
+    ChordDefinitionView(chord: chord, width: width, options: options)
+        .foregroundStyle(.primary, colorScheme == .dark ? .black : .white)
+    }
  }
  ```
  If you want to render the chord for print; just set the style to 'black and white' and use `ImageRenderer` to get your image.
  */
 public struct ChordDefinitionView: View {
 
+    // swiftlint:enable indentation_width
+
     /// The chord to display in a diagram
     let chord: ChordDefinition
     /// The chord display options
     let options: ChordDefinition.DisplayOptions
-
+    /// The width of the diagram
     let width: Double
+    /// The height of the grid
     let gridHeight: Double
+    /// The height of a line
     let lineHeight: Double
+    /// The width of a cell
     let cellWidth: Double
+    /// The horizontal padding
     let horizontalPadding: Double
-
     /// The frets of the chord; adjusted for left-handed if needed
     let frets: [Int]
     /// The fingers of the chord; adjusted for left-handed if needed
     let fingers: [Int]
 
+    /// Init the `View`
+    /// - Parameters:
+    ///   - chord: The ``ChordDefinition``
+    ///   - width: The width of the diagram
+    ///   - options: The ``ChordDefinition/DisplayOptions`` for the diagram
     public init(chord: ChordDefinition, width: Double, options: ChordDefinition.DisplayOptions) {
         self.chord = chord
         self.options = options
@@ -80,6 +92,7 @@ public struct ChordDefinitionView: View {
 
     // MARK: Body of the View
 
+    /// The body of the `View`
     public var body: some View {
         VStack(spacing: 0) {
             if options.showName {
@@ -88,13 +101,10 @@ public struct ChordDefinitionView: View {
                     .padding(lineHeight / 4)
             }
             switch chord.status {
-            case .standard, .transposed, .custom:
+            case .standardChord, .transposedChord, .customChord:
                 diagram
-            case .customTransposed:
-                Text("A custom chord can not be transposed in the diagram")
-                    .multilineTextAlignment(.center)
-            case .unknown:
-                Text("The chord is unknown")
+            default:
+                Text(chord.status.description)
                     .multilineTextAlignment(.center)
             }
         }
@@ -105,6 +115,7 @@ public struct ChordDefinitionView: View {
 
     // MARK: String Grid
 
+    /// The grid `View`
     var grid: some View {
         GridShape(instrument: chord.instrument)
             .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
@@ -113,7 +124,8 @@ public struct ChordDefinitionView: View {
 
     // MARK: Diagram
 
-    @ViewBuilder var diagram: some View  {
+    /// The diagram `View`
+    @ViewBuilder var diagram: some View {
         if frets.contains(-1) || frets.contains(0) {
             topBar
         }
@@ -149,6 +161,7 @@ public struct ChordDefinitionView: View {
 
     // MARK: Top Bar
 
+    /// The top bar `View`
     var topBar: some View {
         HStack(spacing: 0) {
             ForEach(frets.indices, id: \.self) { index in
@@ -175,6 +188,7 @@ public struct ChordDefinitionView: View {
 
     // MARK: Frets Grid
 
+    /// The frets grid `View`
     var fretsGrid: some View {
         return Grid(alignment: .top, horizontalSpacing: 0, verticalSpacing: 0) {
             ForEach((1...5), id: \.self) { fret in
@@ -219,10 +233,11 @@ public struct ChordDefinitionView: View {
 
     // MARK: Barre Grid
 
+    /// The barres grid `View`
     var barresGrid: some View {
         VStack(spacing: 0) {
             ForEach((1...5), id: \.self) { fret in
-                if let barre = chord.barres.first(where: {$0.fret == fret }) {
+                if let barre = chord.barres.first(where: { $0.fret == fret }) {
                     /// Mirror for left-handed if needed
                     let barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                     HStack(spacing: 0) {
@@ -260,7 +275,7 @@ public struct ChordDefinitionView: View {
 
     // MARK: Notes Bar
 
-    /// Show the notes of the chord
+    /// The notes `View`
     var notesBar: some View {
         let notes = options.mirrorDiagram ? chord.components.reversed() : chord.components
         return HStack(spacing: 0) {
@@ -286,8 +301,10 @@ public struct ChordDefinitionView: View {
 // MARK: GridShape
 
 extension ChordDefinitionView {
-    
+
+    /// The `Shape` of the grid
     struct GridShape: Shape {
+        /// The ``Instrument`` to use
         let instrument: Instrument
         func path(in rect: CGRect) -> Path {
             let columns = instrument.strings.count - 1
@@ -309,5 +326,4 @@ extension ChordDefinitionView {
             return path
         }
     }
-
 }

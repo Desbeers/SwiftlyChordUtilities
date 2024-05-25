@@ -32,7 +32,6 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
 
     /// The fingers you have to bar for the chord
     /// - Note: A calculated value by the init
-    //public var barres: [Int]
     public var barres: [Chord.Barre]
 
     /// The instrument of the chord
@@ -52,25 +51,32 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// The coding keys
     /// - Note: Only those items will be in the database
     enum CodingKeys: CodingKey {
+        /// The ID of the chord
         case id
+        /// The frets of the chord
         case frets
+        /// The fingers of the chord
         case fingers
+        /// The base fret of the chord
         case baseFret
+        /// The root of the chord
         case root
+        /// The quality of the chord
         case quality
+        /// The optional bass note of the chord
         case bass
     }
 
     /// Custom encoder for the ``ChordDefinition``
     public func encode(to encoder: Encoder) throws {
-        var container: KeyedEncodingContainer<ChordDefinition.CodingKeys> = encoder.container(keyedBy: ChordDefinition.CodingKeys.self)
-        
-        try container.encode(self.id, forKey: ChordDefinition.CodingKeys.id)
-        try container.encode(self.frets, forKey: ChordDefinition.CodingKeys.frets)
-        try container.encode(self.fingers, forKey: ChordDefinition.CodingKeys.fingers)
-        try container.encode(self.baseFret, forKey: ChordDefinition.CodingKeys.baseFret)
-        try container.encode(self.root, forKey: ChordDefinition.CodingKeys.root)
-        try container.encode(self.quality, forKey: ChordDefinition.CodingKeys.quality)
-        try container.encode(self.bass, forKey: ChordDefinition.CodingKeys.bass)
+        var container: KeyedEncodingContainer<ChordDefinition.CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(self.id, forKey: .id)
+        try container.encode(self.frets, forKey: .frets)
+        try container.encode(self.fingers, forKey: .fingers)
+        try container.encode(self.baseFret, forKey: .baseFret)
+        try container.encode(self.root, forKey: .root)
+        try container.encode(self.quality, forKey: .quality)
+        try container.encode(self.bass, forKey: .bass)
     }
 }

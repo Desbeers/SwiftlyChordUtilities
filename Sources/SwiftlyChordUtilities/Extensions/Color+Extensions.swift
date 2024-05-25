@@ -27,6 +27,7 @@ public extension Color {
         )
     }
 
+    /// The Color of the label
     static var windowLabel: Color {
 #if os(macOS)
         return Color(nsColor: .labelColor)
@@ -35,6 +36,7 @@ public extension Color {
 #endif
     }
 
+    /// The background Color
     static var windowBackground: Color {
 #if os(macOS)
         return Color(nsColor: .windowBackgroundColor)

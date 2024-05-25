@@ -8,13 +8,11 @@
 import SwiftUI
 import SwiftlyStructCache
 
-/**
- An `Observable` Class with SwiftUI elements
-
- This class contains SwiftUI Toggles and Pickers you can add to your application to change the appearance of the chord diagrams.
-
- - Note: The ``ChordDefinition/DisplayOptions`` will be preserved on disk.
- */
+/// An `Observable` Class with SwiftUI elements
+///
+/// This class contains SwiftUI Toggles and Pickers you can add to your application to change the appearance of the chord diagrams.
+///
+/// - Note: The ``ChordDefinition/DisplayOptions`` will be preserved on disk.
 @Observable
 public final class ChordDisplayOptions {
     /// Init the Class with optional defaults
@@ -24,6 +22,7 @@ public final class ChordDisplayOptions {
         } catch {
             displayOptions = defaults ?? .init()
         }
+        // swiftlint:disable:next force_unwrapping
         self.definition = ChordDefinition(name: "C", instrument: .guitarStandardETuning)!
     }
 

@@ -7,9 +7,9 @@
 import Foundation
 
 extension Chord {
-    
+
     /// The structure of a chord barre
-    public struct Barre: Equatable, Codable, Hashable, Sendable  {
+    public struct Barre: Equatable, Codable, Hashable, Sendable {
         /// The finger for the barre
         public var finger: Int = 0
         /// the fret for the barr

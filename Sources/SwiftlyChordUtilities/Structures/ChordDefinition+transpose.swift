@@ -9,16 +9,20 @@ import Foundation
 
 public extension ChordDefinition {
 
+    /// Transpose a ``ChordDefinition``
+    /// - Parameters:
+    ///   - transpose: The transpose value
+    ///   - scale: The scale of the chord
     mutating func transpose(transpose: Int, scale: Chord.Root) {
-        if self.status == .custom {
-            self.status = .customTransposed
+        if self.status == .customChord {
+            self.status = .customTransposedChord
         } else {
             /// Get the chords for the instrument
             let chords = Chords.getAllChordsForInstrument(instrument: instrument)
-            let root = transposeNote(note: self.root, transpose: transpose, scale: scale)
-            if let chord =  chords.matching(root: root).matching(quality: self.quality).first {
+            let root = Utils.transposeNote(note: self.root, transpose: transpose, scale: scale)
+            if let chord = chords.matching(root: root).matching(quality: self.quality).first {
                 self = chord
-                self.status = .transposed
+                self.status = .transposedChord
             }
         }
     }

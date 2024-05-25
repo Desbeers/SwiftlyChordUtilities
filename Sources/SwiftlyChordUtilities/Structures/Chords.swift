@@ -31,21 +31,21 @@ extension Chords {
     public static func jsonDatabase(instrument: Instrument) -> String {
         Bundle.module.json(from: instrument.database)
     }
-    
+
     /// Import a ``Database`` in JSON format to a ``ChordDefinition`` array
     /// - Parameter database: The ``Database`` in JSON format
     /// - Returns: A ``ChordDefinition`` array
     public static func importDatabase(database: String) -> [ChordDefinition] {
         importDefinitions(database: database)
     }
-    
+
     /// Export a ``ChordDefinition`` array to a ``Database`` in JSON format
     /// - Parameter definitions: A ``ChordDefinition`` array
     /// - Returns: The ``Database`` in JSON format
     public static func exportDatabase(definitions: [ChordDefinition]) -> String {
         exportDefinitions(definitions: definitions)
     }
-    
+
     /// Get all chord definitions for an instrument
     /// - Parameter instrument: The ``Instrument``
     /// - Returns: An ``ChordDefinition`` array
@@ -71,13 +71,15 @@ extension Chords {
     }
 
     /// Import a definition database from a JSON string
-    /// - Parameter database: The databse in JSON format
+    /// - Parameter database: The database in JSON format
     /// - Returns: An array of ``ChordDefinition``
     static func importDefinitions(database: String) -> [ChordDefinition] {
         let decoder = JSONDecoder()
+        guard let data = database.data(using: .utf8)
+        else { return [] }
+
         do {
-            let data = database.data(using: .utf8)!
-            let database =  try decoder.decode(Database.self, from: data)
+            let database = try decoder.decode(Database.self, from: data)
             return importDatabase(database: database)
         } catch {
             print(error)
@@ -85,11 +87,14 @@ extension Chords {
         }
     }
 
+    /// Export the definitions to a String
+    /// - Parameter definitions: The chord definitions
+    /// - Returns: A String will all definitions
     static func exportDefinitions(definitions: [ChordDefinition]) -> String {
         guard
             /// The first definition is needed to find the instrument
             let firstDefinition = definitions.first
-        else{
+        else {
             return("No definitions")
         }
         let definitions = definitions.map(\.define).sorted()
@@ -102,23 +107,22 @@ extension Chords {
         encoder.outputFormatting = .prettyPrinted
         do {
             let encodedData = try encoder.encode(export)
-            let jsonString = String(
-                data: encodedData,
-                encoding: .utf8
-            )
-            return jsonString ?? "error"
+            return String(decoding: encodedData, as: UTF8.self)
         } catch {
             return "error"
         }
     }
 
+    /// Import a database with chord definitions
+    /// - Parameter database: The ``Database`` to import
+    /// - Returns: An array of ``ChordDefinition``
     static func importDatabase(database: Database) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []
         for definition in database.definitions {
             if let result = try? ChordDefinition(
                 definition: definition,
                 instrument: database.instrument,
-                status: .standard
+                status: .standardChord
             ) {
                 definitions.append(result)
             }
@@ -126,12 +130,17 @@ extension Chords {
         return definitions.sorted(using: KeyPathComparator(\.baseFret))
     }
 
+    /// Parse a String with chord definitions
+    /// - Parameters:
+    ///   - instrument: The ``Instrument``
+    ///   - definitions: The definitions as String
+    /// - Returns: An array of ``ChordDefinition``
     static func parseDefinitions(instrument: Instrument, definitions: String) -> [ChordDefinition] {
         definitions.split(separator: "\n", omittingEmptySubsequences: true).map { definition in
             if let result = try? ChordDefinition(
                 definition: String(definition),
                 instrument: instrument,
-                status: .standard
+                status: .standardChord
             ) {
                 return result
             }

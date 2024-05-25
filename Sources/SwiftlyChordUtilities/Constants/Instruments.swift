@@ -61,12 +61,14 @@ public extension Instrument {
         case .guitaleleStandardATuning:
             [4, 9, 14, 19, 23, 28]
         case .ukuleleStandardGTuning:
-            [26,19, 23, 28]
+            [26, 19, 23, 28]
         }
     }
 }
 
 extension Instrument {
+
+    /// The databases for the instruments
     var database: String {
         switch self {
         case .guitarStandardETuning:

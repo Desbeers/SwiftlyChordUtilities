@@ -5,22 +5,18 @@
 //  © 2023 Nick Berendsen
 //
 
-/*
-
- 0:  R:     C  Perfect Unison
- 1:  m2:    C# Minor Second
- 2:  M2:    D  Major Second
- 3:  m3:    D# Augmented Second / Minor Third
- 4:  M3:    E  Major Third
- 5:  P4:    F  Perfect Fourth
- 6:  A4/d5: F# Augmented Fourth / Diminished Fifth
- 7:  P5:    G  Perfect Fifth
- 8:  A5/m6: G# Augmented Fifth / Minor Sixth
- 9:  M6:    A  Major Sixth
- 10: m7:    A# Minor Seventh
- 11: M7:    B  Major Seventh
-
- */
+// 0:  R:     C  Perfect Unison
+// 1:  m2:    C# Minor Second
+// 2:  M2:    D  Major Second
+// 3:  m3:    D# Augmented Second / Minor Third
+// 4:  M3:    E  Major Third
+// 5:  P4:    F  Perfect Fourth
+// 6:  A4/d5: F# Augmented Fourth / Diminished Fifth
+// 7:  P5:    G  Perfect Fifth
+// 8:  A5/m6: G# Augmented Fifth / Minor Sixth
+// 9:  M6:    A  Major Sixth
+// 10: m7:    A# Minor Seventh
+// 11: M7:    B  Major Seventh
 
 import Foundation
 
@@ -115,7 +111,7 @@ public extension Chord.Quality {
             ([.P1, .M3, .P5, .m7, .M9], [.P5])
         case .majorNine:
             /// C    E    G (optional)    B    D
-            ([.P1, .M3, .P5, .M7, .M9],[.P5])
+            ([.P1, .M3, .P5, .M7, .M9], [.P5])
         case .minorMajorNine:
             /// C    Eb    G (optional)    B    D
             ([.P1, .m3, .P5, .M7, .M9], [.P5])
@@ -195,8 +191,7 @@ public extension Chord.Quality {
             // MARK: - Unknown
 
         case.unknown:
-            ([],[])
+            ([], [])
         }
-
     }
 }

@@ -18,7 +18,8 @@ let package = Package(
         .package(
             url: "https://github.com/Desbeers/SwiftlyStructCache",
             branch: "main"
-        ),
+        )
+        //.package(url: "https://github.com/realm/SwiftLint.git", branch: "main"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -32,7 +33,7 @@ let package = Package(
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency")
             ]
-            //plugins: [.plugin(name: "SwiftLintPlugin",package: "SwiftLint")]
+            //plugins: [.plugin(name: "SwiftLintBuildToolPlugin",package: "SwiftLint")]
         )
     ]
 )

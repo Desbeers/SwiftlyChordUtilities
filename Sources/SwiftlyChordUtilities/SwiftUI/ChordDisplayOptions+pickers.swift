@@ -161,7 +161,7 @@ extension ChordDisplayOptions {
         private func fretLabel(fret: Int) -> String {
             let formatter = NumberFormatter()
             formatter.numberStyle = .ordinal
-            return formatter.string(from: NSNumber(integerLiteral: fret)) ?? "\(fret)"
+            return formatter.string(from: NSNumber(value: Int32(fret))) ?? "\(fret)"
         }
     }
 
@@ -202,7 +202,7 @@ extension ChordDisplayOptions {
     public var fretsPicker: some View {
         FretsPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings,
+            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             chordDisplayOptions: self
         )
     }
@@ -232,9 +232,11 @@ extension ChordDisplayOptions {
                             ForEach(0...5, id: \.self) { value in
                                 /// Calculate the fret note
                                 /// - Note: Only add the basefret after the first row because the note can still be played open
-                                let fret = chordDisplayOptions.definition.instrument.offset[fret] + (value == 0 ? 1 : chordDisplayOptions.definition.baseFret) + 40 + value
+                                let fret = chordDisplayOptions
+                                    .definition
+                                    .instrument.offset[fret] + (value == 0 ? 1 : chordDisplayOptions.definition.baseFret) + 40 + value
                                 /// Convert the fret to a label
-                                let label = valueToNote(value: fret, scale: chordDisplayOptions.definition.root)
+                                let label = Utils.valueToNote(value: fret, scale: chordDisplayOptions.definition.root)
                                 Text(label.display.symbol)
                                     .tag(value)
                             }
@@ -255,7 +257,7 @@ extension ChordDisplayOptions {
     public var fingersPicker: some View {
         FingersPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() :  definition.instrument.strings,
+            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             chordDisplayOptions: self
         )
     }
@@ -288,7 +290,6 @@ extension ChordDisplayOptions {
                                 .font(.title3)
                         }
                     )
-                    //Divider()
                 }
             }
         }

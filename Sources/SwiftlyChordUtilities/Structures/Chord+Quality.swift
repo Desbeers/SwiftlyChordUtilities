@@ -15,67 +15,112 @@ extension Chord {
 
         // MARK: Triad
 
+        /// Major
         case major = ""
+        /// Minor
         case minor = "m"
+        /// Augmented
         case aug = "aug"
+        /// Diminished
         case dim = "dim"
-        
+
         // MARK: Seventh
 
+        /// 7
         case seven = "7"
+        /// 7#5
         case sevenSharpFive = "7#5"
+        /// 7b5
         case sevenFlatFive = "7b5"
+        /// 7#9
         case sevenSharpNine = "7#9"
+        /// 7b9
         case sevenFlatNine = "7b9"
+        /// Minor 7
         case minorSeven = "m7"
+        /// Major 7
         case majorSeven = "maj7"
+        /// Augmented 7
         case augSeven = "aug7"
+        /// Diminished 7
         case dimSeven = "dim7"
+        /// Major 7#5
         case majorSevenSharpFive = "maj7#5"
+        /// Major 7b5
         case majorSevenFlatFive = "maj7b5"
+        /// Minor Major 7
         case minorMajorSeven = "mMaj7"
+        /// Minor Major 7b5
         case minorMajorSeventFlatFive = "mMaj7b5"
+        /// Minor 7b5
         case minorSevenFlatFive = "m7b5"
 
         // MARK: Suspended
 
+        /// Sus 2
         case susTwo = "sus2"
+        /// Sus 4
         case susFour = "sus4"
+        /// 7 sus 2
         case sevenSusTwo = "7sus2"
+        /// 7 sus 4
         case sevenSusFour = "7sus4"
 
         // MARK: Extended
 
+        /// 9
         case nine = "9"
+        /// Major 9
         case majorNine = "maj9"
+        /// Minor Major 9
         case minorMajorNine = "mMaj9"
+        /// Minor 9
         case minorNine = "m9"
+        /// 9b5
         case nineFlatFive = "9b5"
+        /// 9#11
         case nineSharpEleven = "9#11"
 
+        /// 11
         case eleven = "11"
+        /// Major 11
         case majorEleven = "maj11"
+        /// Minor 11
         case minorEleven = "m11"
+        /// Minor Major 11
         case minorMajorEleven = "mMaj11"
 
+        /// 13
         case thirteen = "13"
+        /// Major 13
         case majorThirteen = "maj13"
+        /// Minor 13
         case minorThirteen = "m13"
 
         // MARK: Added
 
+        /// 5
         case five = "5"
+        /// 6
         case six = "6"
+        /// Minor 6
         case minorSix = "m6"
+        /// 6/9
         case sixNine = "69"
+        /// Minor 6/9
         case minorSixNine = "m69"
+        /// Add 4
         case addFour = "add4"
+        /// Add 9
         case addNine = "add9"
-        case addEleven = "add11"
+        /// Minor add 9
         case minorAddNine = "madd9"
+        /// Add 11
+        case addEleven = "add11"
 
         // MARK: Augmented
 
+        /// Augmented 9
         case augNine = "aug9"
 
         // MARK: Other
@@ -245,9 +290,9 @@ extension String {
     var qualityEnumValue: Chord.Quality? {
         switch self {
         case "69":
-                .sixNine
+            Chord.Quality.sixNine
         case "m":
-                .minor
+            Chord.Quality.minor
         default:
             Chord.Quality(rawValue: self)
         }

@@ -1,5 +1,5 @@
 //
-//  Regex.swift
+//  RegexDefinitions.swift
 //  SwiftlyChordUtilities
 //
 //  © 2022 Nick Berendsen
@@ -8,7 +8,8 @@
 import Foundation
 import RegexBuilder
 
-struct Regexes {
+/// Regex definitions to parse a chord
+struct RegexDefinitions {
 
     // MARK: Regex to parse a chord name
 
@@ -36,10 +37,8 @@ struct Regexes {
                 }
             } transform: { quality in
                 /// Try to find the name of the quality
-                for name in Chord.Quality.allCases {
-                    if name.name.contains(String(quality)) {
-                        return name
-                    }
+                for name in Chord.Quality.allCases where name.name.contains(String(quality)) {
+                    return name
                 }
                 /// The quality is unknown
                 return Chord.Quality.unknown
@@ -53,6 +52,7 @@ struct Regexes {
 
     // MARK: Regex to parse a define
 
+    /// The regex for a chord definition
     let defineRegex = Regex {
         /// Capture the name
         Capture {
@@ -108,6 +108,7 @@ struct Regexes {
 
     // MARK: Regex to parse the root of a chord
 
+    /// The regex to parse the root of a chord
     static var rootRegex: Capture<(Substring, Chord.Root)> {
         Capture {
             OneOrMore {
@@ -119,5 +120,4 @@ struct Regexes {
             Chord.Root(rawValue: String(root)) ?? Chord.Root.none
         }
     }
-
 }

@@ -58,15 +58,20 @@ extension ChordDefinition {
             public enum Root: String, Codable, CaseIterable, Sendable {
                 /// Display the raw value
                 case raw
+                /// Display the accessible value
                 case accessible
+                /// Display the symbol value
                 case symbol
             }
             /// Quality display options
             public enum Quality: String, Codable, CaseIterable, Sendable {
                 /// Display the raw value
                 case raw
+                /// Display the short value
                 case short
+                /// Display the symbolized value
                 case symbolized
+                /// Display the alternative symbol value
                 case altSymbol
             }
         }

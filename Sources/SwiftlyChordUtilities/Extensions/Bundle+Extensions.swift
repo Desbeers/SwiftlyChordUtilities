@@ -8,7 +8,20 @@
 import Foundation
 
 extension Bundle {
-    func decode<T: Decodable>(_ type: T.Type, from file: String, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
+
+    /// Decode a JSON file from the bundle
+    /// - Parameters:
+    ///   - type: The decodable type
+    ///   - file: The fil to decode
+    ///   - dateDecodingStrategy: The optional Date Decoding Strategy
+    ///   - keyDecodingStrategy: The optional Key Decoding Strategy
+    /// - Returns: The decoded file
+    func decode<T: Decodable>(
+        _ type: T.Type,
+        from file: String,
+        dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
+        keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
+    ) -> T {
         guard let url = self.url(forResource: file, withExtension: "chordsdb") else {
             fatalError("Failed to locate \(file) in bundle.")
         }
@@ -24,6 +37,7 @@ extension Bundle {
         do {
             return try decoder.decode(T.self, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
+            // swiftlint:disable:next line_length
             fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' not found – \(context.debugDescription)")
         } catch DecodingError.typeMismatch(_, let context) {
             fatalError("Failed to decode \(file) from bundle due to type mismatch – \(context.debugDescription)")
@@ -36,6 +50,9 @@ extension Bundle {
         }
     }
 
+    /// Get the JSON data from a file in the bundle
+    /// - Parameter file: The JSON file
+    /// - Returns: The content of the JSON file
     func json(from file: String) -> String {
         guard let url = self.url(forResource: file, withExtension: "chordsdb") else {
             fatalError("Failed to locate \(file) in bundle.")

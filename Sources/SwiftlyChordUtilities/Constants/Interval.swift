@@ -10,6 +10,8 @@ import Foundation
 /// The structure for an interval
 public struct Interval: Hashable, Sendable {
 
+    // swiftlint:disable identifier_name
+
     /// Quality of the interval
     public var quality: Quality
     /// Degree of the interval
@@ -129,6 +131,7 @@ public struct Interval: Hashable, Sendable {
     /// Augmented fifteenth
     public static let A15 = Interval(quality: .augmented, degree: 15, semitones: 25)
 
+    // swiftlint:enable identifier_name
 
     // MARK: CustomStringConvertible
 
@@ -141,13 +144,14 @@ public struct Interval: Hashable, Sendable {
     public var description: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .ordinal
-        let formattedDegree = formatter.string(from: NSNumber(integerLiteral: degree)) ?? "\(degree)"
+        let formattedDegree = formatter.string(from: NSNumber(value: Int32(degree))) ?? "\(degree)"
         return "\(quality) \(formattedDegree)"
     }
 }
 
 public extension Interval {
 
+    /// The quality of the interval
     enum Quality: Sendable {
 
         /// Perfect

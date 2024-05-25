@@ -24,9 +24,9 @@ public extension ChordDefinition {
         self.bass = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.bass)
         /// Calculated values
         self.name = "\(root.rawValue)\(quality.rawValue)"
-        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitarStandardETuning)
-        self.status = .standard
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitarStandardETuning)
+        self.status = .standardChord
         self.instrument = .guitarStandardETuning
     }
 
@@ -41,7 +41,7 @@ public extension ChordDefinition {
         quality: Chord.Quality,
         bass: Chord.Root?,
         instrument: Instrument,
-        status: Chord.Status = .custom
+        status: Chord.Status = .customChord
     ) {
         self.id = id
         self.frets = frets
@@ -54,8 +54,8 @@ public extension ChordDefinition {
         self.instrument = instrument
         self.status = status
         /// Calculated values
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
     }
 
     // MARK: Init with a definition
@@ -71,7 +71,7 @@ public extension ChordDefinition {
     init(definition: String, instrument: Instrument, status: Chord.Status) throws {
         /// Parse the chord definition
         do {
-            let definition = try SwiftlyChordUtilities.define(from: definition, instrument: instrument)
+            let definition = try Utils.define(from: definition, instrument: instrument)
             /// Set the properties
             self.id = UUID()
             self.frets = definition.frets
@@ -83,22 +83,22 @@ public extension ChordDefinition {
             self.bass = definition.bass
             self.instrument = instrument
             self.status = status
-            if status == .unknown {
+            if status == .unknownChord {
                 /// Get the optional matching chords
                 let chords = Chords.getAllChordsForInstrument(instrument: instrument)
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
                     .matching(bass: definition.bass)
                 /// See if we can find it
-                if chords.firstIndex(where: {$0.frets == definition.frets && $0.baseFret == definition.baseFret}) != nil {
-                    self.status = .standard
+                if chords.firstIndex(where: { $0.frets == definition.frets && $0.baseFret == definition.baseFret }) != nil {
+                    self.status = .standardChord
                 } else {
-                    self.status = .custom
+                    self.status = .customChord
                 }
             }
             /// Calculated values
-            self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+            self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
+            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
         } catch {
             throw error
         }
@@ -113,7 +113,7 @@ public extension ChordDefinition {
     ///   - instrument: The ``Instrument``
     init?(name: String, instrument: Instrument) {
         /// Parse the chord name
-        let elements = findChordElements(chord: name)
+        let elements = Analizer.findChordElements(chord: name)
         /// Get the chords for the instrument
         let chords = Chords.getAllChordsForInstrument(instrument: instrument)
         /// See if we can find it
@@ -134,10 +134,10 @@ public extension ChordDefinition {
         self.bass = elements.bass
         self.name = name
         self.instrument = instrument
-        self.status = .standard
+        self.status = .standardChord
         /// Calculated values
-        self.components = fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
     }
 
     // MARK: Init with an unknown name
@@ -158,7 +158,7 @@ public extension ChordDefinition {
         self.bass = nil
         self.name = unknown
         self.instrument = instrument
-        self.status = .unknown
+        self.status = .unknownChord
         /// Calculated values
         self.components = []
         self.barres = []

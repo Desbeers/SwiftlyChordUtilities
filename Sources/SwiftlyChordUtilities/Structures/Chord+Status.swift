@@ -5,28 +5,106 @@
 //  © 2023 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
-extension Chord {
+public extension Chord {
 
-    /**
-     The status of a chord
+    // MARK: Status of a `ChordDefinition`
 
-     The ``ChordDefinitionView`` wants to know the status of the chord
+    /// Status of the ``ChordDefinition``
+    enum Status: String, LocalizedError {
 
-     - An unknown chord can not show a diagram
-     - A custom chord that is transposed  can not show a diagram
-     */
-    public enum Status: String, Sendable {
         /// A standard chord from the database
-        case standard
+        case standardChord
         /// A transposed chord
-        case transposed
+        case transposedChord
         /// A custom defined chord
-        case custom
+        case customChord
         /// A custom defined chord that is transposed
-        case customTransposed
+        case customTransposedChord
         /// An unknown chord
-        case unknown
+        case unknownChord
+        /// The definition has too many frets
+        case toManyFrets
+        /// The definition has not enough frets
+        case notEnoughFrets
+
+        /// The definition is correct
+        case correct
+        /// The definition has a wrong bass note
+        case wrongBassNote
+        /// The definition has a wrong root note
+        case wrongRootNote
+        /// The definition contains wrong notes
+        case wrongNotes
+        /// The definition contains wrong fingers
+        case wrongFingers
+
+        // MARK: Protocol items
+
+        /// The description of the status
+        public var description: String {
+            switch self {
+
+            case .toManyFrets:
+                "To many frets"
+            case .notEnoughFrets:
+                "Not enough frets"
+            case .customTransposedChord:
+                "A custom chord can not be transposed in the diagram"
+            case .unknownChord:
+                "This chord is unknown"
+            case .correct:
+                "The chord seems correct"
+            case .wrongBassNote:
+                "The chord does not start with the bass note"
+            case .wrongRootNote:
+                "The chord does not start with the root note"
+            case .wrongNotes:
+                "The chord contains incorrect notes"
+            case .wrongFingers:
+                "The chord contains incorrect fingers"
+            default:
+                self.rawValue
+            }
+        }
+        /// The error description of the status
+        public var errorDescription: String? {
+            description
+        }
+
+        /// The recovery suggestion of the status
+        public var recoverySuggestion: String? {
+            switch self {
+            case .unknownChord:
+                "this definition does not have a valid chord name"
+            case .toManyFrets:
+                "You can not edit this chord definition because it has to many frets defined for you current instrument."
+            case .notEnoughFrets:
+                "You can not edit this chord definition because it has not enough frets defined for you current instrument."
+            default:
+                "No Recovery suggestion"
+            }
+        }
+
+        // MARK: Custom
+
+        /// The color for a label
+        public var color: Color {
+            switch self {
+            case .correct:
+                Color.accentColor
+            case .wrongBassNote:
+                Color.red
+            case .wrongRootNote:
+                Color.purple
+            case .wrongNotes:
+                Color.red
+            case .wrongFingers:
+                Color.brown
+            default:
+                Color.primary
+            }
+        }
     }
 }
