@@ -7,13 +7,13 @@
 import SwiftUI
 
 /// A SwiftUI `View` to create a ``ChordDefinition`` with pickers
-///
-/// To use this `View`, the `ChordDisplayOptions` class must be added to your application as an `Environment`
 public struct CreateChordView: View {
     /// Init the `View`
-    public init() {}
+    public init(chordDisplayOptions: Bindable<ChordDisplayOptions>) {
+        self._chordDisplayOptions = chordDisplayOptions
+    }
     /// Chord Display Options object
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
+    @Bindable var chordDisplayOptions: ChordDisplayOptions
     /// The chord diagram
     @State private var diagram: ChordDefinition?
     /// The current color scheme
