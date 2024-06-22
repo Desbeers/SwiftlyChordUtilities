@@ -23,34 +23,42 @@ extension ChordDefinition {
             instrument: Instrument = .guitarStandardETuning,
             midiInstrument: Midi.Instrument = .acousticSteelGuitar
         ) {
-            self.showName = showName
-            self.showPlayButton = showPlayButton
-            self.showNotes = showNotes
-            self.rootDisplay = rootDisplay
-            self.qualityDisplay = qualityDisplay
-            self.showFingers = showFingers
-            self.mirrorDiagram = mirrorDiagram
+            self.general = General(
+                showName: showName,
+                showNotes: showNotes,
+                showPlayButton: showPlayButton,
+                rootDisplay: rootDisplay,
+                qualityDisplay: qualityDisplay,
+                showFingers: showFingers,
+                mirrorDiagram: mirrorDiagram
+            )
             self.instrument = instrument
             self.midiInstrument = midiInstrument
         }
-        /// Show the name in the chord shape
-        public var showName: Bool
-        /// Show the notes of the chord
-        public var showNotes: Bool
-        /// Show a button to play the chord with MIDI
-        public var showPlayButton: Bool
-        /// Display of the root value
-        public var rootDisplay: Display.Root
-        /// Display of the quality value
-        public var qualityDisplay: Display.Quality
-        /// Show the finger position on the diagram
-        public var showFingers: Bool
-        /// Mirror the chord diagram for lefthanded users
-        public var mirrorDiagram: Bool
+        /// General options that should be applied to all scenes
+        public var general: General
         /// The instrument
         public var instrument: Instrument
         /// The instrument to use for playing the chord with MIDI
         public var midiInstrument: Midi.Instrument
+
+        /// General options that should be applied to all scenes
+        public struct General: Codable, Equatable, Sendable  {
+            /// Show the name in the chord shape
+            public var showName: Bool
+            /// Show the notes of the chord
+            public var showNotes: Bool
+            /// Show a button to play the chord with MIDI
+            public var showPlayButton: Bool
+            /// Display of the root value
+            public var rootDisplay: Display.Root
+            /// Display of the quality value
+            public var qualityDisplay: Display.Quality
+            /// Show the finger position on the diagram
+            public var showFingers: Bool
+            /// Mirror the chord diagram for lefthanded users
+            public var mirrorDiagram: Bool
+        }
 
         /// Display options for the chord name
         public enum Display {

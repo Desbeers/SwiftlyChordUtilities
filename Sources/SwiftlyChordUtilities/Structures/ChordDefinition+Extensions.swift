@@ -19,7 +19,7 @@ public extension ChordDefinition {
             /// We don't know anything about this chord; so use the original name
             name = self.name
         } else {
-            switch options.rootDisplay {
+            switch options.general.rootDisplay {
             case .raw:
                 name = self.root.rawValue
             case .accessible:
@@ -28,7 +28,7 @@ public extension ChordDefinition {
                 name = self.root.display.symbol
             }
 
-            switch options.qualityDisplay {
+            switch options.general.qualityDisplay {
             case .raw:
                 name += "\(self.quality.rawValue)"
             case .short:

@@ -22,7 +22,7 @@ extension ChordDisplayOptions {
         @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Root:", selection: $chordDisplayOptions.displayOptions.rootDisplay) {
+            Picker("Root:", selection: $chordDisplayOptions.displayOptions.general.rootDisplay) {
                 ForEach(ChordDefinition.DisplayOptions.Display.Root.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
@@ -43,7 +43,7 @@ extension ChordDisplayOptions {
         @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Picker("Quality:", selection: $chordDisplayOptions.displayOptions.qualityDisplay) {
+            Picker("Quality:", selection: $chordDisplayOptions.displayOptions.general.qualityDisplay) {
                 ForEach(ChordDefinition.DisplayOptions.Display.Quality.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
@@ -202,7 +202,7 @@ extension ChordDisplayOptions {
     public var fretsPicker: some View {
         FretsPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: displayOptions.general.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             chordDisplayOptions: self
         )
     }
@@ -257,7 +257,7 @@ extension ChordDisplayOptions {
     public var fingersPicker: some View {
         FingersPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: displayOptions.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: displayOptions.general.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             chordDisplayOptions: self
         )
     }

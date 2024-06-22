@@ -22,8 +22,8 @@ extension ChordDisplayOptions {
         @Bindable var chordDisplayOptions: ChordDisplayOptions
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $chordDisplayOptions.displayOptions.showName) {
-                Label("Show name", systemImage: chordDisplayOptions.displayOptions.showName ? "a.square.fill" : "a.square")
+            Toggle(isOn: $chordDisplayOptions.displayOptions.general.showName) {
+                Label("Show name", systemImage: chordDisplayOptions.displayOptions.general.showName ? "a.square.fill" : "a.square")
             }
         }
     }
@@ -44,9 +44,10 @@ extension ChordDisplayOptions {
                 Image(
                     systemName: chordDisplayOptions
                         .displayOptions
+                        .general
                         .showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread"
                 )
-                Toggle(isOn: $chordDisplayOptions.displayOptions.showFingers) {
+                Toggle(isOn: $chordDisplayOptions.displayOptions.general.showFingers) {
                     Text("Show fingers")
                     Text("Show the suggested finger positions for the chord")
                 }
@@ -68,7 +69,7 @@ extension ChordDisplayOptions {
         var body: some View {
             HStack(alignment: .top) {
                 Image(systemName: "music.note.list")
-                Toggle(isOn: $chordDisplayOptions.displayOptions.showNotes) {
+                Toggle(isOn: $chordDisplayOptions.displayOptions.general.showNotes) {
                     Text("Show notes")
                     Text("Show the notes of the chord underneath the diagram")
                 }
@@ -89,8 +90,8 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         var body: some View {
             HStack(alignment: .top) {
-                Image(systemName: chordDisplayOptions.displayOptions.mirrorDiagram ? "hand.point.left.fill" : "hand.point.right.fill")
-                Toggle(isOn: $chordDisplayOptions.displayOptions.mirrorDiagram) {
+                Image(systemName: chordDisplayOptions.displayOptions.general.mirrorDiagram ? "hand.point.left.fill" : "hand.point.right.fill")
+                Toggle(isOn: $chordDisplayOptions.displayOptions.general.mirrorDiagram) {
                     Text("Mirror diagram")
                     Text("Flip the finger positions for left-handed players")
                 }
@@ -111,8 +112,8 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         var body: some View {
             HStack(alignment: .top) {
-                Image(systemName: chordDisplayOptions.displayOptions.showPlayButton ? "play.fill" : "play")
-                Toggle(isOn: $chordDisplayOptions.displayOptions.showPlayButton) {
+                Image(systemName: chordDisplayOptions.displayOptions.general.showPlayButton ? "play.fill" : "play")
+                Toggle(isOn: $chordDisplayOptions.displayOptions.general.showPlayButton) {
                     Text("Show play button")
                     Text("Play the chord with MIDI")
                 }

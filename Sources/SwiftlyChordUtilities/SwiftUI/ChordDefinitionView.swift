@@ -85,8 +85,8 @@ public struct ChordDefinitionView: View {
         /// Calculate the horizontal padding
         self.horizontalPadding = cellWidth / 2
 
-        self.frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
-        self.fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+        self.frets = options.general.mirrorDiagram ? chord.frets.reversed() : chord.frets
+        self.fingers = options.general.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
     }
 
 
@@ -95,7 +95,7 @@ public struct ChordDefinitionView: View {
     /// The body of the `View`
     public var body: some View {
         VStack(spacing: 0) {
-            if options.showName {
+            if options.general.showName {
                 Text(chord.displayName(options: options))
                     .font(.system(size: lineHeight, weight: .semibold, design: .default))
                     .padding(lineHeight / 4)
@@ -148,13 +148,13 @@ public struct ChordDefinitionView: View {
             fretsGrid
         }
         .frame(height: gridHeight)
-        if options.showNotes {
+        if options.general.showNotes {
             notesBar
         }
-        if options.showPlayButton {
+        if options.general.showPlayButton {
             ChordDisplayOptions.PlayButton(chord: chord, instrument: options.midiInstrument)
                 .font(.body)
-                .padding(.top, options.showNotes ? 0 : lineHeight / 2)
+                .padding(.top, options.general.showNotes ? 0 : lineHeight / 2)
                 .padding(.bottom, lineHeight / 2)
         }
     }
@@ -196,7 +196,7 @@ public struct ChordDefinitionView: View {
                     ForEach(chord.instrument.strings, id: \.self) { string in
                         if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
                             VStack(spacing: 0) {
-                                switch options.showFingers {
+                                switch options.general.showFingers {
                                 case true:
                                     Group {
                                         switch fingers[string] {
@@ -239,7 +239,7 @@ public struct ChordDefinitionView: View {
             ForEach((1...5), id: \.self) { fret in
                 if let barre = chord.barres.first(where: { $0.fret == fret }) {
                     /// Mirror for left-handed if needed
-                    let barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
+                    let barre = options.general.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                     HStack(spacing: 0) {
                         if barre.startIndex != 0 {
                             Color.clear
@@ -249,7 +249,7 @@ public struct ChordDefinitionView: View {
                             RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
                                 .frame(height: lineHeight)
                                 .frame(width: cellWidth * Double(barre.length))
-                            if options.showFingers {
+                            if options.general.showFingers {
                                 Image(systemName: "\(barre.finger).circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -277,7 +277,7 @@ public struct ChordDefinitionView: View {
 
     /// The notes `View`
     var notesBar: some View {
-        let notes = options.mirrorDiagram ? chord.components.reversed() : chord.components
+        let notes = options.general.mirrorDiagram ? chord.components.reversed() : chord.components
         return HStack(spacing: 0) {
             ForEach(notes) { note in
                 VStack {
