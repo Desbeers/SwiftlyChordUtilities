@@ -30,17 +30,15 @@ extension ChordDefinition {
                 rootDisplay: rootDisplay,
                 qualityDisplay: qualityDisplay,
                 showFingers: showFingers,
-                mirrorDiagram: mirrorDiagram
+                mirrorDiagram: mirrorDiagram,
+                midiInstrument: midiInstrument
             )
             self.instrument = instrument
-            self.midiInstrument = midiInstrument
         }
         /// General options that should be applied to all scenes
         public var general: General
         /// The instrument
         public var instrument: Instrument
-        /// The instrument to use for playing the chord with MIDI
-        public var midiInstrument: Midi.Instrument
 
         /// General options that should be applied to all scenes
         public struct General: Codable, Equatable, Sendable  {
@@ -58,6 +56,8 @@ extension ChordDefinition {
             public var showFingers: Bool
             /// Mirror the chord diagram for lefthanded users
             public var mirrorDiagram: Bool
+            /// The instrument to use for playing the chord with MIDI
+            public var midiInstrument: Midi.Instrument
         }
 
         /// Display options for the chord name
