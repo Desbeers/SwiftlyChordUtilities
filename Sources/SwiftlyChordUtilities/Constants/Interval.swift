@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure for an interval
-public struct Interval: Hashable, Sendable {
+public struct Interval: Hashable, Sendable, CustomStringConvertible {
 
     // swiftlint:disable identifier_name
 
@@ -134,11 +134,6 @@ public struct Interval: Hashable, Sendable {
     // swiftlint:enable identifier_name
 
     // MARK: CustomStringConvertible
-
-    /// Returns the notation of the interval.
-    public var notation: String {
-        return "\(quality.notation)\(degree)"
-    }
 
     /// Returns the name of the interval.
     public var description: String {

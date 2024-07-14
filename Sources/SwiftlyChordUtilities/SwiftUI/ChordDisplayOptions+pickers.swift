@@ -23,7 +23,7 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         var body: some View {
             Picker("Root:", selection: $chordDisplayOptions.displayOptions.general.rootDisplay) {
-                ForEach(ChordDefinition.DisplayOptions.Display.Root.allCases, id: \.rawValue) { value in
+                ForEach(ChordDefinition.DisplayOptions.Display.Root.allCases) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }
@@ -44,7 +44,7 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         var body: some View {
             Picker("Quality:", selection: $chordDisplayOptions.displayOptions.general.qualityDisplay) {
-                ForEach(ChordDefinition.DisplayOptions.Display.Quality.allCases, id: \.rawValue) { value in
+                ForEach(ChordDefinition.DisplayOptions.Display.Quality.allCases) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }
@@ -65,7 +65,7 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         public var body: some View {
             Picker("MIDI Instrument:", selection: $chordDisplayOptions.displayOptions.general.midiInstrument) {
-                ForEach(Midi.Instrument.allCases, id: \.rawValue) { value in
+                ForEach(Midi.Instrument.allCases) { value in
                     Text(value.label)
                         .tag(value)
                 }
@@ -180,7 +180,7 @@ extension ChordDisplayOptions {
         /// The body of the `View`
         var body: some View {
             Picker("Bass:", selection: $bass) {
-                ForEach(Chord.Root.allCases, id: \.rawValue) { value in
+                ForEach(Chord.Root.allCases) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }

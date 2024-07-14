@@ -26,22 +26,4 @@ public extension Color {
             blue: .random(in: 0.6...1)
         )
     }
-
-    /// The Color of the label
-    static var windowLabel: Color {
-#if os(macOS)
-        return Color(nsColor: .labelColor)
-#else
-        return Color(uiColor: .label)
-#endif
-    }
-
-    /// The background Color
-    static var windowBackground: Color {
-#if os(macOS)
-        return Color(nsColor: .windowBackgroundColor)
-#else
-        return Color(uiColor: .systemBackground)
-#endif
-    }
 }

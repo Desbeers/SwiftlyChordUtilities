@@ -63,7 +63,13 @@ extension ChordDefinition {
         /// Display options for the chord name
         public enum Display {
             /// Root display options
-            public enum Root: String, Codable, CaseIterable, Sendable {
+            public enum Root: String, Codable, CaseIterable, Sendable, Identifiable {
+
+                /// Identifiable protocol
+                public var id: String {
+                    self.rawValue
+                }
+
                 /// Display the raw value
                 case raw
                 /// Display the accessible value
@@ -72,7 +78,13 @@ extension ChordDefinition {
                 case symbol
             }
             /// Quality display options
-            public enum Quality: String, Codable, CaseIterable, Sendable {
+            public enum Quality: String, Codable, CaseIterable, Sendable, Identifiable {
+
+                /// Identifiable protocol
+                public var id: String {
+                    self.rawValue
+                }
+
                 /// Display the raw value
                 case raw
                 /// Display the short value

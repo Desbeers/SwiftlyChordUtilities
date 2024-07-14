@@ -17,7 +17,13 @@ public enum Midi {
 public extension Midi {
 
     /// The available MIDI instruments for the player
-    enum Instrument: Int, CaseIterable, Codable, Sendable {
+    enum Instrument: Int, CaseIterable, Codable, Sendable, Identifiable {
+
+        /// Identifiable protocol
+        public var id: String {
+            "\(self.rawValue)"
+        }
+
         /// Acoustic Nylon Guitar
         case acousticNylonGuitar = 24
         /// Acoustic Steel Guitar

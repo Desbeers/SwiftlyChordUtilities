@@ -11,7 +11,12 @@ extension Chord {
 
     /// The root of a chord
     /// - Note: Changes to the raw value might break the databases
-    public enum Root: String, CaseIterable, Codable, Comparable, Sendable {
+    public enum Root: String, CaseIterable, Codable, Comparable, Sendable, Identifiable {
+
+        /// Identifiable protocol
+        public var id: String {
+            self.rawValue
+        }
 
         // swiftlint:disable identifier_name
 
