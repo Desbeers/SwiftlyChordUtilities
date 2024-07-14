@@ -12,13 +12,13 @@ extension Chord {
     public struct Barre: Equatable, Codable, Hashable, Sendable {
         /// The finger for the barre
         public var finger: Int = 0
-        /// the fret for the barr
+        /// the fret for the bar
         public var fret: Int = 0
         /// The first string to bar
         public var startIndex: Int = 0
         /// The last string to bar
         public var endIndex: Int = 0
-        /// The calculated lengt
+        /// The calculated length
         public var length: Int {
             endIndex - startIndex
         }

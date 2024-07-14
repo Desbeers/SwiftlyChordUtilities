@@ -79,7 +79,7 @@ public extension Chord.Quality {
         case .minorMajorSeven:
             /// C    Eb    G (optional)    B
             ([.P1, .m3, .P5, .M7], [.P5])
-        case .minorMajorSeventFlatFive:
+        case .minorMajorSevenFlatFive:
             /// C    Eb    Gb    B
             /// 1    m3    b5    7
             ([.P1, .m3, .d5, .M7], [])

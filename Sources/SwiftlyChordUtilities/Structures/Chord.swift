@@ -25,4 +25,14 @@ public enum Chord {
         /// All other chords
         case other
     }
+
+    /// The accidental of a root
+    public enum Accidental {
+        /// Natural accidental
+        case natural
+        /// Sharp accidental
+        case sharp
+        /// Flat accidental
+        case flat
+    }
 }

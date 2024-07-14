@@ -58,7 +58,7 @@ extension Chord {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
         }
 
-        /// Contains text for accessibility text-to-speech and symbolized versions.
+        /// Contains text for accessibility text-to-speech and symbolised versions.
         public var display: (accessible: String, symbol: String) {
             switch self {
             case .c:
@@ -97,6 +97,36 @@ extension Chord {
                 ("B", "B")
             case .none:
                 ("X", "X")
+            }
+        }
+
+        /// The accidental of the root
+        public var accidental: Accidental {
+            switch self {
+            case .c, .d, .e, .f, .g, .a, .b, .none:
+                    .natural
+            case .cSharp, .dSharp, .fSharp, .gSharp, .aSharp:
+                    .sharp
+            case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
+                    .flat
+            }
+        }
+
+        /// The copy of a root
+        public var copy: Root {
+            switch self {
+            case .cSharp:
+                    .dFlat
+            case .dSharp:
+                    .eFlat
+            case .fSharp:
+                    .gFlat
+            case .gSharp:
+                    .aFlat
+            case .aSharp:
+                    .bFlat
+            default:
+                    .none
             }
         }
     }

@@ -51,7 +51,7 @@ extension Chord {
         /// Minor Major 7
         case minorMajorSeven = "mMaj7"
         /// Minor Major 7b5
-        case minorMajorSeventFlatFive = "mMaj7b5"
+        case minorMajorSevenFlatFive = "mMaj7b5"
         /// Minor 7b5
         case minorSevenFlatFive = "m7b5"
 
@@ -227,7 +227,7 @@ extension Chord {
                 ("minor eleven", "m11", "m¹¹", "m¹¹")
             case .minorMajorSeven:
                 ("minor major seven", "mMaj7", "mMaj⁷", "mᴹ⁷")
-            case .minorMajorSeventFlatFive:
+            case .minorMajorSevenFlatFive:
                 ("minor major seven flat five", "mMaj7b5", "mMaj⁷♭⁵", "mᴹ⁷♭⁵")
             case .minorMajorNine:
                 ("minor major nine", "mMaj9", "mMaj⁹", "mᴹ⁹")
@@ -258,7 +258,7 @@ extension Chord {
             switch self {
             case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addFour, .addNine, .addEleven:
                 .major
-            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSeventFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
+            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSevenFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
                 .minor
             case .dim, .dimSeven:
                 .diminished
@@ -270,31 +270,6 @@ extension Chord {
                 .other
             }
             // swiftlint:enable line_length
-        }
-
-        /// Convert an `Quality` enum to a `Quality` string
-        var stringValue: String {
-            switch self {
-            case .sixNine:
-                return "69"
-            default:
-                return self.rawValue
-            }
-        }
-    }
-}
-
-extension String {
-
-    /// Convert a `Quality` string to a `Quality` enum
-    var qualityEnumValue: Chord.Quality? {
-        switch self {
-        case "69":
-            Chord.Quality.sixNine
-        case "m":
-            Chord.Quality.minor
-        default:
-            Chord.Quality(rawValue: self)
         }
     }
 }
