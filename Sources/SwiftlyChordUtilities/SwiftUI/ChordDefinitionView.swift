@@ -113,15 +113,6 @@ public struct ChordDefinitionView: View {
         .frame(width: width)
     }
 
-    // MARK: String Grid
-
-    /// The grid `View`
-    var grid: some View {
-        GridShape(instrument: chord.instrument)
-            .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
-            .padding(.horizontal, cellWidth)
-    }
-
     // MARK: Diagram
 
     /// The diagram `View`
@@ -184,6 +175,15 @@ public struct ChordDefinitionView: View {
             }
         }
         .padding(.horizontal, horizontalPadding)
+    }
+
+    // MARK: String Grid
+
+    /// The grid `View`
+    var grid: some View {
+        GridShape(instrument: chord.instrument)
+            .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
+            .padding(.horizontal, cellWidth)
     }
 
     // MARK: Frets Grid
