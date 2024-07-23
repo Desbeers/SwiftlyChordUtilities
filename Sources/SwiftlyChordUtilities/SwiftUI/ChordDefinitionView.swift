@@ -146,7 +146,7 @@ public struct ChordDefinitionView: View {
         if options.general.showPlayButton {
             ChordDisplayOptions.PlayButton(chord: chord, instrument: options.general.midiInstrument)
                 .font(.body)
-                .padding(.top, options.general.showNotes ? 0 : lineHeight / 2)
+                .padding(.top, lineHeight / 2)
         }
     }
 
@@ -294,7 +294,6 @@ public struct ChordDefinitionView: View {
             }
         }
         .padding(.horizontal, horizontalPadding)
-        .padding(.bottom, lineHeight / 2)
     }
 }
 
