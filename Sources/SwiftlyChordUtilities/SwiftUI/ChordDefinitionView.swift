@@ -108,6 +108,7 @@ public struct ChordDefinitionView: View {
                     .multilineTextAlignment(.center)
             }
         }
+        .padding(.bottom, lineHeight / 2)
         /// Make the whole diagram clickable if needed
         .contentShape(Rectangle())
         .frame(width: width)
@@ -146,7 +147,6 @@ public struct ChordDefinitionView: View {
             ChordDisplayOptions.PlayButton(chord: chord, instrument: options.general.midiInstrument)
                 .font(.body)
                 .padding(.top, options.general.showNotes ? 0 : lineHeight / 2)
-                .padding(.bottom, lineHeight / 2)
         }
     }
 
