@@ -67,6 +67,9 @@ public struct ChordDefinitionView: View {
     let frets: [Int]
     /// The fingers of the chord; adjusted for left-handed if needed
     let fingers: [Int]
+    /// The offset for an instrument with less than 6 strings
+    /// - Note: Used to give a barre some padding
+    let xOffset: Double
 
     /// Init the `View`
     /// - Parameters:
@@ -84,9 +87,14 @@ public struct ChordDefinitionView: View {
         self.cellWidth = width / Double(chord.instrument.strings.count + 1)
         /// Calculate the horizontal padding
         self.horizontalPadding = cellWidth / 2
-
+        /// The frets of the chord
         self.frets = options.general.mirrorDiagram ? chord.frets.reversed() : chord.frets
+        /// The fingers of the chord
         self.fingers = options.general.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+        /// The circle radius is the same for every instrument
+        let circleRadius = width / 7
+        /// Below should be 0 for a six string instrument
+        self.xOffset = (cellWidth - circleRadius) / 2
     }
 
 
@@ -247,6 +255,7 @@ public struct ChordDefinitionView: View {
                         }
                         ZStack {
                             RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
+                                .padding(.horizontal, xOffset * 2)
                                 .frame(height: lineHeight)
                                 .frame(width: cellWidth * Double(barre.length))
                             if options.general.showFingers {
