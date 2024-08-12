@@ -116,6 +116,16 @@ public struct ChordDefinitionView: View {
                     .multilineTextAlignment(.center)
             }
         }
+        .overlay(alignment: .topLeading) {
+            if options.general.showPlayButton {
+                ChordDisplayOptions.PlayButton(chord: chord, instrument: options.general.midiInstrument)
+                    .font(.body)
+                    .padding(.top, lineHeight / 2)
+                    .padding(.leading, horizontalPadding)
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.plain)
+            }
+        }
         .padding(.bottom, lineHeight / 2)
         /// Make the whole diagram clickable if needed
         .contentShape(Rectangle())
@@ -150,11 +160,6 @@ public struct ChordDefinitionView: View {
         .frame(height: gridHeight)
         if options.general.showNotes {
             notesBar
-        }
-        if options.general.showPlayButton {
-            ChordDisplayOptions.PlayButton(chord: chord, instrument: options.general.midiInstrument)
-                .font(.body)
-                .padding(.top, lineHeight / 2)
         }
     }
 
